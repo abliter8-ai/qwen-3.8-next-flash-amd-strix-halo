@@ -1,0 +1,136 @@
+{
+ "suite": "llamabenchy",
+ "wrapper_version": "1.0.0",
+ "llama_benchy_version": "0.4.0",
+ "run_started": "2026-08-28 07:28:38Z",
+ "run_finished": "2026-08-28T07:28:39.513166+00:00",
+ "label": "engramhalo-nospec-ssd",
+ "host": "strix-halo-128g",
+ "mode": "direct",
+ "model": "qwen3.8-flash-next-UD-IQ3_XXS",
+ "sweep": {
+  "pp": [
+   2048
+  ],
+  "tg": [
+   256
+  ],
+  "depth": [
+   0,
+   8192,
+   24576,
+   49152
+  ],
+  "concurrency": [
+   1
+  ],
+  "runs": 2,
+  "exact_tg": false,
+  "no_cache": false,
+  "skip_coherence": false
+ },
+ "latency": {
+  "mode": "api",
+  "ms": 12.633180672613284
+ },
+ "results": {
+  "LB": {
+   "levels": [
+    {
+     "concurrency": 1,
+     "pp": 2048,
+     "tg": 256,
+     "depth": 0,
+     "context_prefill_phase": false,
+     "total_tps": 21.24377870486051,
+     "total_tps_std": 0.00884570023079867,
+     "per_req_tps": 21.24377870486051,
+     "peak_tps": 22.0,
+     "peak_req_tps": 22.0,
+     "pp_tps": 289.75314285442903,
+     "pp_req_tps": 289.75314285442903,
+     "ttft_ms": 6517.657208489254,
+     "ttfr_ms": 6517.657208489254,
+     "est_ppt_ms": 6505.024027816641,
+     "ok": true,
+     "error_count": 0
+    },
+    {
+     "concurrency": 1,
+     "pp": 2048,
+     "tg": 256,
+     "depth": 8192,
+     "context_prefill_phase": false,
+     "total_tps": 19.415470782305853,
+     "total_tps_std": 0.007549052915788224,
+     "per_req_tps": 19.415470782305853,
+     "peak_tps": 20.0,
+     "peak_req_tps": 20.0,
+     "pp_tps": 286.82409432293116,
+     "pp_req_tps": 286.82409432293116,
+     "ttft_ms": 32661.141041491646,
+     "ttfr_ms": 32661.141041491646,
+     "est_ppt_ms": 32648.50786081903,
+     "ok": true,
+     "error_count": 0
+    },
+    {
+     "concurrency": 1,
+     "pp": 2048,
+     "tg": 256,
+     "depth": 24576,
+     "context_prefill_phase": false,
+     "total_tps": 17.166515707086596,
+     "total_tps_std": 0.05018250363550614,
+     "per_req_tps": 17.166515707086596,
+     "peak_tps": 18.0,
+     "peak_req_tps": 18.0,
+     "pp_tps": 274.2412718228686,
+     "pp_req_tps": 274.2412718228686,
+     "ttft_ms": 88103.10031249537,
+     "ttfr_ms": 88103.10031249537,
+     "est_ppt_ms": 88090.46713182276,
+     "ok": true,
+     "error_count": 0
+    },
+    {
+     "concurrency": 1,
+     "pp": 2048,
+     "tg": 256,
+     "depth": 49152,
+     "context_prefill_phase": false,
+     "total_tps": 14.10631490003774,
+     "total_tps_std": 0.020281838199421642,
+     "per_req_tps": 14.10631490003774,
+     "peak_tps": 15.0,
+     "peak_req_tps": 15.0,
+     "pp_tps": 248.928153556518,
+     "pp_req_tps": 248.928153556518,
+     "ttft_ms": 186598.61614601687,
+     "ttfr_ms": 186598.61614601687,
+     "est_ppt_ms": 186585.98296534424,
+     "ok": true,
+     "error_count": 0
+    }
+   ],
+   "combos": 4,
+   "failed_combos": 0,
+   "peak_total_tps": 21.24377870486051,
+   "peak_combo": "pp2048 tg256 c1",
+   "single_stream_tps": 21.24377870486051,
+   "single_stream_ttft_ms": 6517.657208489254
+  }
+ },
+ "harness": {
+  "tool": "llama-benchy",
+  "version": "0.4.0",
+  "source": "custom",
+  "mode": "throughput"
+ },
+ "resolved_config": {
+  "host": "strix-halo-128g",
+  "model_id": "qwen3.8-flash-next-UD-IQ3_XXS",
+  "captured_at": "2026-08-28T07:10:13.061848+00:00"
+ },
+ "_provenance": "llama-benchy 0.4.0 via a wrapper; single 128 GB unified-memory AMD APU (Ryzen AI MAX+ 395 / gfx1151); 2026-08-28; local paths and machine identity removed"
+}

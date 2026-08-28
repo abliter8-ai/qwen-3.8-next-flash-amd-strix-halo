@@ -1,0 +1,9 @@
+*.gguf
+*.safetensors
+engine/
+models/
+evidence/
+logs/
+.env
+__pycache__/
+*.pyc
