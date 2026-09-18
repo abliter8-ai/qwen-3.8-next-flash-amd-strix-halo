@@ -1,0 +1,11 @@
+# The ROCm 7.2.4 base used for the measured build. HIP needs the BLAS dev packages.
+FROM docker.io/rocm/dev-ubuntu-24.04:7.2.4@sha256:bdc8e61026cbb844ede93d44d2c50055f51ebb2041906b60182bf3bee3139054
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential cmake git hipblas-dev rocblas-dev hipblaslt-dev
+WORKDIR /opt/bonsai
+COPY . src
+ENV HIPCXX=/opt/rocm/llvm/bin/clang HIP_PATH=/opt/rocm
+RUN cmake -S src -B build-hip -DGGML_HIP=ON -DGPU_TARGETS=gfx1151 \
+    -DCMAKE_BUILD_TYPE=Release -DLLAMA_CURL=OFF -DLLAMA_BUILD_TESTS=OFF \
+    && cmake --build build-hip --target llama-server llama-cli -j 8
+ENTRYPOINT ["/opt/bonsai/build-hip/bin/llama-server"]

@@ -1,0 +1,393 @@
+{
+  "measured_date": "2026-09-18",
+  "hardware": "Ryzen AI MAX+ 395, Radeon 8060S gfx1151, 128 GB unified memory",
+  "samples_per_request_check": 1,
+  "source": "Selected fields from deployment receipts; host addresses, ports and internal operational identifiers omitted. Values are recorded measurements, not fresh runs of the public packaging.",
+  "qualification_limits": [
+    "Full 262144-token recall not tested",
+    "Explicit tool calling not qualified",
+    "Not a statistical benchmark or a comparison with the August EngramHalo profiles"
+  ],
+  "checks": [
+    {
+      "label": "baseline-short",
+      "seconds": 1.56,
+      "answer": "Sunlight enters Earth's atmosphere and scatters in all directions as it collides with gas molecules. Because shorter blue wavelengths scatter much more strongly than longer red wavelengths due to Rayleigh scattering, the blue light is dispersed across the entire sky. Consequently, when we look up, our eyes perceive this scattered blue light as the color of the sky.",
+      "reasoning": null,
+      "usage": {
+        "prompt_tokens": 23,
+        "completion_tokens": 70,
+        "total_tokens": 93,
+        "prompt_tokens_details": {
+          "cached_tokens": 16
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "timings": {
+        "prompt_n": 7,
+        "predicted_n": 70,
+        "prompt_ms": 65.0,
+        "predicted_ms": 1462.9,
+        "prompt_per_second": 107.692,
+        "predicted_per_second": 47.85,
+        "cache_n": 16,
+        "draft_n": 42,
+        "draft_n_accepted": 28
+      },
+      "scenario": "qwen_alone_prefill_32768"
+    },
+    {
+      "label": "baseline-long",
+      "seconds": 19.44,
+      "answer": "873219",
+      "reasoning": null,
+      "usage": {
+        "prompt_tokens": 23944,
+        "completion_tokens": 7,
+        "total_tokens": 23951,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "timings": {
+        "prompt_n": 23944,
+        "predicted_n": 7,
+        "prompt_ms": 19270.4,
+        "predicted_ms": 127.1,
+        "prompt_per_second": 1242.527,
+        "predicted_per_second": 55.075,
+        "cache_n": 0,
+        "draft_n": 5,
+        "draft_n_accepted": 3
+      },
+      "scenario": "qwen_alone_prefill_32768"
+    },
+    {
+      "label": "qwen-short",
+      "seconds": 1.98,
+      "answer": "Sunlight enters Earth's atmosphere and scatters in all directions as it collides with gas molecules. Because shorter blue wavelengths scatter much more strongly than longer red wavelengths due to Rayleigh scattering, the blue light is dispersed across the entire sky. Consequently, when we look up, our eyes perceive this scattered blue light as the color of the sky.",
+      "reasoning": null,
+      "usage": {
+        "prompt_tokens": 23,
+        "completion_tokens": 70,
+        "total_tokens": 93,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "timings": {
+        "prompt_n": 23,
+        "predicted_n": 70,
+        "prompt_ms": 461.1,
+        "predicted_ms": 1465.7,
+        "prompt_per_second": 49.881,
+        "predicted_per_second": 47.759,
+        "cache_n": 0,
+        "draft_n": 42,
+        "draft_n_accepted": 28
+      },
+      "scenario": "qwen_alone_prefill_8192"
+    },
+    {
+      "label": "qwen-long",
+      "seconds": 20.99,
+      "answer": "873219",
+      "reasoning": null,
+      "usage": {
+        "prompt_tokens": 23944,
+        "completion_tokens": 7,
+        "total_tokens": 23951,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "timings": {
+        "prompt_n": 23944,
+        "predicted_n": 7,
+        "prompt_ms": 20820.0,
+        "predicted_ms": 122.0,
+        "prompt_per_second": 1150.048,
+        "predicted_per_second": 57.377,
+        "cache_n": 0,
+        "draft_n": 5,
+        "draft_n_accepted": 3
+      },
+      "scenario": "qwen_alone_prefill_8192"
+    },
+    {
+      "label": "qwen-current-bonsai-idle-short",
+      "seconds": 1.82,
+      "answer": "Sunlight enters Earth's atmosphere and scatters in all directions as it collides with gas molecules. Because shorter blue wavelengths scatter much more strongly than longer red wavelengths due to Rayleigh scattering, the blue light is dispersed across the entire sky. Consequently, when we look up, our eyes perceive this scattered blue light as the color of the sky.",
+      "reasoning": null,
+      "usage": {
+        "prompt_tokens": 23,
+        "completion_tokens": 70,
+        "total_tokens": 93,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "timings": {
+        "prompt_n": 23,
+        "predicted_n": 70,
+        "prompt_ms": 338.3,
+        "predicted_ms": 1466.8,
+        "prompt_per_second": 67.987,
+        "predicted_per_second": 47.723,
+        "cache_n": 0,
+        "draft_n": 42,
+        "draft_n_accepted": 28
+      },
+      "scenario": "qwen_prefill_8192_bonsai_resident_idle"
+    },
+    {
+      "label": "qwen-current-bonsai-idle-cold-24k",
+      "seconds": 20.94,
+      "answer": "873219",
+      "reasoning": null,
+      "usage": {
+        "prompt_tokens": 23950,
+        "completion_tokens": 7,
+        "total_tokens": 23957,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "timings": {
+        "prompt_n": 23950,
+        "predicted_n": 7,
+        "prompt_ms": 20775.8,
+        "predicted_ms": 122.1,
+        "prompt_per_second": 1152.784,
+        "predicted_per_second": 57.33,
+        "cache_n": 0,
+        "draft_n": 5,
+        "draft_n_accepted": 3
+      },
+      "scenario": "qwen_prefill_8192_bonsai_resident_idle"
+    },
+    {
+      "label": "qwen-current-bonsai-idle-cached-24k",
+      "seconds": 0.23,
+      "answer": "873219",
+      "reasoning": null,
+      "usage": {
+        "prompt_tokens": 23950,
+        "completion_tokens": 7,
+        "total_tokens": 23957,
+        "prompt_tokens_details": {
+          "cached_tokens": 23943
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "timings": {
+        "prompt_n": 7,
+        "predicted_n": 7,
+        "prompt_ms": 66.6,
+        "predicted_ms": 121.5,
+        "prompt_per_second": 105.105,
+        "predicted_per_second": 57.613,
+        "cache_n": 23943,
+        "draft_n": 5,
+        "draft_n_accepted": 3
+      },
+      "scenario": "qwen_prefill_8192_bonsai_resident_idle"
+    },
+    {
+      "label": "bonsai-idle-monitor",
+      "samples": 30,
+      "active_samples": 0,
+      "scenario": "qwen_prefill_8192_bonsai_resident_idle"
+    },
+    {
+      "label": "sync-patch-sky",
+      "seconds": 4.87,
+      "answer": "The sky appears blue because sunlight, which contains all colors of the visible spectrum, scatters off molecules and small particles in the atmosphere. Shorter wavelengths, such as blue and violet, scatter much more efficiently than longer wavelengths like red and orange due to a phenomenon known as Rayleigh scattering. While violet light scatters even more than blue, our eyes are less sensitive to it and some of it is absorbed by the upper atmosphere, making the sky appear predominantly blue to us.",
+      "reasoning": null,
+      "usage": {
+        "completion_tokens": 96,
+        "prompt_tokens": 23,
+        "total_tokens": 119,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 23,
+        "prompt_ms": 606.896,
+        "prompt_per_token_ms": 26.38678260869565,
+        "prompt_per_second": 37.897761725237935,
+        "predicted_n": 96,
+        "predicted_ms": 4242.926,
+        "predicted_per_token_ms": 44.662378947368424,
+        "predicted_per_second": 22.390209020850232
+      },
+      "scenario": "patched_bonsai_qwen_resident"
+    },
+    {
+      "label": "sync-patch-recall-10",
+      "seconds": 7.61,
+      "answer": "101370",
+      "reasoning": null,
+      "usage": {
+        "completion_tokens": 7,
+        "prompt_tokens": 1630,
+        "total_tokens": 1637,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 1630,
+        "prompt_ms": 7275.067,
+        "prompt_per_token_ms": 4.463231288343558,
+        "prompt_per_second": 224.05291937517552,
+        "predicted_n": 7,
+        "predicted_ms": 325.865,
+        "predicted_per_token_ms": 54.310833333333335,
+        "predicted_per_second": 18.412532797324044
+      },
+      "scenario": "patched_bonsai_qwen_resident"
+    },
+    {
+      "label": "sync-patch-recall-40",
+      "seconds": 2.78,
+      "answer": "105480",
+      "reasoning": null,
+      "usage": {
+        "completion_tokens": 7,
+        "prompt_tokens": 1630,
+        "total_tokens": 1637,
+        "prompt_tokens_details": {
+          "cached_tokens": 1114
+        }
+      },
+      "timings": {
+        "cache_n": 1114,
+        "prompt_n": 516,
+        "prompt_ms": 2454.137,
+        "prompt_per_token_ms": 4.756079457364342,
+        "prompt_per_second": 210.25721057952344,
+        "predicted_n": 7,
+        "predicted_ms": 314.01,
+        "predicted_per_token_ms": 52.335,
+        "predicted_per_second": 19.107671730199677
+      },
+      "scenario": "patched_bonsai_qwen_resident"
+    },
+    {
+      "label": "sync-patch-math",
+      "seconds": 0.77,
+      "answer": "391",
+      "reasoning": null,
+      "usage": {
+        "completion_tokens": 4,
+        "prompt_tokens": 27,
+        "total_tokens": 31,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 27,
+        "prompt_ms": 591.752,
+        "prompt_per_token_ms": 21.91674074074074,
+        "prompt_per_second": 45.62722221471157,
+        "predicted_n": 4,
+        "predicted_ms": 163.107,
+        "predicted_per_token_ms": 54.369,
+        "predicted_per_second": 18.392834151814455
+      },
+      "scenario": "patched_bonsai_qwen_resident"
+    },
+    {
+      "label": "patched-qwen-24k",
+      "seconds": 69.58,
+      "answer": "873219",
+      "reasoning": null,
+      "usage": {
+        "prompt_tokens": 23948,
+        "completion_tokens": 7,
+        "total_tokens": 23955,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "timings": {
+        "prompt_n": 23948,
+        "predicted_n": 7,
+        "prompt_ms": 69230.8,
+        "predicted_ms": 284.7,
+        "prompt_per_second": 345.915,
+        "predicted_per_second": 24.587,
+        "cache_n": 0,
+        "draft_n": 5,
+        "draft_n_accepted": 3
+      },
+      "scenario": "simultaneous_cold_prefill"
+    },
+    {
+      "label": "patched-bonsai-11k-three-facts",
+      "seconds": 72.95,
+      "answer": "100685, 127400, 154115",
+      "reasoning": null,
+      "usage": {
+        "completion_tokens": 23,
+        "prompt_tokens": 10678,
+        "total_tokens": 10701,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 10678,
+        "prompt_ms": 71622.555,
+        "prompt_per_token_ms": 6.707487825435474,
+        "prompt_per_second": 149.08711368925614,
+        "predicted_n": 23,
+        "predicted_ms": 1302.142,
+        "predicted_per_token_ms": 59.18827272727273,
+        "predicted_per_second": 16.895238768122063
+      },
+      "scenario": "simultaneous_cold_prefill"
+    },
+    {
+      "label": "patched-image",
+      "seconds": 1.04,
+      "usage": {
+        "completion_tokens": 2,
+        "prompt_tokens": 75,
+        "total_tokens": 77,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "answer": "Red",
+      "scenario": "final_direct"
+    },
+    {
+      "label": "patched-stream",
+      "seconds": 0.7,
+      "answer": "72",
+      "usage": {
+        "completion_tokens": 3,
+        "prompt_tokens": 26,
+        "total_tokens": 29,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "ttft": 0.5842690829886124,
+      "done": true,
+      "scenario": "final_direct"
+    }
+  ]
+}

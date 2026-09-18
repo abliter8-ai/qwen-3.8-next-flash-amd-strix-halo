@@ -1,5 +1,29 @@
 # Qwen3.8-Flash-Next on one AMD Strix Halo
 
+## September update: Qwen + Ternary Bonsai resident together
+
+The [co-resident recipe](recipe/co-resident/README.md) runs **Qwen3.8-Flash-Next on
+Halogen 0.9.1** alongside **Ternary Bonsai 2 27B CRACK on patched Prism HIP**, on
+the same 128 GB Strix Halo. Both retain **262,144-token context**.
+
+Reducing Qwen's prefill batches from 32,768 to 8,192 releases 13.2 GiB of working
+memory. This changes batching, not context. Qwen keeps four slots, its 524,288-position
+shared KV pool, pinned weights, quality overlay, vision and drafting.
+
+Recorded on 2026-09-18: Bonsai prose decode **22.4 tok/s**; Qwen cold 24k retrieval
+**19.44s before / 20.94s with Bonsai resident but idle**, with short decode still
+near **48 tok/s**. Heavy simultaneous prefill slows both models. These are single
+checks; full-window recall is not qualified.
+
+- [Setup, pinned downloads, HIP fix, launch units and rollback](recipe/co-resident/README.md)
+- [Measurements, memory accounting and qualification limits](results/CO-RESIDENT.md)
+- [Direct generation and stale-input regression checks](harness/co-resident-smoke.py)
+
+## August EngramHalo study
+
+The original single-model recipe and results follow. They use a different engine
+and quantization from the September setup.
+
 Serving a **180B-parameter / ~6B-active mixture-of-experts model on a single 128 GB
 unified-memory APU** (Ryzen AI MAX+ 395, Radeon 8060S, `gfx1151`) — the launch recipe, the
 engine builds that were needed to get there, the traps that cost real time, and the

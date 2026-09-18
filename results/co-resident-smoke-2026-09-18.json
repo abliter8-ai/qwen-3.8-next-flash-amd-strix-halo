@@ -1,0 +1,175 @@
+{
+  "checks": [
+    {
+      "answer": "The sky appears blue because sunlight, which contains all colors of the visible spectrum, scatters off molecules and small particles in the atmosphere, a process known as Rayleigh scattering. This scattering is more effective for shorter wavelengths like blue and violet than for longer wavelengths like red and orange, causing blue light to be dispersed throughout the sky and reach our eyes from every direction.",
+      "seconds": 3.84,
+      "usage": {
+        "completion_tokens": 74,
+        "prompt_tokens": 23,
+        "total_tokens": 97,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 23,
+        "prompt_ms": 574.189,
+        "prompt_per_token_ms": 24.964739130434783,
+        "prompt_per_second": 40.05649707674651,
+        "predicted_n": 74,
+        "predicted_ms": 3256.303,
+        "predicted_per_token_ms": 44.606890410958904,
+        "predicted_per_second": 22.418061218504544
+      },
+      "label": "bonsai-prior-prompt",
+      "passed": true
+    },
+    {
+      "answer": "101370",
+      "seconds": 5.569,
+      "usage": {
+        "completion_tokens": 7,
+        "prompt_tokens": 1171,
+        "total_tokens": 1178,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 1171,
+        "prompt_ms": 5240.409,
+        "prompt_per_token_ms": 4.475157130657557,
+        "prompt_per_second": 223.4558409467658,
+        "predicted_n": 7,
+        "predicted_ms": 324.781,
+        "predicted_per_token_ms": 54.13016666666667,
+        "predicted_per_second": 18.473987086683024
+      },
+      "label": "bonsai-exact-lookup-10",
+      "passed": true
+    },
+    {
+      "answer": "105480",
+      "seconds": 2.73,
+      "usage": {
+        "completion_tokens": 7,
+        "prompt_tokens": 1171,
+        "total_tokens": 1178,
+        "prompt_tokens_details": {
+          "cached_tokens": 655
+        }
+      },
+      "timings": {
+        "cache_n": 655,
+        "prompt_n": 516,
+        "prompt_ms": 2413.931,
+        "prompt_per_token_ms": 4.678160852713178,
+        "prompt_per_second": 213.75921681274238,
+        "predicted_n": 7,
+        "predicted_ms": 310.792,
+        "predicted_per_token_ms": 51.79866666666666,
+        "predicted_per_second": 19.30551622950398
+      },
+      "label": "bonsai-exact-lookup-40",
+      "passed": true
+    },
+    {
+      "answer": "391",
+      "seconds": 0.765,
+      "usage": {
+        "completion_tokens": 4,
+        "prompt_tokens": 28,
+        "total_tokens": 32,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 28,
+        "prompt_ms": 601.047,
+        "prompt_per_token_ms": 21.465964285714286,
+        "prompt_per_second": 46.58537518696541,
+        "predicted_n": 4,
+        "predicted_ms": 160.062,
+        "predicted_per_token_ms": 53.354000000000006,
+        "predicted_per_second": 18.74273718933913
+      },
+      "label": "bonsai-arithmetic",
+      "passed": true
+    },
+    {
+      "answer": "391",
+      "seconds": 0.141,
+      "usage": {
+        "prompt_tokens": 28,
+        "completion_tokens": 4,
+        "total_tokens": 32,
+        "prompt_tokens_details": {
+          "cached_tokens": 21
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "timings": {
+        "prompt_n": 7,
+        "predicted_n": 4,
+        "prompt_ms": 64.7,
+        "predicted_ms": 68.2,
+        "prompt_per_second": 108.192,
+        "predicted_per_second": 58.651,
+        "cache_n": 21,
+        "draft_n": 2,
+        "draft_n_accepted": 2
+      },
+      "label": "qwen-arithmetic",
+      "passed": true
+    },
+    {
+      "answer": "Red",
+      "seconds": 1.13,
+      "usage": {
+        "completion_tokens": 2,
+        "prompt_tokens": 76,
+        "total_tokens": 78,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 76,
+        "prompt_ms": 1073.849,
+        "prompt_per_token_ms": 14.129592105263157,
+        "prompt_per_second": 70.77345138841682,
+        "predicted_n": 2,
+        "predicted_ms": 50.806,
+        "predicted_per_token_ms": 50.806,
+        "predicted_per_second": 19.68271464000315
+      },
+      "label": "bonsai-vision",
+      "passed": true
+    },
+    {
+      "answer": "72",
+      "seconds": 0.684,
+      "ttft_seconds": 0.5779207609593868,
+      "done": true,
+      "usage": {
+        "completion_tokens": 3,
+        "prompt_tokens": 26,
+        "total_tokens": 29,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "label": "bonsai-stream",
+      "passed": true
+    }
+  ],
+  "measured_date": "2026-09-18",
+  "scope": "Bundled public smoke harness run against the existing co-resident Halogen and patched Prism services. No service configuration changes or clean image rebuild. Local endpoint arguments supplied at invocation are omitted."
+}

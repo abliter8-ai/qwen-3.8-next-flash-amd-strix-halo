@@ -1,0 +1,20 @@
+[Unit]
+Description=Ternary Bonsai 2 27B CRACK, patched Prism HIP
+After=halogen-flash.service
+BindsTo=halogen-flash.service
+PartOf=halogen-flash.service
+StartLimitIntervalSec=900
+StartLimitBurst=3
+
+[Service]
+Type=simple
+ExecStartPre=/usr/bin/python3 %h/qwen-strix/recipe/co-resident/wait-qwen.py
+ExecStart=%h/qwen-strix/recipe/co-resident/serve-bonsai.sh
+ExecStop=/usr/bin/podman stop --time 60 bonsai-strix
+TimeoutStartSec=600
+TimeoutStopSec=90
+Restart=on-failure
+RestartSec=15
+
+[Install]
+WantedBy=halogen-flash.service
