@@ -1,5 +1,10 @@
 # Halogen Qwen + Ternary Bonsai: recorded results
 
+**19 September update:** [48 repeated llama-benchy prose trials](CO-RESIDENT-BENCHMARK.md)
+now compare each model with the peer idle against simultaneous work, including
+decode speed, first-token delay and time to complete both jobs. The 18 September
+single-check measurements below remain separate.
+
 Measured 2026-09-18 on one Ryzen AI MAX+ 395 / Radeon 8060S (`gfx1151`) with
 128 GB unified memory. [Recipe and runtime pins](../recipe/co-resident/README.md).
 [Machine-readable measurements](co-resident-2026-09-18.json) contain selected

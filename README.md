@@ -19,6 +19,21 @@ checks; full-window recall is not qualified.
 - [Measurements, memory accounting and qualification limits](results/CO-RESIDENT.md)
 - [Direct generation and stale-input regression checks](harness/co-resident-smoke.py)
 
+### Repeated prose benchmark — 19 September
+
+**48 llama-benchy trials**, using Sherlock Holmes prose excerpts, compare each
+model with the other resident but idle against both running together. At 512
+input / 256 output tokens, concurrent decode averages **20.7 tok/s for Qwen and
+16.2 tok/s for Bonsai**, versus **43.1 and 22.3 tok/s** with the peer idle:
+usable interactive prose streams from both models on one APU.
+
+Decode speed is only part of the experience. At 32k input, concurrent first-token
+delays reach **132.68s for Qwen and 215.48s for Bonsai**. These are prose throughput
+results, not coding or reasoning benchmarks.
+
+- [Full benchmark, latency tables, overlap and findings](results/CO-RESIDENT-BENCHMARK.md)
+- [All 48 trial rows](results/co-resident-benchy-2026-09-19.csv) · [metadata and stock reports](results/co-resident-benchy-2026-09-19.json)
+
 ## August EngramHalo study
 
 The original single-model recipe and results follow. They use a different engine

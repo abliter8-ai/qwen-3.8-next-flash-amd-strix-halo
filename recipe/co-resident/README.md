@@ -10,6 +10,12 @@ cold 24k retrieval took **19.44s before** the memory change and **20.94s with Bo
 resident but idle**, about 8% longer. Qwen's short decode stayed near **48 tokens/s**.
 See [the measurements and limits](../../results/CO-RESIDENT.md).
 
+The [19 September repeated prose benchmark](../../results/CO-RESIDENT-BENCHMARK.md)
+adds 48 llama-benchy trials with the peer idle and both active. Short-prompt
+concurrent streams averaged **20.7 tok/s for Qwen and 16.2 tok/s for Bonsai**;
+long cold prompts incurred substantial first-token delays. This is a prose
+throughput comparison, not a coding or reasoning benchmark.
+
 This is a separate runtime recipe from the [August EngramHalo study](../../README.md#august-engramhalo-study).
 Its settings and results must not be mixed with that study's GGUF/MTP profiles.
 

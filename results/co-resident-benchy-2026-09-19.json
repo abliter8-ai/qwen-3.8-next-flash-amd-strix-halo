@@ -1,0 +1,5259 @@
+{
+  "schema_version": 1,
+  "measured_date": "2026-09-19",
+  "workload": "Prose: llama-benchy default Sherlock Holmes corpus; random excerpts, not coding/reasoning/quality tests.",
+  "hardware": {
+    "cpu": "AMD Ryzen AI MAX+ 395",
+    "gpu": "Radeon 8060S",
+    "unified_memory_gb": 128
+  },
+  "method": {
+    "harness": "llama-benchy",
+    "version": "0.4.0",
+    "accepted_trials": 48,
+    "runs_per_cell": 3,
+    "prompt_targets": [
+      512,
+      2048,
+      8192,
+      32768
+    ],
+    "output_tokens": 256,
+    "depth": 0,
+    "concurrency_per_model": 1,
+    "both_models_resident_in_all_conditions": true,
+    "thinking": false,
+    "temperature": 0,
+    "presence_penalty": 0,
+    "frequency_penalty": 0,
+    "no_cache": true,
+    "per_trial_warmup": false,
+    "warmed_before_measurement": true,
+    "latency_mode": "none",
+    "fixed_corpus_seed": false,
+    "output_count_source": "server streaming usage",
+    "tokenizer_validation": {
+      "content_token_delta": 400,
+      "both_servers_agreed": true
+    },
+    "network": "Direct remote runtime APIs; no gateway or fallback; client-observed latency includes network overhead.",
+    "pair_scheduling": "Launch one CLI per model together for each repetition; await both before the next group.",
+    "order": {
+      "repetitions_1_and_3": [
+        "qwen",
+        "bonsai",
+        "paired"
+      ],
+      "repetition_2": [
+        "paired",
+        "bonsai",
+        "qwen"
+      ]
+    },
+    "identifier_normalization": "Serving aliases replaced by portable model identifiers; local hostnames, paths and operation logs omitted."
+  },
+  "profiles": {
+    "qwen": {
+      "engine": "Halogen 0.9.1",
+      "weights": "W4B HGN plus quality overlay",
+      "context": 262144,
+      "slots": 4,
+      "kv_pool_positions": 524288,
+      "prefill_chunk": 8192,
+      "max_tok": 8192,
+      "drafter": "mtp"
+    },
+    "bonsai": {
+      "engine": "Prism HIP with input synchronization patch; source pin in recipe",
+      "weights": "CRACK PQ2_0",
+      "context": 262144,
+      "slots": 1,
+      "kv": "Q4",
+      "gpu_offload": "all",
+      "api_build_label": "b0-unknown",
+      "executable_sha256": "2c6d3ffd7902ef4bec5d8be902f61b6c36f8b02afb0482237bf03136dc747ba4"
+    }
+  },
+  "validation": {
+    "accepted_trials_all_256_tokens": true,
+    "accepted_request_errors": 0,
+    "observed_idle_peer_violations": 0,
+    "unknown_idle_samples": 0,
+    "qwen_prompt_cache_hits_during_measured_groups": 0,
+    "qwen_cached_tokens_during_measured_groups": 0,
+    "excluded_calibration": "One calibration Qwen response ended at 183 tokens despite --exact-tg; the calibration set was excluded.",
+    "additional_early_eos_attempts": 0,
+    "post_run": {
+      "profiles_unchanged": true,
+      "no_service_restarts": true,
+      "both_returned_391": true
+    }
+  },
+  "summary": [
+    {
+      "pp": 512,
+      "name": "qwen",
+      "idle-peer": {
+        "n": 3,
+        "pp_tps": {
+          "mean": 370.135131045819,
+          "sd": 4.162292370438798,
+          "min": 364.63590709069985,
+          "max": 374.7029615427272
+        },
+        "tg_tps": {
+          "mean": 43.14273861103798,
+          "sd": 6.8462082477411865,
+          "min": 36.98415220792768,
+          "max": 52.69193994128614
+        },
+        "ttft_s": {
+          "mean": 1.4158788890345022,
+          "sd": 0.015981526523012487,
+          "min": 1.398441042052582,
+          "max": 1.4370499169453979
+        },
+        "e2e_s": {
+          "mean": 7.4669937292734785,
+          "sd": 0.8773255384941672,
+          "min": 6.252848148345947,
+          "max": 8.295285940170288
+        }
+      },
+      "simultaneous": {
+        "n": 3,
+        "pp_tps": {
+          "mean": 109.59790113565705,
+          "sd": 1.3466704251726245,
+          "min": 108.27827815748945,
+          "max": 111.44692591413472
+        },
+        "tg_tps": {
+          "mean": 20.715848323039065,
+          "sd": 1.702098187729219,
+          "min": 18.648323898498056,
+          "max": 22.817184620069693
+        },
+        "ttft_s": {
+          "mean": 4.78183077799622,
+          "sd": 0.05837967256998787,
+          "min": 4.701789624989033,
+          "max": 4.839382458943874
+        },
+        "e2e_s": {
+          "mean": 17.176265319188435,
+          "sd": 1.0110077490104763,
+          "min": 16.016000032424927,
+          "max": 18.479960918426514
+        }
+      }
+    },
+    {
+      "pp": 512,
+      "name": "bonsai",
+      "idle-peer": {
+        "n": 3,
+        "pp_tps": {
+          "mean": 216.16283550678895,
+          "sd": 1.6348082992788635,
+          "min": 213.88479691178878,
+          "max": 217.6436184402333
+        },
+        "tg_tps": {
+          "mean": 22.269409180460915,
+          "sd": 0.021612308010378285,
+          "min": 22.2423850168897,
+          "max": 22.29528688894962
+        },
+        "ttft_s": {
+          "mean": 2.4227014026449374,
+          "sd": 0.019282645682304585,
+          "min": 2.4076056249905378,
+          "max": 2.449917000019923
+        },
+        "e2e_s": {
+          "mean": 13.874396642049154,
+          "sd": 0.029644289117096,
+          "min": 13.846248865127563,
+          "max": 13.915376901626587
+        }
+      },
+      "simultaneous": {
+        "n": 3,
+        "pp_tps": {
+          "mean": 163.8324324912848,
+          "sd": 7.3892306690582785,
+          "min": 153.38512947649681,
+          "max": 169.25977398058424
+        },
+        "tg_tps": {
+          "mean": 16.150189432259197,
+          "sd": 0.33995405813577295,
+          "min": 15.737143054999484,
+          "max": 16.569779887588894
+        },
+        "ttft_s": {
+          "mean": 3.203353874695798,
+          "sd": 0.155171168678092,
+          "min": 3.089924957952462,
+          "max": 3.422756833024323
+        },
+        "e2e_s": {
+          "mean": 19.000706513722736,
+          "sd": 0.2105939427669753,
+          "min": 18.81313180923462,
+          "max": 19.294834852218628
+        }
+      }
+    },
+    {
+      "pp": 2048,
+      "name": "qwen",
+      "idle-peer": {
+        "n": 3,
+        "pp_tps": {
+          "mean": 731.2503805461421,
+          "sd": 9.065546151443767,
+          "min": 718.6496393799603,
+          "max": 739.5982330175788
+        },
+        "tg_tps": {
+          "mean": 40.52265477447071,
+          "sd": 4.136817310263325,
+          "min": 37.50640849409992,
+          "max": 46.372042703845246
+        },
+        "ttft_s": {
+          "mean": 2.8175394726373875,
+          "sd": 0.03606076773858055,
+          "min": 2.78529599995818,
+          "max": 2.867878708988428
+        },
+        "e2e_s": {
+          "mean": 9.175066073735556,
+          "sd": 0.6292246992198421,
+          "min": 8.285524129867554,
+          "max": 9.64037799835205
+        }
+      },
+      "simultaneous": {
+        "n": 3,
+        "pp_tps": {
+          "mean": 167.83564249096975,
+          "sd": 22.63279668326331,
+          "min": 151.73764975747173,
+          "max": 199.84306537164252
+        },
+        "tg_tps": {
+          "mean": 19.393701811762476,
+          "sd": 0.9773220684503664,
+          "min": 18.032545615133657,
+          "max": 20.282073063246997
+        },
+        "ttft_s": {
+          "mean": 12.48445795798519,
+          "sd": 1.531864440697588,
+          "min": 10.318096333066933,
+          "max": 13.576063707936555
+        },
+        "e2e_s": {
+          "mean": 25.669673601786297,
+          "sd": 1.891799285094469,
+          "min": 23.15537977218628,
+          "max": 27.7187180519104
+        }
+      }
+    },
+    {
+      "pp": 2048,
+      "name": "bonsai",
+      "idle-peer": {
+        "n": 3,
+        "pp_tps": {
+          "mean": 217.9839549393878,
+          "sd": 0.39592098365935374,
+          "min": 217.44976960609998,
+          "max": 218.39635645031802
+        },
+        "tg_tps": {
+          "mean": 21.140377423170364,
+          "sd": 0.03195768349732711,
+          "min": 21.097873418066317,
+          "max": 21.174933465122486
+        },
+        "ttft_s": {
+          "mean": 9.448739722371101,
+          "sd": 0.0177757096032891,
+          "min": 9.43239179207012,
+          "max": 9.473452207981609
+        },
+        "e2e_s": {
+          "mean": 21.514769951502483,
+          "sd": 0.02183743086538189,
+          "min": 21.483978271484375,
+          "max": 21.53221869468689
+        }
+      },
+      "simultaneous": {
+        "n": 3,
+        "pp_tps": {
+          "mean": 175.43326105979511,
+          "sd": 10.564643063351397,
+          "min": 160.50505643127923,
+          "max": 183.42561947756354
+        },
+        "tg_tps": {
+          "mean": 15.269850701666325,
+          "sd": 0.9431933749302959,
+          "min": 14.311956948957828,
+          "max": 16.552694513367467
+        },
+        "ttft_s": {
+          "mean": 11.786989916620465,
+          "sd": 0.74116813041882,
+          "min": 11.23071033298038,
+          "max": 12.834486624924466
+        },
+        "e2e_s": {
+          "mean": 28.5506333510081,
+          "sd": 0.35760767688977135,
+          "min": 28.240835905075073,
+          "max": 29.051717042922974
+        }
+      }
+    },
+    {
+      "pp": 8192,
+      "name": "qwen",
+      "idle-peer": {
+        "n": 3,
+        "pp_tps": {
+          "mean": 1110.782819475251,
+          "sd": 1.4987099049064847,
+          "min": 1108.9533359727457,
+          "max": 1112.624351199552
+        },
+        "tg_tps": {
+          "mean": 35.73343421967278,
+          "sd": 0.6753093680794766,
+          "min": 35.01922641369066,
+          "max": 36.63962329031045
+        },
+        "ttft_s": {
+          "mean": 7.385795666680981,
+          "sd": 0.009965044428326462,
+          "min": 7.373557833023369,
+          "max": 7.397966834018007
+        },
+        "e2e_s": {
+          "mean": 14.52546755472819,
+          "sd": 0.13744175596125782,
+          "min": 14.346599817276001,
+          "max": 14.68078088760376
+        }
+      },
+      "simultaneous": {
+        "n": 3,
+        "pp_tps": {
+          "mean": 343.1941922954441,
+          "sd": 1.6232532821600854,
+          "min": 340.9040389798646,
+          "max": 344.47647380161885
+        },
+        "tg_tps": {
+          "mean": 17.12385294928474,
+          "sd": 0.14489505659165766,
+          "min": 16.97372095483428,
+          "max": 17.31969623874156
+        },
+        "ttft_s": {
+          "mean": 23.906338403001428,
+          "sd": 0.1128444866565841,
+          "min": 23.815849917009473,
+          "max": 24.065423291991465
+        },
+        "e2e_s": {
+          "mean": 38.80129726727804,
+          "sd": 0.1808920723840335,
+          "min": 38.56239891052246,
+          "max": 38.9999840259552
+        }
+      }
+    },
+    {
+      "pp": 8192,
+      "name": "bonsai",
+      "idle-peer": {
+        "n": 3,
+        "pp_tps": {
+          "mean": 208.47561508987368,
+          "sd": 0.19509953881414882,
+          "min": 208.24273226418268,
+          "max": 208.72019680548092
+        },
+        "tg_tps": {
+          "mean": 19.00961491013972,
+          "sd": 0.004865142642857495,
+          "min": 19.003059977071896,
+          "max": 19.014703193826268
+        },
+        "ttft_s": {
+          "mean": 39.35075800004415,
+          "sd": 0.03493395968944624,
+          "min": 39.30621054198127,
+          "max": 39.391530791064724
+        },
+        "e2e_s": {
+          "mean": 52.76682154337565,
+          "sd": 0.037993327215463696,
+          "min": 52.71870160102844,
+          "max": 52.81158399581909
+        }
+      },
+      "simultaneous": {
+        "n": 3,
+        "pp_tps": {
+          "mean": 159.9393693846769,
+          "sd": 0.265024929367885,
+          "min": 159.61805652368565,
+          "max": 160.2671361194655
+        },
+        "tg_tps": {
+          "mean": 19.015146021029654,
+          "sd": 0.00991098636590242,
+          "min": 19.00344706328441,
+          "max": 19.02768072741328
+        },
+        "ttft_s": {
+          "mean": 51.29666673597725,
+          "sd": 0.08753866148641944,
+          "min": 51.18953391595278,
+          "max": 51.403958791983314
+        },
+        "e2e_s": {
+          "mean": 64.70905741055806,
+          "sd": 0.08400895008797672,
+          "min": 64.60228300094604,
+          "max": 64.80756306648254
+        }
+      }
+    },
+    {
+      "pp": 32768,
+      "name": "qwen",
+      "idle-peer": {
+        "n": 3,
+        "pp_tps": {
+          "mean": 1108.8840108011873,
+          "sd": 13.92611080843183,
+          "min": 1090.1461835741404,
+          "max": 1123.5041353683946
+        },
+        "tg_tps": {
+          "mean": 37.739091738183305,
+          "sd": 2.7008073644407107,
+          "min": 33.93599125424506,
+          "max": 39.94700885422218
+        },
+        "ttft_s": {
+          "mean": 29.56594026395275,
+          "sd": 0.3732955409802526,
+          "min": 29.17657262494322,
+          "max": 30.069361791945994
+        },
+        "e2e_s": {
+          "mean": 36.36063043276469,
+          "sd": 0.8788149248852771,
+          "min": 35.5614230632782,
+          "max": 37.584506034851074
+        }
+      },
+      "simultaneous": {
+        "n": 3,
+        "pp_tps": {
+          "mean": 247.05064291141295,
+          "sd": 0.46448010225292746,
+          "min": 246.3941568769302,
+          "max": 247.39843619668721
+        },
+        "tg_tps": {
+          "mean": 6.99231482000808,
+          "sd": 0.28004356168236694,
+          "min": 6.642760449931852,
+          "max": 7.328322899821597
+        },
+        "ttft_s": {
+          "mean": 132.68446793030793,
+          "sd": 0.25069449281474454,
+          "min": 132.49881649995223,
+          "max": 133.03886916593183
+        },
+        "e2e_s": {
+          "mean": 169.2144939104716,
+          "sd": 1.4690588853944102,
+          "min": 167.3135769367218,
+          "max": 170.89095997810364
+        }
+      }
+    },
+    {
+      "pp": 32768,
+      "name": "bonsai",
+      "idle-peer": {
+        "n": 3,
+        "pp_tps": {
+          "mean": 179.15815344653566,
+          "sd": 0.07170063716453424,
+          "min": 179.0942331559293,
+          "max": 179.25828337540383
+        },
+        "tg_tps": {
+          "mean": 12.592832452602742,
+          "sd": 0.0039025876264424143,
+          "min": 12.58756732984726,
+          "max": 12.596898243567944
+        },
+        "ttft_s": {
+          "mean": 182.9650014026944,
+          "sd": 0.07157614392712697,
+          "min": 182.86463187506888,
+          "max": 183.02655212499667
+        },
+        "e2e_s": {
+          "mean": 203.21814155578613,
+          "sd": 0.07728320451183752,
+          "min": 203.1110498905182,
+          "max": 203.2905969619751
+        }
+      },
+      "simultaneous": {
+        "n": 3,
+        "pp_tps": {
+          "mean": 152.12428263567816,
+          "sd": 0.16002500621461857,
+          "min": 151.9612594210515,
+          "max": 152.34173385289446
+        },
+        "tg_tps": {
+          "mean": 12.58964615494858,
+          "sd": 0.004908300278058771,
+          "min": 12.583531983493435,
+          "max": 12.59554925508093
+        },
+        "ttft_s": {
+          "mean": 215.48194468033034,
+          "sd": 0.22656110180762257,
+          "min": 215.1741297079716,
+          "max": 215.7128739580512
+        },
+        "e2e_s": {
+          "mean": 235.74061560630798,
+          "sd": 0.21916473464354383,
+          "min": 235.44191598892212,
+          "max": 235.9616150856018
+        }
+      }
+    }
+  ],
+  "pairs": [
+    {
+      "pp": 512,
+      "rep": 1,
+      "start_skew_s": 9.5367431640625e-07,
+      "overlap_s": 18.479959964752197,
+      "decode_overlap_s": 13.675092935562134,
+      "pair_wall_s": 19.294835805892944,
+      "pair_output_tps": 26.535597667207263,
+      "bonsai_overlap_fraction": 0.9577672007193816,
+      "qwen_overlap_fraction": 0.9999999483941379
+    },
+    {
+      "pp": 512,
+      "rep": 2,
+      "start_skew_s": 0.0064258575439453125,
+      "overlap_s": 16.016000032424927,
+      "decode_overlap_s": 11.175944089889526,
+      "pair_wall_s": 18.81313180923462,
+      "pair_output_tps": 27.21503283938507,
+      "bonsai_overlap_fraction": 0.8513202477305405,
+      "qwen_overlap_fraction": 1.0
+    },
+    {
+      "pp": 512,
+      "rep": 3,
+      "start_skew_s": 0.00011396408081054688,
+      "overlap_s": 17.032721042633057,
+      "decode_overlap_s": 12.330504179000854,
+      "pair_wall_s": 18.894266843795776,
+      "pair_output_tps": 27.098167091258325,
+      "bonsai_overlap_fraction": 0.9014810640661022,
+      "qwen_overlap_fraction": 0.999993309153716
+    },
+    {
+      "pp": 2048,
+      "rep": 1,
+      "start_skew_s": 0.007852792739868164,
+      "overlap_s": 26.12707018852234,
+      "decode_overlap_s": 12.574132919311523,
+      "pair_wall_s": 29.059569835662842,
+      "pair_output_tps": 17.618980697080282,
+      "bonsai_overlap_fraction": 0.8993296385862645,
+      "qwen_overlap_fraction": 0.999699528759067
+    },
+    {
+      "pp": 2048,
+      "rep": 2,
+      "start_skew_s": 0.0020189285278320312,
+      "overlap_s": 27.7187180519104,
+      "decode_overlap_s": 14.142000913619995,
+      "pair_wall_s": 28.359347105026245,
+      "pair_output_tps": 18.054012248725435,
+      "bonsai_overlap_fraction": 0.9774103031799944,
+      "qwen_overlap_fraction": 1.0
+    },
+    {
+      "pp": 2048,
+      "rep": 3,
+      "start_skew_s": 0.005295991897583008,
+      "overlap_s": 23.150083780288696,
+      "decode_overlap_s": 10.315073013305664,
+      "pair_wall_s": 28.246131896972656,
+      "pair_output_tps": 18.12637574119927,
+      "bonsai_overlap_fraction": 0.8197379092496503,
+      "qwen_overlap_fraction": 0.9997712846021233
+    },
+    {
+      "pp": 8192,
+      "rep": 1,
+      "start_skew_s": 0.0037009716033935547,
+      "overlap_s": 38.9999840259552,
+      "decode_overlap_s": 0,
+      "pair_wall_s": 64.60228300094604,
+      "pair_output_tps": 7.925416505675228,
+      "bonsai_overlap_fraction": 0.6036935881257336,
+      "qwen_overlap_fraction": 1.0
+    },
+    {
+      "pp": 8192,
+      "rep": 2,
+      "start_skew_s": 0.002686023712158203,
+      "overlap_s": 38.56239891052246,
+      "decode_overlap_s": 0,
+      "pair_wall_s": 64.80756306648254,
+      "pair_output_tps": 7.900312490916641,
+      "bonsai_overlap_fraction": 0.5950293003759978,
+      "qwen_overlap_fraction": 1.0
+    },
+    {
+      "pp": 8192,
+      "rep": 3,
+      "start_skew_s": 0.002138853073120117,
+      "overlap_s": 38.839370012283325,
+      "decode_overlap_s": 0,
+      "pair_wall_s": 64.71946501731873,
+      "pair_output_tps": 7.911066629846066,
+      "bonsai_overlap_fraction": 0.6001386694146353,
+      "qwen_overlap_fraction": 0.9999449338314705
+    },
+    {
+      "pp": 32768,
+      "rep": 1,
+      "start_skew_s": 4.291534423828125e-06,
+      "overlap_s": 167.3135769367218,
+      "decode_overlap_s": 0,
+      "pair_wall_s": 235.44191598892212,
+      "pair_output_tps": 2.1746340189658087,
+      "bonsai_overlap_fraction": 0.7106363207840789,
+      "qwen_overlap_fraction": 1.0
+    },
+    {
+      "pp": 32768,
+      "rep": 2,
+      "start_skew_s": 0.0010941028594970703,
+      "overlap_s": 170.89095997810364,
+      "decode_overlap_s": 0,
+      "pair_wall_s": 235.9616150856018,
+      "pair_output_tps": 2.169844446158149,
+      "bonsai_overlap_fraction": 0.7242320320451615,
+      "qwen_overlap_fraction": 1.0
+    },
+    {
+      "pp": 32768,
+      "rep": 3,
+      "start_skew_s": 0.0064411163330078125,
+      "overlap_s": 169.43894481658936,
+      "decode_overlap_s": 0,
+      "pair_wall_s": 235.81831574440002,
+      "pair_output_tps": 2.171162992084759,
+      "bonsai_overlap_fraction": 0.718514778132169,
+      "qwen_overlap_fraction": 1.0
+    }
+  ],
+  "trials": [
+    {
+      "name": "bonsai",
+      "mode": "idle-peer",
+      "pp": 2048,
+      "rep": 1,
+      "prompt_tokens": 2060,
+      "output_tokens": 256,
+      "pp_tps": 218.39635645031802,
+      "tg_tps": 21.097873418066317,
+      "ttft_s": 9.43239179207012,
+      "e2e_s": 21.52811288833618,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 09:42:01Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "ternary-bonsai-2-27b",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 2048,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 218.39635645031802,
+              "std": 0.0,
+              "values": [
+                218.39635645031802
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 218.39635645031802,
+              "std": 0.0,
+              "values": [
+                218.39635645031802
+              ]
+            },
+            "tg_throughput": {
+              "mean": 21.097873418066317,
+              "std": 0.0,
+              "values": [
+                21.097873418066317
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 21.097873418066317,
+              "std": 0.0,
+              "values": [
+                21.097873418066317
+              ]
+            },
+            "peak_throughput": {
+              "mean": 22.0,
+              "std": 0.0,
+              "values": [
+                22.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 22.0,
+              "std": 0.0,
+              "values": [
+                22.0
+              ]
+            },
+            "ttfr": {
+              "mean": 9432.39179207012,
+              "std": 0.0,
+              "values": [
+                9432.39179207012
+              ]
+            },
+            "est_ppt": {
+              "mean": 9432.39179207012,
+              "std": 0.0,
+              "values": [
+                9432.39179207012
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 9432.39179207012,
+              "std": 0.0,
+              "values": [
+                9432.39179207012
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "qwen",
+      "mode": "idle-peer",
+      "pp": 2048,
+      "rep": 1,
+      "prompt_tokens": 2061,
+      "output_tokens": 256,
+      "pp_tps": 718.6496393799603,
+      "tg_tps": 37.68951312546695,
+      "ttft_s": 2.867878708988428,
+      "e2e_s": 9.64037799835205,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 09:41:38Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "halogen-qwen3.8-flash-next",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 2048,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 718.6496393799603,
+              "std": 0.0,
+              "values": [
+                718.6496393799603
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 718.6496393799603,
+              "std": 0.0,
+              "values": [
+                718.6496393799603
+              ]
+            },
+            "tg_throughput": {
+              "mean": 37.68951312546695,
+              "std": 0.0,
+              "values": [
+                37.68951312546695
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 37.68951312546695,
+              "std": 0.0,
+              "values": [
+                37.68951312546695
+              ]
+            },
+            "peak_throughput": {
+              "mean": 38.0,
+              "std": 0.0,
+              "values": [
+                38.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 38.0,
+              "std": 0.0,
+              "values": [
+                38.0
+              ]
+            },
+            "ttfr": {
+              "mean": 2867.878708988428,
+              "std": 0.0,
+              "values": [
+                2867.878708988428
+              ]
+            },
+            "est_ppt": {
+              "mean": 2867.878708988428,
+              "std": 0.0,
+              "values": [
+                2867.878708988428
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 2867.878708988428,
+              "std": 0.0,
+              "values": [
+                2867.878708988428
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "bonsai",
+      "mode": "idle-peer",
+      "pp": 2048,
+      "rep": 2,
+      "prompt_tokens": 2059,
+      "output_tokens": 256,
+      "pp_tps": 218.10573876174536,
+      "tg_tps": 21.174933465122486,
+      "ttft_s": 9.440375167061575,
+      "e2e_s": 21.483978271484375,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 09:43:26Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "ternary-bonsai-2-27b",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 2048,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 218.10573876174536,
+              "std": 0.0,
+              "values": [
+                218.10573876174536
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 218.10573876174536,
+              "std": 0.0,
+              "values": [
+                218.10573876174536
+              ]
+            },
+            "tg_throughput": {
+              "mean": 21.174933465122486,
+              "std": 0.0,
+              "values": [
+                21.174933465122486
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 21.174933465122486,
+              "std": 0.0,
+              "values": [
+                21.174933465122486
+              ]
+            },
+            "peak_throughput": {
+              "mean": 22.0,
+              "std": 0.0,
+              "values": [
+                22.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 22.0,
+              "std": 0.0,
+              "values": [
+                22.0
+              ]
+            },
+            "ttfr": {
+              "mean": 9440.375167061575,
+              "std": 0.0,
+              "values": [
+                9440.375167061575
+              ]
+            },
+            "est_ppt": {
+              "mean": 9440.375167061575,
+              "std": 0.0,
+              "values": [
+                9440.375167061575
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 9440.375167061575,
+              "std": 0.0,
+              "values": [
+                9440.375167061575
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "qwen",
+      "mode": "idle-peer",
+      "pp": 2048,
+      "rep": 2,
+      "prompt_tokens": 2060,
+      "output_tokens": 256,
+      "pp_tps": 739.5982330175788,
+      "tg_tps": 46.372042703845246,
+      "ttft_s": 2.78529599995818,
+      "e2e_s": 8.285524129867554,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 09:43:37Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "halogen-qwen3.8-flash-next",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 2048,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 739.5982330175788,
+              "std": 0.0,
+              "values": [
+                739.5982330175788
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 739.5982330175788,
+              "std": 0.0,
+              "values": [
+                739.5982330175788
+              ]
+            },
+            "tg_throughput": {
+              "mean": 46.372042703845246,
+              "std": 0.0,
+              "values": [
+                46.372042703845246
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 46.372042703845246,
+              "std": 0.0,
+              "values": [
+                46.372042703845246
+              ]
+            },
+            "peak_throughput": {
+              "mean": 47.0,
+              "std": 0.0,
+              "values": [
+                47.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 47.0,
+              "std": 0.0,
+              "values": [
+                47.0
+              ]
+            },
+            "ttfr": {
+              "mean": 2785.29599995818,
+              "std": 0.0,
+              "values": [
+                2785.29599995818
+              ]
+            },
+            "est_ppt": {
+              "mean": 2785.29599995818,
+              "std": 0.0,
+              "values": [
+                2785.29599995818
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 2785.29599995818,
+              "std": 0.0,
+              "values": [
+                2785.29599995818
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "bonsai",
+      "mode": "idle-peer",
+      "pp": 2048,
+      "rep": 3,
+      "prompt_tokens": 2060,
+      "output_tokens": 256,
+      "pp_tps": 217.44976960609998,
+      "tg_tps": 21.14832538632229,
+      "ttft_s": 9.473452207981609,
+      "e2e_s": 21.53221869468689,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 09:44:12Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "ternary-bonsai-2-27b",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 2048,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 217.44976960609998,
+              "std": 0.0,
+              "values": [
+                217.44976960609998
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 217.44976960609998,
+              "std": 0.0,
+              "values": [
+                217.44976960609998
+              ]
+            },
+            "tg_throughput": {
+              "mean": 21.14832538632229,
+              "std": 0.0,
+              "values": [
+                21.14832538632229
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 21.14832538632229,
+              "std": 0.0,
+              "values": [
+                21.14832538632229
+              ]
+            },
+            "peak_throughput": {
+              "mean": 22.0,
+              "std": 0.0,
+              "values": [
+                22.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 22.0,
+              "std": 0.0,
+              "values": [
+                22.0
+              ]
+            },
+            "ttfr": {
+              "mean": 9473.452207981609,
+              "std": 0.0,
+              "values": [
+                9473.452207981609
+              ]
+            },
+            "est_ppt": {
+              "mean": 9473.452207981609,
+              "std": 0.0,
+              "values": [
+                9473.452207981609
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 9473.452207981609,
+              "std": 0.0,
+              "values": [
+                9473.452207981609
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "qwen",
+      "mode": "idle-peer",
+      "pp": 2048,
+      "rep": 3,
+      "prompt_tokens": 2059,
+      "output_tokens": 256,
+      "pp_tps": 735.5032692408871,
+      "tg_tps": 37.50640849409992,
+      "ttft_s": 2.799443708965555,
+      "e2e_s": 9.59929609298706,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 09:43:48Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "halogen-qwen3.8-flash-next",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 2048,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 735.5032692408871,
+              "std": 0.0,
+              "values": [
+                735.5032692408871
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 735.5032692408871,
+              "std": 0.0,
+              "values": [
+                735.5032692408871
+              ]
+            },
+            "tg_throughput": {
+              "mean": 37.50640849409992,
+              "std": 0.0,
+              "values": [
+                37.50640849409992
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 37.50640849409992,
+              "std": 0.0,
+              "values": [
+                37.50640849409992
+              ]
+            },
+            "peak_throughput": {
+              "mean": 38.0,
+              "std": 0.0,
+              "values": [
+                38.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 38.0,
+              "std": 0.0,
+              "values": [
+                38.0
+              ]
+            },
+            "ttfr": {
+              "mean": 2799.443708965555,
+              "std": 0.0,
+              "values": [
+                2799.443708965555
+              ]
+            },
+            "est_ppt": {
+              "mean": 2799.443708965555,
+              "std": 0.0,
+              "values": [
+                2799.443708965555
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 2799.443708965555,
+              "std": 0.0,
+              "values": [
+                2799.443708965555
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "bonsai",
+      "mode": "idle-peer",
+      "pp": 32768,
+      "rep": 1,
+      "prompt_tokens": 32780,
+      "output_tokens": 256,
+      "pp_tps": 179.25828337540383,
+      "tg_tps": 12.596898243567944,
+      "ttft_s": 182.86463187506888,
+      "e2e_s": 203.1110498905182,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 09:55:41Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "ternary-bonsai-2-27b",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 32768,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 179.25828337540383,
+              "std": 0.0,
+              "values": [
+                179.25828337540383
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 179.25828337540383,
+              "std": 0.0,
+              "values": [
+                179.25828337540383
+              ]
+            },
+            "tg_throughput": {
+              "mean": 12.596898243567944,
+              "std": 0.0,
+              "values": [
+                12.596898243567944
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 12.596898243567944,
+              "std": 0.0,
+              "values": [
+                12.596898243567944
+              ]
+            },
+            "peak_throughput": {
+              "mean": 13.0,
+              "std": 0.0,
+              "values": [
+                13.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 13.0,
+              "std": 0.0,
+              "values": [
+                13.0
+              ]
+            },
+            "ttfr": {
+              "mean": 182864.63187506888,
+              "std": 0.0,
+              "values": [
+                182864.63187506888
+              ]
+            },
+            "est_ppt": {
+              "mean": 182864.63187506888,
+              "std": 0.0,
+              "values": [
+                182864.63187506888
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 182864.63187506888,
+              "std": 0.0,
+              "values": [
+                182864.63187506888
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "qwen",
+      "mode": "idle-peer",
+      "pp": 32768,
+      "rep": 1,
+      "prompt_tokens": 32780,
+      "output_tokens": 256,
+      "pp_tps": 1090.1461835741404,
+      "tg_tps": 33.93599125424506,
+      "ttft_s": 30.069361791945994,
+      "e2e_s": 37.584506034851074,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 09:52:16Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "halogen-qwen3.8-flash-next",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 32768,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 1090.1461835741404,
+              "std": 0.0,
+              "values": [
+                1090.1461835741404
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 1090.1461835741404,
+              "std": 0.0,
+              "values": [
+                1090.1461835741404
+              ]
+            },
+            "tg_throughput": {
+              "mean": 33.93599125424506,
+              "std": 0.0,
+              "values": [
+                33.93599125424506
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 33.93599125424506,
+              "std": 0.0,
+              "values": [
+                33.93599125424506
+              ]
+            },
+            "peak_throughput": {
+              "mean": 34.0,
+              "std": 0.0,
+              "values": [
+                34.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 34.0,
+              "std": 0.0,
+              "values": [
+                34.0
+              ]
+            },
+            "ttfr": {
+              "mean": 30069.361791945994,
+              "std": 0.0,
+              "values": [
+                30069.361791945994
+              ]
+            },
+            "est_ppt": {
+              "mean": 30069.361791945994,
+              "std": 0.0,
+              "values": [
+                30069.361791945994
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 30069.361791945994,
+              "std": 0.0,
+              "values": [
+                30069.361791945994
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "bonsai",
+      "mode": "idle-peer",
+      "pp": 32768,
+      "rep": 2,
+      "prompt_tokens": 32780,
+      "output_tokens": 256,
+      "pp_tps": 179.12194380827384,
+      "tg_tps": 12.594031784393023,
+      "ttft_s": 183.00382020801771,
+      "e2e_s": 203.2527778148651,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 10:07:02Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "ternary-bonsai-2-27b",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 32768,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 179.12194380827384,
+              "std": 0.0,
+              "values": [
+                179.12194380827384
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 179.12194380827384,
+              "std": 0.0,
+              "values": [
+                179.12194380827384
+              ]
+            },
+            "tg_throughput": {
+              "mean": 12.594031784393023,
+              "std": 0.0,
+              "values": [
+                12.594031784393023
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 12.594031784393023,
+              "std": 0.0,
+              "values": [
+                12.594031784393023
+              ]
+            },
+            "peak_throughput": {
+              "mean": 13.0,
+              "std": 0.0,
+              "values": [
+                13.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 13.0,
+              "std": 0.0,
+              "values": [
+                13.0
+              ]
+            },
+            "ttfr": {
+              "mean": 183003.8202080177,
+              "std": 0.0,
+              "values": [
+                183003.8202080177
+              ]
+            },
+            "est_ppt": {
+              "mean": 183003.8202080177,
+              "std": 0.0,
+              "values": [
+                183003.8202080177
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 183003.8202080177,
+              "std": 0.0,
+              "values": [
+                183003.8202080177
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "qwen",
+      "mode": "idle-peer",
+      "pp": 32768,
+      "rep": 2,
+      "prompt_tokens": 32780,
+      "output_tokens": 256,
+      "pp_tps": 1113.0017134610266,
+      "tg_tps": 39.33427510608268,
+      "ttft_s": 29.451886374969035,
+      "e2e_s": 35.935962200164795,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 10:07:40Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "halogen-qwen3.8-flash-next",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 32768,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 1113.0017134610266,
+              "std": 0.0,
+              "values": [
+                1113.0017134610266
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 1113.0017134610266,
+              "std": 0.0,
+              "values": [
+                1113.0017134610266
+              ]
+            },
+            "tg_throughput": {
+              "mean": 39.33427510608268,
+              "std": 0.0,
+              "values": [
+                39.33427510608268
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 39.33427510608268,
+              "std": 0.0,
+              "values": [
+                39.33427510608268
+              ]
+            },
+            "peak_throughput": {
+              "mean": 40.0,
+              "std": 0.0,
+              "values": [
+                40.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 40.0,
+              "std": 0.0,
+              "values": [
+                40.0
+              ]
+            },
+            "ttfr": {
+              "mean": 29451.886374969035,
+              "std": 0.0,
+              "values": [
+                29451.886374969035
+              ]
+            },
+            "est_ppt": {
+              "mean": 29451.886374969035,
+              "std": 0.0,
+              "values": [
+                29451.886374969035
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 29451.886374969035,
+              "std": 0.0,
+              "values": [
+                29451.886374969035
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "bonsai",
+      "mode": "idle-peer",
+      "pp": 32768,
+      "rep": 3,
+      "prompt_tokens": 32779,
+      "output_tokens": 256,
+      "pp_tps": 179.0942331559293,
+      "tg_tps": 12.58756732984726,
+      "ttft_s": 183.02655212499667,
+      "e2e_s": 203.2905969619751,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 10:11:43Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "ternary-bonsai-2-27b",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 32768,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 179.0942331559293,
+              "std": 0.0,
+              "values": [
+                179.0942331559293
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 179.0942331559293,
+              "std": 0.0,
+              "values": [
+                179.0942331559293
+              ]
+            },
+            "tg_throughput": {
+              "mean": 12.58756732984726,
+              "std": 0.0,
+              "values": [
+                12.58756732984726
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 12.58756732984726,
+              "std": 0.0,
+              "values": [
+                12.58756732984726
+              ]
+            },
+            "peak_throughput": {
+              "mean": 13.0,
+              "std": 0.0,
+              "values": [
+                13.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 13.0,
+              "std": 0.0,
+              "values": [
+                13.0
+              ]
+            },
+            "ttfr": {
+              "mean": 183026.55212499667,
+              "std": 0.0,
+              "values": [
+                183026.55212499667
+              ]
+            },
+            "est_ppt": {
+              "mean": 183026.55212499667,
+              "std": 0.0,
+              "values": [
+                183026.55212499667
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 183026.55212499667,
+              "std": 0.0,
+              "values": [
+                183026.55212499667
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "qwen",
+      "mode": "idle-peer",
+      "pp": 32768,
+      "rep": 3,
+      "prompt_tokens": 32780,
+      "output_tokens": 256,
+      "pp_tps": 1123.5041353683946,
+      "tg_tps": 39.94700885422218,
+      "ttft_s": 29.17657262494322,
+      "e2e_s": 35.5614230632782,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 10:08:17Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "halogen-qwen3.8-flash-next",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 32768,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 1123.5041353683946,
+              "std": 0.0,
+              "values": [
+                1123.5041353683946
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 1123.5041353683946,
+              "std": 0.0,
+              "values": [
+                1123.5041353683946
+              ]
+            },
+            "tg_throughput": {
+              "mean": 39.94700885422218,
+              "std": 0.0,
+              "values": [
+                39.94700885422218
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 39.94700885422218,
+              "std": 0.0,
+              "values": [
+                39.94700885422218
+              ]
+            },
+            "peak_throughput": {
+              "mean": 40.0,
+              "std": 0.0,
+              "values": [
+                40.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 40.0,
+              "std": 0.0,
+              "values": [
+                40.0
+              ]
+            },
+            "ttfr": {
+              "mean": 29176.57262494322,
+              "std": 0.0,
+              "values": [
+                29176.57262494322
+              ]
+            },
+            "est_ppt": {
+              "mean": 29176.57262494322,
+              "std": 0.0,
+              "values": [
+                29176.57262494322
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 29176.57262494322,
+              "std": 0.0,
+              "values": [
+                29176.57262494322
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "bonsai",
+      "mode": "idle-peer",
+      "pp": 512,
+      "rep": 1,
+      "prompt_tokens": 524,
+      "output_tokens": 256,
+      "pp_tps": 213.88479691178878,
+      "tg_tps": 22.2423850168897,
+      "ttft_s": 2.449917000019923,
+      "e2e_s": 13.915376901626587,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 09:39:31Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "ternary-bonsai-2-27b",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 512,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 213.88479691178878,
+              "std": 0.0,
+              "values": [
+                213.88479691178878
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 213.88479691178878,
+              "std": 0.0,
+              "values": [
+                213.88479691178878
+              ]
+            },
+            "tg_throughput": {
+              "mean": 22.2423850168897,
+              "std": 0.0,
+              "values": [
+                22.2423850168897
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 22.2423850168897,
+              "std": 0.0,
+              "values": [
+                22.2423850168897
+              ]
+            },
+            "peak_throughput": {
+              "mean": 23.0,
+              "std": 0.0,
+              "values": [
+                23.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 23.0,
+              "std": 0.0,
+              "values": [
+                23.0
+              ]
+            },
+            "ttfr": {
+              "mean": 2449.917000019923,
+              "std": 0.0,
+              "values": [
+                2449.917000019923
+              ]
+            },
+            "est_ppt": {
+              "mean": 2449.917000019923,
+              "std": 0.0,
+              "values": [
+                2449.917000019923
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 2449.917000019923,
+              "std": 0.0,
+              "values": [
+                2449.917000019923
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "qwen",
+      "mode": "idle-peer",
+      "pp": 512,
+      "rep": 1,
+      "prompt_tokens": 524,
+      "output_tokens": 256,
+      "pp_tps": 371.0665245040298,
+      "tg_tps": 52.69193994128614,
+      "ttft_s": 1.4121457081055269,
+      "e2e_s": 6.252848148345947,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 09:39:15Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "halogen-qwen3.8-flash-next",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 512,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 371.0665245040298,
+              "std": 0.0,
+              "values": [
+                371.0665245040298
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 371.0665245040298,
+              "std": 0.0,
+              "values": [
+                371.0665245040298
+              ]
+            },
+            "tg_throughput": {
+              "mean": 52.69193994128614,
+              "std": 0.0,
+              "values": [
+                52.69193994128614
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 52.69193994128614,
+              "std": 0.0,
+              "values": [
+                52.69193994128614
+              ]
+            },
+            "peak_throughput": {
+              "mean": 53.0,
+              "std": 0.0,
+              "values": [
+                53.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 53.0,
+              "std": 0.0,
+              "values": [
+                53.0
+              ]
+            },
+            "ttfr": {
+              "mean": 1412.1457081055269,
+              "std": 0.0,
+              "values": [
+                1412.1457081055269
+              ]
+            },
+            "est_ppt": {
+              "mean": 1412.1457081055269,
+              "std": 0.0,
+              "values": [
+                1412.1457081055269
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 1412.1457081055269,
+              "std": 0.0,
+              "values": [
+                1412.1457081055269
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "bonsai",
+      "mode": "idle-peer",
+      "pp": 512,
+      "rep": 2,
+      "prompt_tokens": 524,
+      "output_tokens": 256,
+      "pp_tps": 217.6436184402333,
+      "tg_tps": 22.29528688894962,
+      "ttft_s": 2.4076056249905378,
+      "e2e_s": 13.846248865127563,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 09:40:29Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "ternary-bonsai-2-27b",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 512,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 217.6436184402333,
+              "std": 0.0,
+              "values": [
+                217.6436184402333
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 217.6436184402333,
+              "std": 0.0,
+              "values": [
+                217.6436184402333
+              ]
+            },
+            "tg_throughput": {
+              "mean": 22.29528688894962,
+              "std": 0.0,
+              "values": [
+                22.29528688894962
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 22.29528688894962,
+              "std": 0.0,
+              "values": [
+                22.29528688894962
+              ]
+            },
+            "peak_throughput": {
+              "mean": 23.0,
+              "std": 0.0,
+              "values": [
+                23.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 23.0,
+              "std": 0.0,
+              "values": [
+                23.0
+              ]
+            },
+            "ttfr": {
+              "mean": 2407.6056249905378,
+              "std": 0.0,
+              "values": [
+                2407.6056249905378
+              ]
+            },
+            "est_ppt": {
+              "mean": 2407.6056249905378,
+              "std": 0.0,
+              "values": [
+                2407.6056249905378
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 2407.6056249905378,
+              "std": 0.0,
+              "values": [
+                2407.6056249905378
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "qwen",
+      "mode": "idle-peer",
+      "pp": 512,
+      "rep": 2,
+      "prompt_tokens": 524,
+      "output_tokens": 256,
+      "pp_tps": 374.7029615427272,
+      "tg_tps": 36.98415220792768,
+      "ttft_s": 1.398441042052582,
+      "e2e_s": 8.295285940170288,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 09:40:39Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "halogen-qwen3.8-flash-next",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 512,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 374.7029615427272,
+              "std": 0.0,
+              "values": [
+                374.7029615427272
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 374.7029615427272,
+              "std": 0.0,
+              "values": [
+                374.7029615427272
+              ]
+            },
+            "tg_throughput": {
+              "mean": 36.98415220792768,
+              "std": 0.0,
+              "values": [
+                36.98415220792768
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 36.98415220792768,
+              "std": 0.0,
+              "values": [
+                36.98415220792768
+              ]
+            },
+            "peak_throughput": {
+              "mean": 37.0,
+              "std": 0.0,
+              "values": [
+                37.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 37.0,
+              "std": 0.0,
+              "values": [
+                37.0
+              ]
+            },
+            "ttfr": {
+              "mean": 1398.441042052582,
+              "std": 0.0,
+              "values": [
+                1398.441042052582
+              ]
+            },
+            "est_ppt": {
+              "mean": 1398.441042052582,
+              "std": 0.0,
+              "values": [
+                1398.441042052582
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 1398.441042052582,
+              "std": 0.0,
+              "values": [
+                1398.441042052582
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "bonsai",
+      "mode": "idle-peer",
+      "pp": 512,
+      "rep": 3,
+      "prompt_tokens": 523,
+      "output_tokens": 256,
+      "pp_tps": 216.96009116834475,
+      "tg_tps": 22.270555635543428,
+      "ttft_s": 2.410581582924351,
+      "e2e_s": 13.86156415939331,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 09:41:05Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "ternary-bonsai-2-27b",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 512,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 216.96009116834475,
+              "std": 0.0,
+              "values": [
+                216.96009116834475
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 216.96009116834475,
+              "std": 0.0,
+              "values": [
+                216.96009116834475
+              ]
+            },
+            "tg_throughput": {
+              "mean": 22.270555635543428,
+              "std": 0.0,
+              "values": [
+                22.270555635543428
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 22.270555635543428,
+              "std": 0.0,
+              "values": [
+                22.270555635543428
+              ]
+            },
+            "peak_throughput": {
+              "mean": 23.0,
+              "std": 0.0,
+              "values": [
+                23.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 23.0,
+              "std": 0.0,
+              "values": [
+                23.0
+              ]
+            },
+            "ttfr": {
+              "mean": 2410.581582924351,
+              "std": 0.0,
+              "values": [
+                2410.581582924351
+              ]
+            },
+            "est_ppt": {
+              "mean": 2410.581582924351,
+              "std": 0.0,
+              "values": [
+                2410.581582924351
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 2410.581582924351,
+              "std": 0.0,
+              "values": [
+                2410.581582924351
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "qwen",
+      "mode": "idle-peer",
+      "pp": 512,
+      "rep": 3,
+      "prompt_tokens": 524,
+      "output_tokens": 256,
+      "pp_tps": 364.63590709069985,
+      "tg_tps": 39.752123683900116,
+      "ttft_s": 1.4370499169453979,
+      "e2e_s": 7.852847099304199,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 09:40:49Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "halogen-qwen3.8-flash-next",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 512,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 364.63590709069985,
+              "std": 0.0,
+              "values": [
+                364.63590709069985
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 364.63590709069985,
+              "std": 0.0,
+              "values": [
+                364.63590709069985
+              ]
+            },
+            "tg_throughput": {
+              "mean": 39.752123683900116,
+              "std": 0.0,
+              "values": [
+                39.752123683900116
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 39.752123683900116,
+              "std": 0.0,
+              "values": [
+                39.752123683900116
+              ]
+            },
+            "peak_throughput": {
+              "mean": 40.0,
+              "std": 0.0,
+              "values": [
+                40.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 40.0,
+              "std": 0.0,
+              "values": [
+                40.0
+              ]
+            },
+            "ttfr": {
+              "mean": 1437.0499169453979,
+              "std": 0.0,
+              "values": [
+                1437.0499169453979
+              ]
+            },
+            "est_ppt": {
+              "mean": 1437.0499169453979,
+              "std": 0.0,
+              "values": [
+                1437.0499169453979
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 1437.0499169453979,
+              "std": 0.0,
+              "values": [
+                1437.0499169453979
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "bonsai",
+      "mode": "idle-peer",
+      "pp": 8192,
+      "rep": 1,
+      "prompt_tokens": 8204,
+      "output_tokens": 256,
+      "pp_tps": 208.72019680548092,
+      "tg_tps": 19.014703193826268,
+      "ttft_s": 39.30621054198127,
+      "e2e_s": 52.71870160102844,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 09:45:54Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "ternary-bonsai-2-27b",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 8192,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 208.72019680548092,
+              "std": 0.0,
+              "values": [
+                208.72019680548092
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 208.72019680548092,
+              "std": 0.0,
+              "values": [
+                208.72019680548092
+              ]
+            },
+            "tg_throughput": {
+              "mean": 19.014703193826268,
+              "std": 0.0,
+              "values": [
+                19.014703193826268
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 19.014703193826268,
+              "std": 0.0,
+              "values": [
+                19.014703193826268
+              ]
+            },
+            "peak_throughput": {
+              "mean": 20.0,
+              "std": 0.0,
+              "values": [
+                20.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 20.0,
+              "std": 0.0,
+              "values": [
+                20.0
+              ]
+            },
+            "ttfr": {
+              "mean": 39306.21054198127,
+              "std": 0.0,
+              "values": [
+                39306.21054198127
+              ]
+            },
+            "est_ppt": {
+              "mean": 39306.21054198127,
+              "std": 0.0,
+              "values": [
+                39306.21054198127
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 39306.21054198127,
+              "std": 0.0,
+              "values": [
+                39306.21054198127
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "qwen",
+      "mode": "idle-peer",
+      "pp": 8192,
+      "rep": 1,
+      "prompt_tokens": 8204,
+      "output_tokens": 256,
+      "pp_tps": 1108.9533359727457,
+      "tg_tps": 35.01922641369066,
+      "ttft_s": 7.397966834018007,
+      "e2e_s": 14.68078088760376,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 09:44:59Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "halogen-qwen3.8-flash-next",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 8192,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 1108.9533359727457,
+              "std": 0.0,
+              "values": [
+                1108.9533359727457
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 1108.9533359727457,
+              "std": 0.0,
+              "values": [
+                1108.9533359727457
+              ]
+            },
+            "tg_throughput": {
+              "mean": 35.01922641369066,
+              "std": 0.0,
+              "values": [
+                35.01922641369066
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 35.01922641369066,
+              "std": 0.0,
+              "values": [
+                35.01922641369066
+              ]
+            },
+            "peak_throughput": {
+              "mean": 36.0,
+              "std": 0.0,
+              "values": [
+                36.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 36.0,
+              "std": 0.0,
+              "values": [
+                36.0
+              ]
+            },
+            "ttfr": {
+              "mean": 7397.966834018007,
+              "std": 0.0,
+              "values": [
+                7397.966834018007
+              ]
+            },
+            "est_ppt": {
+              "mean": 7397.966834018007,
+              "std": 0.0,
+              "values": [
+                7397.966834018007
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 7397.966834018007,
+              "std": 0.0,
+              "values": [
+                7397.966834018007
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "bonsai",
+      "mode": "idle-peer",
+      "pp": 8192,
+      "rep": 2,
+      "prompt_tokens": 8204,
+      "output_tokens": 256,
+      "pp_tps": 208.46391619995745,
+      "tg_tps": 19.011081559521,
+      "ttft_s": 39.35453266708646,
+      "e2e_s": 52.77017903327942,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 09:49:02Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "ternary-bonsai-2-27b",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 8192,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 208.46391619995745,
+              "std": 0.0,
+              "values": [
+                208.46391619995745
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 208.46391619995745,
+              "std": 0.0,
+              "values": [
+                208.46391619995745
+              ]
+            },
+            "tg_throughput": {
+              "mean": 19.011081559521,
+              "std": 0.0,
+              "values": [
+                19.011081559521
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 19.011081559521,
+              "std": 0.0,
+              "values": [
+                19.011081559521
+              ]
+            },
+            "peak_throughput": {
+              "mean": 20.0,
+              "std": 0.0,
+              "values": [
+                20.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 20.0,
+              "std": 0.0,
+              "values": [
+                20.0
+              ]
+            },
+            "ttfr": {
+              "mean": 39354.53266708646,
+              "std": 0.0,
+              "values": [
+                39354.53266708646
+              ]
+            },
+            "est_ppt": {
+              "mean": 39354.53266708646,
+              "std": 0.0,
+              "values": [
+                39354.53266708646
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 39354.53266708646,
+              "std": 0.0,
+              "values": [
+                39354.53266708646
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "qwen",
+      "mode": "idle-peer",
+      "pp": 8192,
+      "rep": 2,
+      "prompt_tokens": 8204,
+      "output_tokens": 256,
+      "pp_tps": 1110.7707712534557,
+      "tg_tps": 36.63962329031045,
+      "ttft_s": 7.385862333001569,
+      "e2e_s": 14.346599817276001,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 09:49:18Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "halogen-qwen3.8-flash-next",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 8192,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 1110.7707712534557,
+              "std": 0.0,
+              "values": [
+                1110.7707712534557
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 1110.7707712534557,
+              "std": 0.0,
+              "values": [
+                1110.7707712534557
+              ]
+            },
+            "tg_throughput": {
+              "mean": 36.63962329031045,
+              "std": 0.0,
+              "values": [
+                36.63962329031045
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 36.63962329031045,
+              "std": 0.0,
+              "values": [
+                36.63962329031045
+              ]
+            },
+            "peak_throughput": {
+              "mean": 37.0,
+              "std": 0.0,
+              "values": [
+                37.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 37.0,
+              "std": 0.0,
+              "values": [
+                37.0
+              ]
+            },
+            "ttfr": {
+              "mean": 7385.862333001569,
+              "std": 0.0,
+              "values": [
+                7385.862333001569
+              ]
+            },
+            "est_ppt": {
+              "mean": 7385.862333001569,
+              "std": 0.0,
+              "values": [
+                7385.862333001569
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 7385.862333001569,
+              "std": 0.0,
+              "values": [
+                7385.862333001569
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "bonsai",
+      "mode": "idle-peer",
+      "pp": 8192,
+      "rep": 3,
+      "prompt_tokens": 8203,
+      "output_tokens": 256,
+      "pp_tps": 208.24273226418268,
+      "tg_tps": 19.003059977071896,
+      "ttft_s": 39.391530791064724,
+      "e2e_s": 52.81158399581909,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 09:50:30Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "ternary-bonsai-2-27b",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 8192,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 208.24273226418268,
+              "std": 0.0,
+              "values": [
+                208.24273226418268
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 208.24273226418268,
+              "std": 0.0,
+              "values": [
+                208.24273226418268
+              ]
+            },
+            "tg_throughput": {
+              "mean": 19.003059977071896,
+              "std": 0.0,
+              "values": [
+                19.003059977071896
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 19.003059977071896,
+              "std": 0.0,
+              "values": [
+                19.003059977071896
+              ]
+            },
+            "peak_throughput": {
+              "mean": 20.0,
+              "std": 0.0,
+              "values": [
+                20.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 20.0,
+              "std": 0.0,
+              "values": [
+                20.0
+              ]
+            },
+            "ttfr": {
+              "mean": 39391.530791064724,
+              "std": 0.0,
+              "values": [
+                39391.530791064724
+              ]
+            },
+            "est_ppt": {
+              "mean": 39391.530791064724,
+              "std": 0.0,
+              "values": [
+                39391.530791064724
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 39391.530791064724,
+              "std": 0.0,
+              "values": [
+                39391.530791064724
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "qwen",
+      "mode": "idle-peer",
+      "pp": 8192,
+      "rep": 3,
+      "prompt_tokens": 8204,
+      "output_tokens": 256,
+      "pp_tps": 1112.624351199552,
+      "tg_tps": 35.541452955017235,
+      "ttft_s": 7.373557833023369,
+      "e2e_s": 14.54902195930481,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 09:49:35Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "halogen-qwen3.8-flash-next",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 8192,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 1112.624351199552,
+              "std": 0.0,
+              "values": [
+                1112.624351199552
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 1112.624351199552,
+              "std": 0.0,
+              "values": [
+                1112.624351199552
+              ]
+            },
+            "tg_throughput": {
+              "mean": 35.541452955017235,
+              "std": 0.0,
+              "values": [
+                35.541452955017235
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 35.541452955017235,
+              "std": 0.0,
+              "values": [
+                35.541452955017235
+              ]
+            },
+            "peak_throughput": {
+              "mean": 36.0,
+              "std": 0.0,
+              "values": [
+                36.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 36.0,
+              "std": 0.0,
+              "values": [
+                36.0
+              ]
+            },
+            "ttfr": {
+              "mean": 7373.557833023369,
+              "std": 0.0,
+              "values": [
+                7373.557833023369
+              ]
+            },
+            "est_ppt": {
+              "mean": 7373.557833023369,
+              "std": 0.0,
+              "values": [
+                7373.557833023369
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 7373.557833023369,
+              "std": 0.0,
+              "values": [
+                7373.557833023369
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "bonsai",
+      "mode": "simultaneous",
+      "pp": 2048,
+      "rep": 1,
+      "prompt_tokens": 2060,
+      "output_tokens": 256,
+      "pp_tps": 183.42561947756354,
+      "tg_tps": 14.311956948957828,
+      "ttft_s": 11.23071033298038,
+      "e2e_s": 29.051717042922974,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 09:42:32Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "ternary-bonsai-2-27b",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 2048,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 183.42561947756354,
+              "std": 0.0,
+              "values": [
+                183.42561947756354
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 183.42561947756354,
+              "std": 0.0,
+              "values": [
+                183.42561947756354
+              ]
+            },
+            "tg_throughput": {
+              "mean": 14.311956948957828,
+              "std": 0.0,
+              "values": [
+                14.311956948957828
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 14.311956948957828,
+              "std": 0.0,
+              "values": [
+                14.311956948957828
+              ]
+            },
+            "peak_throughput": {
+              "mean": 15.0,
+              "std": 0.0,
+              "values": [
+                15.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 15.0,
+              "std": 0.0,
+              "values": [
+                15.0
+              ]
+            },
+            "ttfr": {
+              "mean": 11230.71033298038,
+              "std": 0.0,
+              "values": [
+                11230.71033298038
+              ]
+            },
+            "est_ppt": {
+              "mean": 11230.71033298038,
+              "std": 0.0,
+              "values": [
+                11230.71033298038
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 11230.71033298038,
+              "std": 0.0,
+              "values": [
+                11230.71033298038
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "qwen",
+      "mode": "simultaneous",
+      "pp": 2048,
+      "rep": 1,
+      "prompt_tokens": 2060,
+      "output_tokens": 256,
+      "pp_tps": 151.92621234379496,
+      "tg_tps": 20.282073063246997,
+      "ttft_s": 13.559213832952082,
+      "e2e_s": 26.134922981262207,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 09:42:30Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "halogen-qwen3.8-flash-next",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 2048,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 151.92621234379496,
+              "std": 0.0,
+              "values": [
+                151.92621234379496
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 151.92621234379496,
+              "std": 0.0,
+              "values": [
+                151.92621234379496
+              ]
+            },
+            "tg_throughput": {
+              "mean": 20.282073063246997,
+              "std": 0.0,
+              "values": [
+                20.282073063246997
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 20.282073063246997,
+              "std": 0.0,
+              "values": [
+                20.282073063246997
+              ]
+            },
+            "peak_throughput": {
+              "mean": 21.0,
+              "std": 0.0,
+              "values": [
+                21.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 21.0,
+              "std": 0.0,
+              "values": [
+                21.0
+              ]
+            },
+            "ttfr": {
+              "mean": 13559.213832952082,
+              "std": 0.0,
+              "values": [
+                13559.213832952082
+              ]
+            },
+            "est_ppt": {
+              "mean": 13559.213832952082,
+              "std": 0.0,
+              "values": [
+                13559.213832952082
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 13559.213832952082,
+              "std": 0.0,
+              "values": [
+                13559.213832952082
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "bonsai",
+      "mode": "simultaneous",
+      "pp": 2048,
+      "rep": 2,
+      "prompt_tokens": 2060,
+      "output_tokens": 256,
+      "pp_tps": 182.36910727054254,
+      "tg_tps": 14.944900642673678,
+      "ttft_s": 11.295772791956551,
+      "e2e_s": 28.359347105026245,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 09:43:03Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "ternary-bonsai-2-27b",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 2048,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 182.36910727054254,
+              "std": 0.0,
+              "values": [
+                182.36910727054254
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 182.36910727054254,
+              "std": 0.0,
+              "values": [
+                182.36910727054254
+              ]
+            },
+            "tg_throughput": {
+              "mean": 14.944900642673678,
+              "std": 0.0,
+              "values": [
+                14.944900642673678
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 14.944900642673678,
+              "std": 0.0,
+              "values": [
+                14.944900642673678
+              ]
+            },
+            "peak_throughput": {
+              "mean": 15.0,
+              "std": 0.0,
+              "values": [
+                15.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 15.0,
+              "std": 0.0,
+              "values": [
+                15.0
+              ]
+            },
+            "ttfr": {
+              "mean": 11295.772791956551,
+              "std": 0.0,
+              "values": [
+                11295.772791956551
+              ]
+            },
+            "est_ppt": {
+              "mean": 11295.772791956551,
+              "std": 0.0,
+              "values": [
+                11295.772791956551
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 11295.772791956551,
+              "std": 0.0,
+              "values": [
+                11295.772791956551
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "qwen",
+      "mode": "simultaneous",
+      "pp": 2048,
+      "rep": 2,
+      "prompt_tokens": 2060,
+      "output_tokens": 256,
+      "pp_tps": 151.73764975747173,
+      "tg_tps": 18.032545615133657,
+      "ttft_s": 13.576063707936555,
+      "e2e_s": 27.7187180519104,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 09:43:02Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "halogen-qwen3.8-flash-next",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 2048,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 151.73764975747173,
+              "std": 0.0,
+              "values": [
+                151.73764975747173
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 151.73764975747173,
+              "std": 0.0,
+              "values": [
+                151.73764975747173
+              ]
+            },
+            "tg_throughput": {
+              "mean": 18.032545615133657,
+              "std": 0.0,
+              "values": [
+                18.032545615133657
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 18.032545615133657,
+              "std": 0.0,
+              "values": [
+                18.032545615133657
+              ]
+            },
+            "peak_throughput": {
+              "mean": 19.0,
+              "std": 0.0,
+              "values": [
+                19.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 19.0,
+              "std": 0.0,
+              "values": [
+                19.0
+              ]
+            },
+            "ttfr": {
+              "mean": 13576.063707936555,
+              "std": 0.0,
+              "values": [
+                13576.063707936555
+              ]
+            },
+            "est_ppt": {
+              "mean": 13576.063707936555,
+              "std": 0.0,
+              "values": [
+                13576.063707936555
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 13576.063707936555,
+              "std": 0.0,
+              "values": [
+                13576.063707936555
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "bonsai",
+      "mode": "simultaneous",
+      "pp": 2048,
+      "rep": 3,
+      "prompt_tokens": 2060,
+      "output_tokens": 256,
+      "pp_tps": 160.50505643127923,
+      "tg_tps": 16.552694513367467,
+      "ttft_s": 12.834486624924466,
+      "e2e_s": 28.240835905075073,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 09:44:42Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "ternary-bonsai-2-27b",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 2048,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 160.50505643127923,
+              "std": 0.0,
+              "values": [
+                160.50505643127923
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 160.50505643127923,
+              "std": 0.0,
+              "values": [
+                160.50505643127923
+              ]
+            },
+            "tg_throughput": {
+              "mean": 16.552694513367467,
+              "std": 0.0,
+              "values": [
+                16.552694513367467
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 16.552694513367467,
+              "std": 0.0,
+              "values": [
+                16.552694513367467
+              ]
+            },
+            "peak_throughput": {
+              "mean": 17.0,
+              "std": 0.0,
+              "values": [
+                17.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 17.0,
+              "std": 0.0,
+              "values": [
+                17.0
+              ]
+            },
+            "ttfr": {
+              "mean": 12834.486624924466,
+              "std": 0.0,
+              "values": [
+                12834.486624924466
+              ]
+            },
+            "est_ppt": {
+              "mean": 12834.486624924466,
+              "std": 0.0,
+              "values": [
+                12834.486624924466
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 12834.486624924466,
+              "std": 0.0,
+              "values": [
+                12834.486624924466
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "qwen",
+      "mode": "simultaneous",
+      "pp": 2048,
+      "rep": 3,
+      "prompt_tokens": 2062,
+      "output_tokens": 256,
+      "pp_tps": 199.84306537164252,
+      "tg_tps": 19.866486756906777,
+      "ttft_s": 10.318096333066933,
+      "e2e_s": 23.15537977218628,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 09:44:37Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "halogen-qwen3.8-flash-next",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 2048,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 199.84306537164252,
+              "std": 0.0,
+              "values": [
+                199.84306537164252
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 199.84306537164252,
+              "std": 0.0,
+              "values": [
+                199.84306537164252
+              ]
+            },
+            "tg_throughput": {
+              "mean": 19.866486756906777,
+              "std": 0.0,
+              "values": [
+                19.866486756906777
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 19.866486756906777,
+              "std": 0.0,
+              "values": [
+                19.866486756906777
+              ]
+            },
+            "peak_throughput": {
+              "mean": 20.0,
+              "std": 0.0,
+              "values": [
+                20.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 20.0,
+              "std": 0.0,
+              "values": [
+                20.0
+              ]
+            },
+            "ttfr": {
+              "mean": 10318.096333066933,
+              "std": 0.0,
+              "values": [
+                10318.096333066933
+              ]
+            },
+            "est_ppt": {
+              "mean": 10318.096333066933,
+              "std": 0.0,
+              "values": [
+                10318.096333066933
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 10318.096333066933,
+              "std": 0.0,
+              "values": [
+                10318.096333066933
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "bonsai",
+      "mode": "simultaneous",
+      "pp": 32768,
+      "rep": 1,
+      "prompt_tokens": 32780,
+      "output_tokens": 256,
+      "pp_tps": 152.34173385289446,
+      "tg_tps": 12.583531983493435,
+      "ttft_s": 215.1741297079716,
+      "e2e_s": 235.44191598892212,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 09:59:39Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "ternary-bonsai-2-27b",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 32768,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 152.34173385289446,
+              "std": 0.0,
+              "values": [
+                152.34173385289446
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 152.34173385289446,
+              "std": 0.0,
+              "values": [
+                152.34173385289446
+              ]
+            },
+            "tg_throughput": {
+              "mean": 12.583531983493435,
+              "std": 0.0,
+              "values": [
+                12.583531983493435
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 12.583531983493435,
+              "std": 0.0,
+              "values": [
+                12.583531983493435
+              ]
+            },
+            "peak_throughput": {
+              "mean": 13.0,
+              "std": 0.0,
+              "values": [
+                13.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 13.0,
+              "std": 0.0,
+              "values": [
+                13.0
+              ]
+            },
+            "ttfr": {
+              "mean": 215174.1297079716,
+              "std": 0.0,
+              "values": [
+                215174.1297079716
+              ]
+            },
+            "est_ppt": {
+              "mean": 215174.1297079716,
+              "std": 0.0,
+              "values": [
+                215174.1297079716
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 215174.1297079716,
+              "std": 0.0,
+              "values": [
+                215174.1297079716
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "qwen",
+      "mode": "simultaneous",
+      "pp": 32768,
+      "rep": 1,
+      "prompt_tokens": 32779,
+      "output_tokens": 256,
+      "pp_tps": 247.35933566062147,
+      "tg_tps": 7.328322899821597,
+      "ttft_s": 132.5157181250397,
+      "e2e_s": 167.3135769367218,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 09:58:31Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "halogen-qwen3.8-flash-next",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 32768,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 247.35933566062147,
+              "std": 0.0,
+              "values": [
+                247.35933566062147
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 247.35933566062147,
+              "std": 0.0,
+              "values": [
+                247.35933566062147
+              ]
+            },
+            "tg_throughput": {
+              "mean": 7.328322899821597,
+              "std": 0.0,
+              "values": [
+                7.328322899821597
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 7.328322899821597,
+              "std": 0.0,
+              "values": [
+                7.328322899821597
+              ]
+            },
+            "peak_throughput": {
+              "mean": 8.0,
+              "std": 0.0,
+              "values": [
+                8.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 8.0,
+              "std": 0.0,
+              "values": [
+                8.0
+              ]
+            },
+            "ttfr": {
+              "mean": 132515.7181250397,
+              "std": 0.0,
+              "values": [
+                132515.7181250397
+              ]
+            },
+            "est_ppt": {
+              "mean": 132515.7181250397,
+              "std": 0.0,
+              "values": [
+                132515.7181250397
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 132515.7181250397,
+              "std": 0.0,
+              "values": [
+                132515.7181250397
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "bonsai",
+      "mode": "simultaneous",
+      "pp": 32768,
+      "rep": 2,
+      "prompt_tokens": 32780,
+      "output_tokens": 256,
+      "pp_tps": 151.9612594210515,
+      "tg_tps": 12.59554925508093,
+      "ttft_s": 215.7128739580512,
+      "e2e_s": 235.9616150856018,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 10:03:37Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "ternary-bonsai-2-27b",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 32768,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 151.9612594210515,
+              "std": 0.0,
+              "values": [
+                151.9612594210515
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 151.9612594210515,
+              "std": 0.0,
+              "values": [
+                151.9612594210515
+              ]
+            },
+            "tg_throughput": {
+              "mean": 12.59554925508093,
+              "std": 0.0,
+              "values": [
+                12.59554925508093
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 12.59554925508093,
+              "std": 0.0,
+              "values": [
+                12.59554925508093
+              ]
+            },
+            "peak_throughput": {
+              "mean": 13.0,
+              "std": 0.0,
+              "values": [
+                13.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 13.0,
+              "std": 0.0,
+              "values": [
+                13.0
+              ]
+            },
+            "ttfr": {
+              "mean": 215712.8739580512,
+              "std": 0.0,
+              "values": [
+                215712.8739580512
+              ]
+            },
+            "est_ppt": {
+              "mean": 215712.8739580512,
+              "std": 0.0,
+              "values": [
+                215712.8739580512
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 215712.8739580512,
+              "std": 0.0,
+              "values": [
+                215712.8739580512
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "qwen",
+      "mode": "simultaneous",
+      "pp": 32768,
+      "rep": 2,
+      "prompt_tokens": 32780,
+      "output_tokens": 256,
+      "pp_tps": 247.39843619668721,
+      "tg_tps": 6.642760449931852,
+      "ttft_s": 132.49881649995223,
+      "e2e_s": 170.89095997810364,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 10:02:31Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "halogen-qwen3.8-flash-next",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 32768,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 247.39843619668721,
+              "std": 0.0,
+              "values": [
+                247.39843619668721
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 247.39843619668721,
+              "std": 0.0,
+              "values": [
+                247.39843619668721
+              ]
+            },
+            "tg_throughput": {
+              "mean": 6.642760449931852,
+              "std": 0.0,
+              "values": [
+                6.642760449931852
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 6.642760449931852,
+              "std": 0.0,
+              "values": [
+                6.642760449931852
+              ]
+            },
+            "peak_throughput": {
+              "mean": 7.0,
+              "std": 0.0,
+              "values": [
+                7.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 7.0,
+              "std": 0.0,
+              "values": [
+                7.0
+              ]
+            },
+            "ttfr": {
+              "mean": 132498.81649995223,
+              "std": 0.0,
+              "values": [
+                132498.81649995223
+              ]
+            },
+            "est_ppt": {
+              "mean": 132498.81649995223,
+              "std": 0.0,
+              "values": [
+                132498.81649995223
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 132498.81649995223,
+              "std": 0.0,
+              "values": [
+                132498.81649995223
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "bonsai",
+      "mode": "simultaneous",
+      "pp": 32768,
+      "rep": 3,
+      "prompt_tokens": 32780,
+      "output_tokens": 256,
+      "pp_tps": 152.06985463308848,
+      "tg_tps": 12.589857226271373,
+      "ttft_s": 215.55883037496824,
+      "e2e_s": 235.81831574440002,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 10:15:40Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "ternary-bonsai-2-27b",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 32768,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 152.06985463308848,
+              "std": 0.0,
+              "values": [
+                152.06985463308848
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 152.06985463308848,
+              "std": 0.0,
+              "values": [
+                152.06985463308848
+              ]
+            },
+            "tg_throughput": {
+              "mean": 12.589857226271373,
+              "std": 0.0,
+              "values": [
+                12.589857226271373
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 12.589857226271373,
+              "std": 0.0,
+              "values": [
+                12.589857226271373
+              ]
+            },
+            "peak_throughput": {
+              "mean": 13.0,
+              "std": 0.0,
+              "values": [
+                13.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 13.0,
+              "std": 0.0,
+              "values": [
+                13.0
+              ]
+            },
+            "ttfr": {
+              "mean": 215558.83037496824,
+              "std": 0.0,
+              "values": [
+                215558.83037496824
+              ]
+            },
+            "est_ppt": {
+              "mean": 215558.83037496824,
+              "std": 0.0,
+              "values": [
+                215558.83037496824
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 215558.83037496824,
+              "std": 0.0,
+              "values": [
+                215558.83037496824
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "qwen",
+      "mode": "simultaneous",
+      "pp": 32768,
+      "rep": 3,
+      "prompt_tokens": 32780,
+      "output_tokens": 256,
+      "pp_tps": 246.3941568769302,
+      "tg_tps": 7.005861110270789,
+      "ttft_s": 133.03886916593183,
+      "e2e_s": 169.43894481658936,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 10:14:34Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "halogen-qwen3.8-flash-next",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 32768,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 246.3941568769302,
+              "std": 0.0,
+              "values": [
+                246.3941568769302
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 246.3941568769302,
+              "std": 0.0,
+              "values": [
+                246.3941568769302
+              ]
+            },
+            "tg_throughput": {
+              "mean": 7.005861110270789,
+              "std": 0.0,
+              "values": [
+                7.005861110270789
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 7.005861110270789,
+              "std": 0.0,
+              "values": [
+                7.005861110270789
+              ]
+            },
+            "peak_throughput": {
+              "mean": 8.0,
+              "std": 0.0,
+              "values": [
+                8.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 8.0,
+              "std": 0.0,
+              "values": [
+                8.0
+              ]
+            },
+            "ttfr": {
+              "mean": 133038.86916593183,
+              "std": 0.0,
+              "values": [
+                133038.86916593183
+              ]
+            },
+            "est_ppt": {
+              "mean": 133038.86916593183,
+              "std": 0.0,
+              "values": [
+                133038.86916593183
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 133038.86916593183,
+              "std": 0.0,
+              "values": [
+                133038.86916593183
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "bonsai",
+      "mode": "simultaneous",
+      "pp": 512,
+      "rep": 1,
+      "prompt_tokens": 523,
+      "output_tokens": 256,
+      "pp_tps": 169.25977398058424,
+      "tg_tps": 15.737143054999484,
+      "ttft_s": 3.089924957952462,
+      "e2e_s": 19.294834852218628,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 09:39:53Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "ternary-bonsai-2-27b",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 512,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 169.25977398058424,
+              "std": 0.0,
+              "values": [
+                169.25977398058424
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 169.25977398058424,
+              "std": 0.0,
+              "values": [
+                169.25977398058424
+              ]
+            },
+            "tg_throughput": {
+              "mean": 15.737143054999484,
+              "std": 0.0,
+              "values": [
+                15.737143054999484
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 15.737143054999484,
+              "std": 0.0,
+              "values": [
+                15.737143054999484
+              ]
+            },
+            "peak_throughput": {
+              "mean": 16.0,
+              "std": 0.0,
+              "values": [
+                16.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 16.0,
+              "std": 0.0,
+              "values": [
+                16.0
+              ]
+            },
+            "ttfr": {
+              "mean": 3089.924957952462,
+              "std": 0.0,
+              "values": [
+                3089.924957952462
+              ]
+            },
+            "est_ppt": {
+              "mean": 3089.924957952462,
+              "std": 0.0,
+              "values": [
+                3089.924957952462
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 3089.924957952462,
+              "std": 0.0,
+              "values": [
+                3089.924957952462
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "qwen",
+      "mode": "simultaneous",
+      "pp": 512,
+      "rep": 1,
+      "prompt_tokens": 524,
+      "output_tokens": 256,
+      "pp_tps": 109.068499335347,
+      "tg_tps": 18.648323898498056,
+      "ttft_s": 4.804320250055753,
+      "e2e_s": 18.479960918426514,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 09:39:52Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "halogen-qwen3.8-flash-next",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 512,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 109.068499335347,
+              "std": 0.0,
+              "values": [
+                109.068499335347
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 109.068499335347,
+              "std": 0.0,
+              "values": [
+                109.068499335347
+              ]
+            },
+            "tg_throughput": {
+              "mean": 18.648323898498056,
+              "std": 0.0,
+              "values": [
+                18.648323898498056
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 18.648323898498056,
+              "std": 0.0,
+              "values": [
+                18.648323898498056
+              ]
+            },
+            "peak_throughput": {
+              "mean": 19.0,
+              "std": 0.0,
+              "values": [
+                19.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 19.0,
+              "std": 0.0,
+              "values": [
+                19.0
+              ]
+            },
+            "ttfr": {
+              "mean": 4804.320250055753,
+              "std": 0.0,
+              "values": [
+                4804.320250055753
+              ]
+            },
+            "est_ppt": {
+              "mean": 4804.320250055753,
+              "std": 0.0,
+              "values": [
+                4804.320250055753
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 4804.320250055753,
+              "std": 0.0,
+              "values": [
+                4804.320250055753
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "bonsai",
+      "mode": "simultaneous",
+      "pp": 512,
+      "rep": 2,
+      "prompt_tokens": 525,
+      "output_tokens": 256,
+      "pp_tps": 153.38512947649681,
+      "tg_tps": 16.569779887588894,
+      "ttft_s": 3.422756833024323,
+      "e2e_s": 18.81313180923462,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 09:40:13Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "ternary-bonsai-2-27b",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 512,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 153.38512947649681,
+              "std": 0.0,
+              "values": [
+                153.38512947649681
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 153.38512947649681,
+              "std": 0.0,
+              "values": [
+                153.38512947649681
+              ]
+            },
+            "tg_throughput": {
+              "mean": 16.569779887588894,
+              "std": 0.0,
+              "values": [
+                16.569779887588894
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 16.569779887588894,
+              "std": 0.0,
+              "values": [
+                16.569779887588894
+              ]
+            },
+            "peak_throughput": {
+              "mean": 17.0,
+              "std": 0.0,
+              "values": [
+                17.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 17.0,
+              "std": 0.0,
+              "values": [
+                17.0
+              ]
+            },
+            "ttfr": {
+              "mean": 3422.756833024323,
+              "std": 0.0,
+              "values": [
+                3422.756833024323
+              ]
+            },
+            "est_ppt": {
+              "mean": 3422.756833024323,
+              "std": 0.0,
+              "values": [
+                3422.756833024323
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 3422.756833024323,
+              "std": 0.0,
+              "values": [
+                3422.756833024323
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "qwen",
+      "mode": "simultaneous",
+      "pp": 512,
+      "rep": 2,
+      "prompt_tokens": 524,
+      "output_tokens": 256,
+      "pp_tps": 108.27827815748945,
+      "tg_tps": 22.817184620069693,
+      "ttft_s": 4.839382458943874,
+      "e2e_s": 16.016000032424927,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 09:40:11Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "halogen-qwen3.8-flash-next",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 512,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 108.27827815748945,
+              "std": 0.0,
+              "values": [
+                108.27827815748945
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 108.27827815748945,
+              "std": 0.0,
+              "values": [
+                108.27827815748945
+              ]
+            },
+            "tg_throughput": {
+              "mean": 22.817184620069693,
+              "std": 0.0,
+              "values": [
+                22.817184620069693
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 22.817184620069693,
+              "std": 0.0,
+              "values": [
+                22.817184620069693
+              ]
+            },
+            "peak_throughput": {
+              "mean": 23.0,
+              "std": 0.0,
+              "values": [
+                23.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 23.0,
+              "std": 0.0,
+              "values": [
+                23.0
+              ]
+            },
+            "ttfr": {
+              "mean": 4839.382458943874,
+              "std": 0.0,
+              "values": [
+                4839.382458943874
+              ]
+            },
+            "est_ppt": {
+              "mean": 4839.382458943874,
+              "std": 0.0,
+              "values": [
+                4839.382458943874
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 4839.382458943874,
+              "std": 0.0,
+              "values": [
+                4839.382458943874
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "bonsai",
+      "mode": "simultaneous",
+      "pp": 512,
+      "rep": 3,
+      "prompt_tokens": 523,
+      "output_tokens": 256,
+      "pp_tps": 168.85239401677333,
+      "tg_tps": 16.143645354189214,
+      "ttft_s": 3.097379833110608,
+      "e2e_s": 18.894152879714966,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 09:41:26Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "ternary-bonsai-2-27b",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 512,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 168.85239401677333,
+              "std": 0.0,
+              "values": [
+                168.85239401677333
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 168.85239401677333,
+              "std": 0.0,
+              "values": [
+                168.85239401677333
+              ]
+            },
+            "tg_throughput": {
+              "mean": 16.143645354189214,
+              "std": 0.0,
+              "values": [
+                16.143645354189214
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 16.143645354189214,
+              "std": 0.0,
+              "values": [
+                16.143645354189214
+              ]
+            },
+            "peak_throughput": {
+              "mean": 17.0,
+              "std": 0.0,
+              "values": [
+                17.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 17.0,
+              "std": 0.0,
+              "values": [
+                17.0
+              ]
+            },
+            "ttfr": {
+              "mean": 3097.379833110608,
+              "std": 0.0,
+              "values": [
+                3097.379833110608
+              ]
+            },
+            "est_ppt": {
+              "mean": 3097.379833110608,
+              "std": 0.0,
+              "values": [
+                3097.379833110608
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 3097.379833110608,
+              "std": 0.0,
+              "values": [
+                3097.379833110608
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "qwen",
+      "mode": "simultaneous",
+      "pp": 512,
+      "rep": 3,
+      "prompt_tokens": 524,
+      "output_tokens": 256,
+      "pp_tps": 111.44692591413472,
+      "tg_tps": 20.682036450549443,
+      "ttft_s": 4.701789624989033,
+      "e2e_s": 17.032835006713867,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 09:41:24Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "halogen-qwen3.8-flash-next",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 512,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 111.44692591413472,
+              "std": 0.0,
+              "values": [
+                111.44692591413472
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 111.44692591413472,
+              "std": 0.0,
+              "values": [
+                111.44692591413472
+              ]
+            },
+            "tg_throughput": {
+              "mean": 20.682036450549443,
+              "std": 0.0,
+              "values": [
+                20.682036450549443
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 20.682036450549443,
+              "std": 0.0,
+              "values": [
+                20.682036450549443
+              ]
+            },
+            "peak_throughput": {
+              "mean": 21.0,
+              "std": 0.0,
+              "values": [
+                21.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 21.0,
+              "std": 0.0,
+              "values": [
+                21.0
+              ]
+            },
+            "ttfr": {
+              "mean": 4701.789624989033,
+              "std": 0.0,
+              "values": [
+                4701.789624989033
+              ]
+            },
+            "est_ppt": {
+              "mean": 4701.789624989033,
+              "std": 0.0,
+              "values": [
+                4701.789624989033
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 4701.789624989033,
+              "std": 0.0,
+              "values": [
+                4701.789624989033
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "bonsai",
+      "mode": "simultaneous",
+      "pp": 8192,
+      "rep": 1,
+      "prompt_tokens": 8204,
+      "output_tokens": 256,
+      "pp_tps": 160.2671361194655,
+      "tg_tps": 19.014310272391274,
+      "ttft_s": 51.18953391595278,
+      "e2e_s": 64.60228300094604,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 09:47:01Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "ternary-bonsai-2-27b",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 8192,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 160.2671361194655,
+              "std": 0.0,
+              "values": [
+                160.2671361194655
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 160.2671361194655,
+              "std": 0.0,
+              "values": [
+                160.2671361194655
+              ]
+            },
+            "tg_throughput": {
+              "mean": 19.014310272391274,
+              "std": 0.0,
+              "values": [
+                19.014310272391274
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 19.014310272391274,
+              "std": 0.0,
+              "values": [
+                19.014310272391274
+              ]
+            },
+            "peak_throughput": {
+              "mean": 20.0,
+              "std": 0.0,
+              "values": [
+                20.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 20.0,
+              "std": 0.0,
+              "values": [
+                20.0
+              ]
+            },
+            "ttfr": {
+              "mean": 51189.53391595278,
+              "std": 0.0,
+              "values": [
+                51189.53391595278
+              ]
+            },
+            "est_ppt": {
+              "mean": 51189.53391595278,
+              "std": 0.0,
+              "values": [
+                51189.53391595278
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 51189.53391595278,
+              "std": 0.0,
+              "values": [
+                51189.53391595278
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "qwen",
+      "mode": "simultaneous",
+      "pp": 8192,
+      "rep": 1,
+      "prompt_tokens": 8204,
+      "output_tokens": 256,
+      "pp_tps": 340.9040389798646,
+      "tg_tps": 17.07814165427838,
+      "ttft_s": 24.065423291991465,
+      "e2e_s": 38.9999840259552,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 09:46:35Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "halogen-qwen3.8-flash-next",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 8192,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 340.9040389798646,
+              "std": 0.0,
+              "values": [
+                340.9040389798646
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 340.9040389798646,
+              "std": 0.0,
+              "values": [
+                340.9040389798646
+              ]
+            },
+            "tg_throughput": {
+              "mean": 17.07814165427838,
+              "std": 0.0,
+              "values": [
+                17.07814165427838
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 17.07814165427838,
+              "std": 0.0,
+              "values": [
+                17.07814165427838
+              ]
+            },
+            "peak_throughput": {
+              "mean": 18.0,
+              "std": 0.0,
+              "values": [
+                18.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 18.0,
+              "std": 0.0,
+              "values": [
+                18.0
+              ]
+            },
+            "ttfr": {
+              "mean": 24065.423291991465,
+              "std": 0.0,
+              "values": [
+                24065.423291991465
+              ]
+            },
+            "est_ppt": {
+              "mean": 24065.423291991465,
+              "std": 0.0,
+              "values": [
+                24065.423291991465
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 24065.423291991465,
+              "std": 0.0,
+              "values": [
+                24065.423291991465
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "bonsai",
+      "mode": "simultaneous",
+      "pp": 8192,
+      "rep": 2,
+      "prompt_tokens": 8205,
+      "output_tokens": 256,
+      "pp_tps": 159.61805652368565,
+      "tg_tps": 19.02768072741328,
+      "ttft_s": 51.403958791983314,
+      "e2e_s": 64.80756306648254,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 09:48:07Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "ternary-bonsai-2-27b",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 8192,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 159.61805652368565,
+              "std": 0.0,
+              "values": [
+                159.61805652368565
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 159.61805652368565,
+              "std": 0.0,
+              "values": [
+                159.61805652368565
+              ]
+            },
+            "tg_throughput": {
+              "mean": 19.02768072741328,
+              "std": 0.0,
+              "values": [
+                19.02768072741328
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 19.02768072741328,
+              "std": 0.0,
+              "values": [
+                19.02768072741328
+              ]
+            },
+            "peak_throughput": {
+              "mean": 20.0,
+              "std": 0.0,
+              "values": [
+                20.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 20.0,
+              "std": 0.0,
+              "values": [
+                20.0
+              ]
+            },
+            "ttfr": {
+              "mean": 51403.958791983314,
+              "std": 0.0,
+              "values": [
+                51403.958791983314
+              ]
+            },
+            "est_ppt": {
+              "mean": 51403.958791983314,
+              "std": 0.0,
+              "values": [
+                51403.958791983314
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 51403.958791983314,
+              "std": 0.0,
+              "values": [
+                51403.958791983314
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "qwen",
+      "mode": "simultaneous",
+      "pp": 8192,
+      "rep": 2,
+      "prompt_tokens": 8205,
+      "output_tokens": 256,
+      "pp_tps": 344.2020641048489,
+      "tg_tps": 17.31969623874156,
+      "ttft_s": 23.837742000003345,
+      "e2e_s": 38.56239891052246,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 09:47:41Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "halogen-qwen3.8-flash-next",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 8192,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 344.2020641048489,
+              "std": 0.0,
+              "values": [
+                344.2020641048489
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 344.2020641048489,
+              "std": 0.0,
+              "values": [
+                344.2020641048489
+              ]
+            },
+            "tg_throughput": {
+              "mean": 17.31969623874156,
+              "std": 0.0,
+              "values": [
+                17.31969623874156
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 17.31969623874156,
+              "std": 0.0,
+              "values": [
+                17.31969623874156
+              ]
+            },
+            "peak_throughput": {
+              "mean": 18.0,
+              "std": 0.0,
+              "values": [
+                18.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 18.0,
+              "std": 0.0,
+              "values": [
+                18.0
+              ]
+            },
+            "ttfr": {
+              "mean": 23837.742000003345,
+              "std": 0.0,
+              "values": [
+                23837.742000003345
+              ]
+            },
+            "est_ppt": {
+              "mean": 23837.742000003345,
+              "std": 0.0,
+              "values": [
+                23837.742000003345
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 23837.742000003345,
+              "std": 0.0,
+              "values": [
+                23837.742000003345
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "bonsai",
+      "mode": "simultaneous",
+      "pp": 8192,
+      "rep": 3,
+      "prompt_tokens": 8204,
+      "output_tokens": 256,
+      "pp_tps": 159.9329155108795,
+      "tg_tps": 19.00344706328441,
+      "ttft_s": 51.29650749999564,
+      "e2e_s": 64.7173261642456,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 09:51:36Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "ternary-bonsai-2-27b",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 8192,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 159.9329155108795,
+              "std": 0.0,
+              "values": [
+                159.9329155108795
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 159.9329155108795,
+              "std": 0.0,
+              "values": [
+                159.9329155108795
+              ]
+            },
+            "tg_throughput": {
+              "mean": 19.00344706328441,
+              "std": 0.0,
+              "values": [
+                19.00344706328441
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 19.00344706328441,
+              "std": 0.0,
+              "values": [
+                19.00344706328441
+              ]
+            },
+            "peak_throughput": {
+              "mean": 20.0,
+              "std": 0.0,
+              "values": [
+                20.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 20.0,
+              "std": 0.0,
+              "values": [
+                20.0
+              ]
+            },
+            "ttfr": {
+              "mean": 51296.50749999564,
+              "std": 0.0,
+              "values": [
+                51296.50749999564
+              ]
+            },
+            "est_ppt": {
+              "mean": 51296.50749999564,
+              "std": 0.0,
+              "values": [
+                51296.50749999564
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 51296.50749999564,
+              "std": 0.0,
+              "values": [
+                51296.50749999564
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "qwen",
+      "mode": "simultaneous",
+      "pp": 8192,
+      "rep": 3,
+      "prompt_tokens": 8204,
+      "output_tokens": 256,
+      "pp_tps": 344.47647380161885,
+      "tg_tps": 16.97372095483428,
+      "ttft_s": 23.815849917009473,
+      "e2e_s": 38.841508865356445,
+      "llama_benchy_report": {
+        "version": "0.4.0",
+        "timestamp": "2026-09-19 09:51:10Z",
+        "latency_mode": "none",
+        "latency_ms": 0.0,
+        "model": "halogen-qwen3.8-flash-next",
+        "prefix_caching_enabled": false,
+        "max_concurrency": 1,
+        "benchmarks": [
+          {
+            "concurrency": 1,
+            "context_size": 0,
+            "prompt_size": 8192,
+            "response_size": 256,
+            "is_context_prefill_phase": false,
+            "pp_throughput": {
+              "mean": 344.47647380161885,
+              "std": 0.0,
+              "values": [
+                344.47647380161885
+              ]
+            },
+            "pp_req_throughput": {
+              "mean": 344.47647380161885,
+              "std": 0.0,
+              "values": [
+                344.47647380161885
+              ]
+            },
+            "tg_throughput": {
+              "mean": 16.97372095483428,
+              "std": 0.0,
+              "values": [
+                16.97372095483428
+              ]
+            },
+            "tg_req_throughput": {
+              "mean": 16.97372095483428,
+              "std": 0.0,
+              "values": [
+                16.97372095483428
+              ]
+            },
+            "peak_throughput": {
+              "mean": 17.0,
+              "std": 0.0,
+              "values": [
+                17.0
+              ]
+            },
+            "peak_req_throughput": {
+              "mean": 17.0,
+              "std": 0.0,
+              "values": [
+                17.0
+              ]
+            },
+            "ttfr": {
+              "mean": 23815.849917009473,
+              "std": 0.0,
+              "values": [
+                23815.849917009473
+              ]
+            },
+            "est_ppt": {
+              "mean": 23815.849917009473,
+              "std": 0.0,
+              "values": [
+                23815.849917009473
+              ]
+            },
+            "e2e_ttft": {
+              "mean": 23815.849917009473,
+              "std": 0.0,
+              "values": [
+                23815.849917009473
+              ]
+            },
+            "throughput_over_time": null,
+            "requests_throughput_over_time": null
+          }
+        ]
+      }
+    }
+  ],
+  "artifacts": {
+    "tokenizer.json": {
+      "sha256": "0997f410c57a1f4e53b09e4be8f4a172d90edd9564368fb0847030937229b9f3"
+    }
+  }
+}
