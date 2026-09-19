@@ -1,0 +1,2924 @@
+{
+  "schema_version": 1,
+  "measured_date": "2026-09-19",
+  "hardware": "Ryzen AI MAX+ 395 / Radeon 8060S, 128 GB unified memory",
+  "method": {
+    "fixed": {
+      "input_tokens": 512,
+      "output_tokens": 256,
+      "runs": 3,
+      "prompt": "Write a complete Python module implementing a thread-safe token-bucket rate limiter. Use a monotonic clock and per-key buckets, with an LRU capacity of 10000 keys. Provide a decorator interface and a context-manager interface. Include full type hints, validation of invalid capacity/refill values, bucket cleanup, and nonblocking and blocking acquire methods. Do not include comments, docstrings, Markdown fences, or explanations: output executable Python code only. Include the implementation of all classes and methods, not stubs. Output only Python code. This is a substantial module, so continue until the implementation is complete."
+    },
+    "quality_tasks": [
+      {
+        "name": "balanced",
+        "prompt": "Write a Python function is_balanced(s) that returns True if brackets ()[]{} in s are balanced. Output ONLY the code, no explanation.",
+        "test": "assert is_balanced('([]{})'); assert not is_balanced('(]'); assert is_balanced(''); assert not is_balanced('((('); assert is_balanced('a(b)c[d]')"
+      },
+      {
+        "name": "lru",
+        "prompt": "Write a Python class LRU(capacity) with get(k) and put(k,v) methods, evicting the least-recently-used key when over capacity. get returns -1 when missing and counts as use. Output ONLY the code.",
+        "test": "c=LRU(2); c.put(1,1); c.put(2,2); assert c.get(1)==1; c.put(3,3); assert c.get(2)==-1; assert c.get(3)==3; assert c.get(1)==1"
+      },
+      {
+        "name": "topo",
+        "prompt": "Write a Python function topo(n, edges) returning any valid topological order of nodes 0..n-1 for the DAG given by edge pairs (u,v) meaning u before v, or [] if cyclic. Output ONLY the code.",
+        "test": "o=topo(4,[(0,1),(1,2),(0,2),(2,3)]); assert o.index(0)<o.index(1)<o.index(2)<o.index(3); assert topo(2,[(0,1),(1,0)])==[]"
+      }
+    ],
+    "qwen_drafter": "mtp",
+    "bonsai_profile": "current Prism HIP profile without speculative decoding",
+    "temperature": 0,
+    "thinking": false,
+    "latency_mode": "none",
+    "both_models_resident": true,
+    "measurement": "Stock llama-benchy 0.4.0 token accounting and metric calculations; SSE collector also retains engine draft timings.",
+    "fixed_preamble": "A fresh benchmark identifier followed by the module request and neutral project notes pads the user content to exactly 512 tokenizer tokens.",
+    "code_prefix_only": true,
+    "quality_output_limit": 1200,
+    "calibration_excluded": "The initial module prompt requested docstrings and generated a documentation-heavy prefix; that calibration set was excluded before the final code-only benchmark.",
+    "comparison_limit": "One code prompt, three repetitions per condition, compared with three random prose excerpts per condition. No serial-versus-MTP control and no long-context coding test."
+  },
+  "summary": [
+    {
+      "name": "qwen",
+      "mode": "idle-peer",
+      "n": 3,
+      "decode_mean": 50.974291005914516,
+      "decode_sd": 1.2011106955443143,
+      "ttft_mean": 1.456678513631535,
+      "wall_mean": 6.462689652689733,
+      "draft_proposed": 469,
+      "draft_accepted": 375
+    },
+    {
+      "name": "qwen",
+      "mode": "simultaneous",
+      "n": 3,
+      "decode_mean": 26.57442273846899,
+      "decode_sd": 0.8461715763185313,
+      "ttft_mean": 5.806832569340865,
+      "wall_mean": 15.413613069336861,
+      "draft_proposed": 465,
+      "draft_accepted": 380
+    },
+    {
+      "name": "bonsai",
+      "mode": "idle-peer",
+      "n": 3,
+      "decode_mean": 22.249912367925663,
+      "decode_sd": 0.01322625657045335,
+      "ttft_mean": 2.4393521670329696,
+      "wall_mean": 13.90051284735091,
+      "draft_proposed": null,
+      "draft_accepted": null
+    },
+    {
+      "name": "bonsai",
+      "mode": "simultaneous",
+      "n": 3,
+      "decode_mean": 15.979525963630657,
+      "decode_sd": 0.5000520668316654,
+      "ttft_mean": 2.8921302357145273,
+      "wall_mean": 18.8659405830161,
+      "draft_proposed": null,
+      "draft_accepted": null
+    }
+  ],
+  "prose_512_reference": [
+    {
+      "pp": 512,
+      "name": "qwen",
+      "idle-peer": {
+        "n": 3,
+        "pp_tps": {
+          "mean": 370.135131045819,
+          "sd": 4.162292370438798,
+          "min": 364.63590709069985,
+          "max": 374.7029615427272
+        },
+        "tg_tps": {
+          "mean": 43.14273861103798,
+          "sd": 6.8462082477411865,
+          "min": 36.98415220792768,
+          "max": 52.69193994128614
+        },
+        "ttft_s": {
+          "mean": 1.4158788890345022,
+          "sd": 0.015981526523012487,
+          "min": 1.398441042052582,
+          "max": 1.4370499169453979
+        },
+        "e2e_s": {
+          "mean": 7.4669937292734785,
+          "sd": 0.8773255384941672,
+          "min": 6.252848148345947,
+          "max": 8.295285940170288
+        }
+      },
+      "simultaneous": {
+        "n": 3,
+        "pp_tps": {
+          "mean": 109.59790113565705,
+          "sd": 1.3466704251726245,
+          "min": 108.27827815748945,
+          "max": 111.44692591413472
+        },
+        "tg_tps": {
+          "mean": 20.715848323039065,
+          "sd": 1.702098187729219,
+          "min": 18.648323898498056,
+          "max": 22.817184620069693
+        },
+        "ttft_s": {
+          "mean": 4.78183077799622,
+          "sd": 0.05837967256998787,
+          "min": 4.701789624989033,
+          "max": 4.839382458943874
+        },
+        "e2e_s": {
+          "mean": 17.176265319188435,
+          "sd": 1.0110077490104763,
+          "min": 16.016000032424927,
+          "max": 18.479960918426514
+        }
+      }
+    },
+    {
+      "pp": 512,
+      "name": "bonsai",
+      "idle-peer": {
+        "n": 3,
+        "pp_tps": {
+          "mean": 216.16283550678895,
+          "sd": 1.6348082992788635,
+          "min": 213.88479691178878,
+          "max": 217.6436184402333
+        },
+        "tg_tps": {
+          "mean": 22.269409180460915,
+          "sd": 0.021612308010378285,
+          "min": 22.2423850168897,
+          "max": 22.29528688894962
+        },
+        "ttft_s": {
+          "mean": 2.4227014026449374,
+          "sd": 0.019282645682304585,
+          "min": 2.4076056249905378,
+          "max": 2.449917000019923
+        },
+        "e2e_s": {
+          "mean": 13.874396642049154,
+          "sd": 0.029644289117096,
+          "min": 13.846248865127563,
+          "max": 13.915376901626587
+        }
+      },
+      "simultaneous": {
+        "n": 3,
+        "pp_tps": {
+          "mean": 163.8324324912848,
+          "sd": 7.3892306690582785,
+          "min": 153.38512947649681,
+          "max": 169.25977398058424
+        },
+        "tg_tps": {
+          "mean": 16.150189432259197,
+          "sd": 0.33995405813577295,
+          "min": 15.737143054999484,
+          "max": 16.569779887588894
+        },
+        "ttft_s": {
+          "mean": 3.203353874695798,
+          "sd": 0.155171168678092,
+          "min": 3.089924957952462,
+          "max": 3.422756833024323
+        },
+        "e2e_s": {
+          "mean": 19.000706513722736,
+          "sd": 0.2105939427669753,
+          "min": 18.81313180923462,
+          "max": 19.294834852218628
+        }
+      }
+    }
+  ],
+  "prose_draft_counters": {
+    "idle-peer": {
+      "proposed": 520,
+      "accepted": 324,
+      "acceptance": 0.6230769230769231
+    },
+    "simultaneous": {
+      "proposed": 543,
+      "accepted": 305,
+      "acceptance": 0.5616942909760589
+    }
+  },
+  "validation": {
+    "idle_peer_violations": [],
+    "qwen_speculation_verified": true,
+    "cache_hits": []
+  },
+  "quality_checks": {
+    "passed": 12,
+    "total": 12,
+    "checks": [
+      {
+        "tag": "quality-balanced-r1-idle-peer-bonsai",
+        "name": "bonsai",
+        "task": "balanced",
+        "mode": "idle-peer",
+        "pass": true,
+        "exit_code": 0,
+        "stdout": "PASS",
+        "stderr": ""
+      },
+      {
+        "tag": "quality-balanced-r1-idle-peer-qwen",
+        "name": "qwen",
+        "task": "balanced",
+        "mode": "idle-peer",
+        "pass": true,
+        "exit_code": 0,
+        "stdout": "PASS",
+        "stderr": ""
+      },
+      {
+        "tag": "quality-balanced-r1-simultaneous-bonsai",
+        "name": "bonsai",
+        "task": "balanced",
+        "mode": "simultaneous",
+        "pass": true,
+        "exit_code": 0,
+        "stdout": "PASS",
+        "stderr": ""
+      },
+      {
+        "tag": "quality-balanced-r1-simultaneous-qwen",
+        "name": "qwen",
+        "task": "balanced",
+        "mode": "simultaneous",
+        "pass": true,
+        "exit_code": 0,
+        "stdout": "PASS",
+        "stderr": ""
+      },
+      {
+        "tag": "quality-lru-r1-idle-peer-bonsai",
+        "name": "bonsai",
+        "task": "lru",
+        "mode": "idle-peer",
+        "pass": true,
+        "exit_code": 0,
+        "stdout": "PASS",
+        "stderr": ""
+      },
+      {
+        "tag": "quality-lru-r1-idle-peer-qwen",
+        "name": "qwen",
+        "task": "lru",
+        "mode": "idle-peer",
+        "pass": true,
+        "exit_code": 0,
+        "stdout": "PASS",
+        "stderr": ""
+      },
+      {
+        "tag": "quality-lru-r1-simultaneous-bonsai",
+        "name": "bonsai",
+        "task": "lru",
+        "mode": "simultaneous",
+        "pass": true,
+        "exit_code": 0,
+        "stdout": "PASS",
+        "stderr": ""
+      },
+      {
+        "tag": "quality-lru-r1-simultaneous-qwen",
+        "name": "qwen",
+        "task": "lru",
+        "mode": "simultaneous",
+        "pass": true,
+        "exit_code": 0,
+        "stdout": "PASS",
+        "stderr": ""
+      },
+      {
+        "tag": "quality-topo-r1-idle-peer-bonsai",
+        "name": "bonsai",
+        "task": "topo",
+        "mode": "idle-peer",
+        "pass": true,
+        "exit_code": 0,
+        "stdout": "PASS",
+        "stderr": ""
+      },
+      {
+        "tag": "quality-topo-r1-idle-peer-qwen",
+        "name": "qwen",
+        "task": "topo",
+        "mode": "idle-peer",
+        "pass": true,
+        "exit_code": 0,
+        "stdout": "PASS",
+        "stderr": ""
+      },
+      {
+        "tag": "quality-topo-r1-simultaneous-bonsai",
+        "name": "bonsai",
+        "task": "topo",
+        "mode": "simultaneous",
+        "pass": true,
+        "exit_code": 0,
+        "stdout": "PASS",
+        "stderr": ""
+      },
+      {
+        "tag": "quality-topo-r1-simultaneous-qwen",
+        "name": "qwen",
+        "task": "topo",
+        "mode": "simultaneous",
+        "pass": true,
+        "exit_code": 0,
+        "stdout": "PASS",
+        "stderr": ""
+      }
+    ]
+  },
+  "post_run": {
+    "both_active": true,
+    "profiles_unchanged": true,
+    "no_service_restarts": true
+  },
+  "records": [
+    {
+      "tag": "fixed-token_bucket-r1-idle-peer-bonsai",
+      "name": "bonsai",
+      "kind": "fixed",
+      "task": "token_bucket",
+      "rep": 1,
+      "mode": "idle-peer",
+      "local_prompt_tokens": 512,
+      "prompt_tokens": 524,
+      "output_tokens": 256,
+      "finish_reason": "length",
+      "wall_seconds": 13.907138374983333,
+      "ttft_seconds": 2.45116533304099,
+      "benchy_metrics": {
+        "concurrency": 1,
+        "context_size": 0,
+        "prompt_size": 512,
+        "response_size": 256,
+        "is_context_prefill_phase": false,
+        "pp_throughput": {
+          "mean": 213.7809097473958,
+          "std": 0.0,
+          "values": [
+            213.7809097473958
+          ]
+        },
+        "pp_req_throughput": {
+          "mean": 213.7809097473958,
+          "std": 0.0,
+          "values": [
+            213.7809097473958
+          ]
+        },
+        "tg_throughput": {
+          "mean": 22.260533700690704,
+          "std": 0.0,
+          "values": [
+            22.260533700690704
+          ]
+        },
+        "tg_req_throughput": {
+          "mean": 22.260533700690704,
+          "std": 0.0,
+          "values": [
+            22.260533700690704
+          ]
+        },
+        "peak_throughput": {
+          "mean": 23.0,
+          "std": 0.0,
+          "values": [
+            23.0
+          ]
+        },
+        "peak_req_throughput": {
+          "mean": 23.0,
+          "std": 0.0,
+          "values": [
+            23.0
+          ]
+        },
+        "ttfr": {
+          "mean": 2451.1075409827754,
+          "std": 0.0,
+          "values": [
+            2451.1075409827754
+          ]
+        },
+        "est_ppt": {
+          "mean": 2451.1075409827754,
+          "std": 0.0,
+          "values": [
+            2451.1075409827754
+          ]
+        },
+        "e2e_ttft": {
+          "mean": 2451.16533304099,
+          "std": 0.0,
+          "values": [
+            2451.16533304099
+          ]
+        },
+        "throughput_over_time": null,
+        "requests_throughput_over_time": null
+      },
+      "usage": {
+        "completion_tokens": 256,
+        "prompt_tokens": 524,
+        "total_tokens": 780,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 524,
+        "prompt_ms": 2445.966,
+        "prompt_per_token_ms": 4.667874045801526,
+        "prompt_per_second": 214.23028774725407,
+        "predicted_n": 256,
+        "predicted_ms": 11455.578,
+        "predicted_per_token_ms": 44.923835294117644,
+        "predicted_per_second": 22.25989819108211
+      },
+      "output": "import threading\nimport time\nfrom collections import OrderedDict\nfrom typing import Any, Callable, Dict, Optional, TypeVar, Union\n\nT = TypeVar(\"T\")\n\n\nclass TokenBucket:\n    def __init__(self, capacity: int, refill_rate: float) -> None:\n        if not isinstance(capacity, int) or capacity <= 0:\n            raise ValueError(\"capacity must be a positive integer\")\n        if not isinstance(refill_rate, (int, float)) or refill_rate < 0:\n            raise ValueError(\"refill_rate must be a non-negative number\")\n        self._capacity = capacity\n        self._refill_rate = float(refill_rate)\n        self._tokens = float(capacity)\n        self._last_refill = time.monotonic()\n        self._lock = threading.Lock()\n\n    def _refill(self) -> None:\n        current_time = time.monotonic()\n        elapsed = current_time - self._last_refill\n        if elapsed > 0:\n            added = elapsed * self._refill_rate\n            self._tokens = min(self._capacity, self._tokens + added)\n            self._last_refill = current_time\n\n   ",
+      "sha256": "58cdc12eaec4bb4ae218ff1e5fe4dd56f46583c1ecb44b8fe686db491142879f"
+    },
+    {
+      "tag": "fixed-token_bucket-r1-idle-peer-qwen",
+      "name": "qwen",
+      "kind": "fixed",
+      "task": "token_bucket",
+      "rep": 1,
+      "mode": "idle-peer",
+      "local_prompt_tokens": 512,
+      "prompt_tokens": 524,
+      "output_tokens": 256,
+      "finish_reason": "length",
+      "wall_seconds": 6.645425208029337,
+      "ttft_seconds": 1.4701878329506144,
+      "benchy_metrics": {
+        "concurrency": 1,
+        "context_size": 0,
+        "prompt_size": 512,
+        "response_size": 256,
+        "is_context_prefill_phase": false,
+        "pp_throughput": {
+          "mean": 356.4170429490977,
+          "std": 0.0,
+          "values": [
+            356.4170429490977
+          ]
+        },
+        "pp_req_throughput": {
+          "mean": 356.4170429490977,
+          "std": 0.0,
+          "values": [
+            356.4170429490977
+          ]
+        },
+        "tg_throughput": {
+          "mean": 49.28245708728118,
+          "std": 0.0,
+          "values": [
+            49.28245708728118
+          ]
+        },
+        "tg_req_throughput": {
+          "mean": 49.28245708728118,
+          "std": 0.0,
+          "values": [
+            49.28245708728118
+          ]
+        },
+        "peak_throughput": {
+          "mean": 50.0,
+          "std": 0.0,
+          "values": [
+            50.0
+          ]
+        },
+        "peak_req_throughput": {
+          "mean": 50.0,
+          "std": 0.0,
+          "values": [
+            50.0
+          ]
+        },
+        "ttfr": {
+          "mean": 1470.1878329506144,
+          "std": 0.0,
+          "values": [
+            1470.1878329506144
+          ]
+        },
+        "est_ppt": {
+          "mean": 1470.1878329506144,
+          "std": 0.0,
+          "values": [
+            1470.1878329506144
+          ]
+        },
+        "e2e_ttft": {
+          "mean": 1470.1878329506144,
+          "std": 0.0,
+          "values": [
+            1470.1878329506144
+          ]
+        },
+        "throughput_over_time": null,
+        "requests_throughput_over_time": null
+      },
+      "usage": {
+        "prompt_tokens": 524,
+        "completion_tokens": 256,
+        "total_tokens": 780,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "timings": {
+        "prompt_n": 524,
+        "predicted_n": 256,
+        "prompt_ms": 1461.5,
+        "predicted_ms": 5173.9,
+        "prompt_per_second": 358.536,
+        "predicted_per_second": 49.479,
+        "cache_n": 0,
+        "draft_n": 155,
+        "draft_n_accepted": 127
+      },
+      "output": "import threading\nimport time\nimport functools\nfrom collections import OrderedDict\nfrom typing import Any, Callable, Optional, TypeVar, Generic, Dict, List, Tuple\n\nF = TypeVar('F', bound=Callable[..., Any])\n\nclass TokenBucket:\n    def __init__(self, capacity: float, refill_rate: float) -> None:\n        if capacity <= 0:\n            raise ValueError(\"capacity must be positive\")\n        if refill_rate <= 0:\n            raise ValueError(\"refill_rate must be positive\")\n        self.capacity = capacity\n        self.refill_rate = refill_rate\n        self.tokens = capacity\n        self.last_refill = time.monotonic()\n        self.lock = threading.Lock()\n\n    def _refill(self) -> None:\n        now = time.monotonic()\n        elapsed = now - self.last_refill\n        if elapsed > 0:\n            self.tokens = min(self.capacity, self.tokens + elapsed * self.refill_rate)\n            self.last_refill = now\n\n    def try_acquire(self, tokens: float = 1.0) -> bool:\n        if tokens <= 0:\n            raise ValueError(\"tokens must be positive\")\n       ",
+      "sha256": "47b552c94107c7e20fb9d1ab93ebd6281006f9c7dc51a912f53ba523225846f3"
+    },
+    {
+      "tag": "fixed-token_bucket-r1-simultaneous-bonsai",
+      "name": "bonsai",
+      "kind": "fixed",
+      "task": "token_bucket",
+      "rep": 1,
+      "mode": "simultaneous",
+      "local_prompt_tokens": 512,
+      "prompt_tokens": 524,
+      "output_tokens": 256,
+      "finish_reason": "length",
+      "wall_seconds": 19.086381458095275,
+      "ttft_seconds": 2.7819155000615865,
+      "benchy_metrics": {
+        "concurrency": 1,
+        "context_size": 0,
+        "prompt_size": 512,
+        "response_size": 256,
+        "is_context_prefill_phase": false,
+        "pp_throughput": {
+          "mean": 188.3638444950353,
+          "std": 0.0,
+          "values": [
+            188.3638444950353
+          ]
+        },
+        "pp_req_throughput": {
+          "mean": 188.3638444950353,
+          "std": 0.0,
+          "values": [
+            188.3638444950353
+          ]
+        },
+        "tg_throughput": {
+          "mean": 15.640431069697101,
+          "std": 0.0,
+          "values": [
+            15.640431069697101
+          ]
+        },
+        "tg_req_throughput": {
+          "mean": 15.640431069697101,
+          "std": 0.0,
+          "values": [
+            15.640431069697101
+          ]
+        },
+        "peak_throughput": {
+          "mean": 16.0,
+          "std": 0.0,
+          "values": [
+            16.0
+          ]
+        },
+        "peak_req_throughput": {
+          "mean": 16.0,
+          "std": 0.0,
+          "values": [
+            16.0
+          ]
+        },
+        "ttfr": {
+          "mean": 2781.8502080626786,
+          "std": 0.0,
+          "values": [
+            2781.8502080626786
+          ]
+        },
+        "est_ppt": {
+          "mean": 2781.8502080626786,
+          "std": 0.0,
+          "values": [
+            2781.8502080626786
+          ]
+        },
+        "e2e_ttft": {
+          "mean": 2781.9155000615865,
+          "std": 0.0,
+          "values": [
+            2781.9155000615865
+          ]
+        },
+        "throughput_over_time": null,
+        "requests_throughput_over_time": null
+      },
+      "usage": {
+        "completion_tokens": 256,
+        "prompt_tokens": 524,
+        "total_tokens": 780,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 524,
+        "prompt_ms": 2774.947,
+        "prompt_per_token_ms": 5.2957003816793895,
+        "prompt_per_second": 188.83243535822484,
+        "predicted_n": 256,
+        "predicted_ms": 16304.976,
+        "predicted_per_token_ms": 63.94108235294118,
+        "predicted_per_second": 15.639397445295227
+      },
+      "output": "import threading\nimport time\nfrom collections import OrderedDict\nfrom typing import Any, Callable, Dict, Optional, TypeVar, Union\n\nT = TypeVar(\"T\")\n\n\nclass TokenBucket:\n    def __init__(self, capacity: int, refill_rate: float) -> None:\n        if not isinstance(capacity, int) or capacity <= 0:\n            raise ValueError(\"capacity must be a positive integer\")\n        if not isinstance(refill_rate, (int, float)) or refill_rate < 0:\n            raise ValueError(\"refill_rate must be a non-negative number\")\n        self._capacity = capacity\n        self._refill_rate = float(refill_rate)\n        self._tokens = float(capacity)\n        self._last_refill = time.monotonic()\n        self._lock = threading.Lock()\n\n    def _refill(self) -> None:\n        current_time = time.monotonic()\n        elapsed = current_time - self._last_refill\n        if elapsed > 0:\n            added = elapsed * self._refill_rate\n            self._tokens = min(self._capacity, self._tokens + added)\n            self._last_refill = current_time\n\n   ",
+      "sha256": "58cdc12eaec4bb4ae218ff1e5fe4dd56f46583c1ecb44b8fe686db491142879f"
+    },
+    {
+      "tag": "fixed-token_bucket-r1-simultaneous-qwen",
+      "name": "qwen",
+      "kind": "fixed",
+      "task": "token_bucket",
+      "rep": 1,
+      "mode": "simultaneous",
+      "local_prompt_tokens": 512,
+      "prompt_tokens": 524,
+      "output_tokens": 256,
+      "finish_reason": "length",
+      "wall_seconds": 15.467010958003812,
+      "ttft_seconds": 6.110929791000672,
+      "benchy_metrics": {
+        "concurrency": 1,
+        "context_size": 0,
+        "prompt_size": 512,
+        "response_size": 256,
+        "is_context_prefill_phase": false,
+        "pp_throughput": {
+          "mean": 85.74799873689834,
+          "std": 0.0,
+          "values": [
+            85.74799873689834
+          ]
+        },
+        "pp_req_throughput": {
+          "mean": 85.74799873689834,
+          "std": 0.0,
+          "values": [
+            85.74799873689834
+          ]
+        },
+        "tg_throughput": {
+          "mean": 27.256442155168987,
+          "std": 0.0,
+          "values": [
+            27.256442155168987
+          ]
+        },
+        "tg_req_throughput": {
+          "mean": 27.256442155168987,
+          "std": 0.0,
+          "values": [
+            27.256442155168987
+          ]
+        },
+        "peak_throughput": {
+          "mean": 28.0,
+          "std": 0.0,
+          "values": [
+            28.0
+          ]
+        },
+        "peak_req_throughput": {
+          "mean": 28.0,
+          "std": 0.0,
+          "values": [
+            28.0
+          ]
+        },
+        "ttfr": {
+          "mean": 6110.929791000672,
+          "std": 0.0,
+          "values": [
+            6110.929791000672
+          ]
+        },
+        "est_ppt": {
+          "mean": 6110.929791000672,
+          "std": 0.0,
+          "values": [
+            6110.929791000672
+          ]
+        },
+        "e2e_ttft": {
+          "mean": 6110.929791000672,
+          "std": 0.0,
+          "values": [
+            6110.929791000672
+          ]
+        },
+        "throughput_over_time": null,
+        "requests_throughput_over_time": null
+      },
+      "usage": {
+        "prompt_tokens": 524,
+        "completion_tokens": 256,
+        "total_tokens": 780,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "timings": {
+        "prompt_n": 524,
+        "predicted_n": 256,
+        "prompt_ms": 6101.2,
+        "predicted_ms": 9355.7,
+        "prompt_per_second": 85.885,
+        "predicted_per_second": 27.363,
+        "cache_n": 0,
+        "draft_n": 153,
+        "draft_n_accepted": 126
+      },
+      "output": "import threading\nimport time\nimport functools\nfrom collections import OrderedDict\nfrom typing import Any, Callable, Optional, TypeVar, Generic, Dict, List, Tuple\n\nF = TypeVar('F', bound=Callable[..., Any])\n\nclass TokenBucket:\n    def __init__(self, capacity: float, refill_rate: float) -> None:\n        if capacity <= 0:\n            raise ValueError(\"capacity must be positive\")\n        if refill_rate <= 0:\n            raise ValueError(\"refill_rate must be positive\")\n        self.capacity = capacity\n        self.refill_rate = refill_rate\n        self.tokens = capacity\n        self.last_refill = time.monotonic()\n\n    def _refill(self) -> None:\n        now = time.monotonic()\n        elapsed = now - self.last_refill\n        if elapsed > 0:\n            self.tokens = min(self.capacity, self.tokens + elapsed * self.refill_rate)\n            self.last_refill = now\n\n    def try_acquire(self, tokens: float = 1.0) -> bool:\n        if tokens <= 0:\n            raise ValueError(\"tokens must be positive\")\n        with self._lock:\n            self",
+      "sha256": "2b988f80446e9bd7ed3250ac9db0e43f87dd9d563963063f5a0984ac97fe630b"
+    },
+    {
+      "tag": "fixed-token_bucket-r2-idle-peer-bonsai",
+      "name": "bonsai",
+      "kind": "fixed",
+      "task": "token_bucket",
+      "rep": 2,
+      "mode": "idle-peer",
+      "local_prompt_tokens": 512,
+      "prompt_tokens": 524,
+      "output_tokens": 256,
+      "finish_reason": "length",
+      "wall_seconds": 13.879723542020656,
+      "ttft_seconds": 2.4230534590315074,
+      "benchy_metrics": {
+        "concurrency": 1,
+        "context_size": 0,
+        "prompt_size": 512,
+        "response_size": 256,
+        "is_context_prefill_phase": false,
+        "pp_throughput": {
+          "mean": 216.25733794194832,
+          "std": 0.0,
+          "values": [
+            216.25733794194832
+          ]
+        },
+        "pp_req_throughput": {
+          "mean": 216.25733794194832,
+          "std": 0.0,
+          "values": [
+            216.25733794194832
+          ]
+        },
+        "tg_throughput": {
+          "mean": 22.257935540526045,
+          "std": 0.0,
+          "values": [
+            22.257935540526045
+          ]
+        },
+        "tg_req_throughput": {
+          "mean": 22.257935540526045,
+          "std": 0.0,
+          "values": [
+            22.257935540526045
+          ]
+        },
+        "peak_throughput": {
+          "mean": 23.0,
+          "std": 0.0,
+          "values": [
+            23.0
+          ]
+        },
+        "peak_req_throughput": {
+          "mean": 23.0,
+          "std": 0.0,
+          "values": [
+            23.0
+          ]
+        },
+        "ttfr": {
+          "mean": 2423.0391670716926,
+          "std": 0.0,
+          "values": [
+            2423.0391670716926
+          ]
+        },
+        "est_ppt": {
+          "mean": 2423.0391670716926,
+          "std": 0.0,
+          "values": [
+            2423.0391670716926
+          ]
+        },
+        "e2e_ttft": {
+          "mean": 2423.0534590315074,
+          "std": 0.0,
+          "values": [
+            2423.0534590315074
+          ]
+        },
+        "throughput_over_time": null,
+        "requests_throughput_over_time": null
+      },
+      "usage": {
+        "completion_tokens": 256,
+        "prompt_tokens": 524,
+        "total_tokens": 780,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 524,
+        "prompt_ms": 2417.822,
+        "prompt_per_token_ms": 4.614164122137405,
+        "prompt_per_second": 216.7239771993141,
+        "predicted_n": 256,
+        "predicted_ms": 11457.273,
+        "predicted_per_token_ms": 44.930482352941176,
+        "predicted_per_second": 22.25660504030933
+      },
+      "output": "import threading\nimport time\nfrom collections import OrderedDict\nfrom typing import Callable, TypeVar, Generic, Optional, Union\n\nT = TypeVar(\"T\")\n\n\nclass TokenBucket:\n    def __init__(self, capacity: int, refill_rate: float) -> None:\n        if not isinstance(capacity, int) or capacity <= 0:\n            raise ValueError(\"capacity must be a positive integer\")\n        if not isinstance(refill_rate, (int, float)) or refill_rate < 0:\n            raise ValueError(\"refill_rate must be a non-negative number\")\n        self._capacity = capacity\n        self._refill_rate = float(refill_rate)\n        self._tokens = float(capacity)\n        self._last_refill = time.monotonic()\n        self._lock = threading.Lock()\n\n    def _refill(self) -> None:\n        current_time = time.monotonic()\n        elapsed = current_time - self._last_refill\n        if elapsed > 0:\n            added = elapsed * self._refill_rate\n            self._tokens = min(self._capacity, self._tokens + added)\n            self._last_refill = current_time\n\n    def try",
+      "sha256": "1e528b0ceea75d5a14c0b1406637e836326d22659974b940167035bdb1e2e112"
+    },
+    {
+      "tag": "fixed-token_bucket-r2-idle-peer-qwen",
+      "name": "qwen",
+      "kind": "fixed",
+      "task": "token_bucket",
+      "rep": 2,
+      "mode": "idle-peer",
+      "local_prompt_tokens": 512,
+      "prompt_tokens": 524,
+      "output_tokens": 256,
+      "finish_reason": "length",
+      "wall_seconds": 6.366199000040069,
+      "ttft_seconds": 1.4572779999580234,
+      "benchy_metrics": {
+        "concurrency": 1,
+        "context_size": 0,
+        "prompt_size": 512,
+        "response_size": 256,
+        "is_context_prefill_phase": false,
+        "pp_throughput": {
+          "mean": 359.57449437588,
+          "std": 0.0,
+          "values": [
+            359.57449437588
+          ]
+        },
+        "pp_req_throughput": {
+          "mean": 359.57449437588,
+          "std": 0.0,
+          "values": [
+            359.57449437588
+          ]
+        },
+        "tg_throughput": {
+          "mean": 51.951637977967025,
+          "std": 0.0,
+          "values": [
+            51.951637977967025
+          ]
+        },
+        "tg_req_throughput": {
+          "mean": 51.951637977967025,
+          "std": 0.0,
+          "values": [
+            51.951637977967025
+          ]
+        },
+        "peak_throughput": {
+          "mean": 52.0,
+          "std": 0.0,
+          "values": [
+            52.0
+          ]
+        },
+        "peak_req_throughput": {
+          "mean": 52.0,
+          "std": 0.0,
+          "values": [
+            52.0
+          ]
+        },
+        "ttfr": {
+          "mean": 1457.2779999580234,
+          "std": 0.0,
+          "values": [
+            1457.2779999580234
+          ]
+        },
+        "est_ppt": {
+          "mean": 1457.2779999580234,
+          "std": 0.0,
+          "values": [
+            1457.2779999580234
+          ]
+        },
+        "e2e_ttft": {
+          "mean": 1457.2779999580234,
+          "std": 0.0,
+          "values": [
+            1457.2779999580234
+          ]
+        },
+        "throughput_over_time": null,
+        "requests_throughput_over_time": null
+      },
+      "usage": {
+        "prompt_tokens": 524,
+        "completion_tokens": 256,
+        "total_tokens": 780,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "timings": {
+        "prompt_n": 524,
+        "predicted_n": 256,
+        "prompt_ms": 1443.8,
+        "predicted_ms": 4906.8,
+        "prompt_per_second": 362.931,
+        "predicted_per_second": 52.172,
+        "cache_n": 0,
+        "draft_n": 156,
+        "draft_n_accepted": 124
+      },
+      "output": "import threading\nimport time\nimport functools\nfrom collections import OrderedDict\nfrom typing import Any, Callable, Optional, TypeVar, Generic, Dict, List, Tuple\n\nF = TypeVar('F', bound=Callable[..., Any])\n\n\nclass TokenBucket:\n    def __init__(self, capacity: float, refill_rate: float) -> None:\n        if capacity <= 0:\n            raise ValueError(\"capacity must be positive\")\n        if refill_rate <= 0:\n            raise ValueError(\"refill_rate must be positive\")\n        self.capacity = capacity\n        self.refill_rate = refill_rate\n        self.tokens = capacity\n        self.last_refill = time.monotonic()\n        self.lock = threading.Lock()\n\n    def _refill(self) -> None:\n        now = time.monotonic()\n        elapsed = now - self.last_refill\n        if elapsed > 0:\n            self.tokens = min(self.capacity, self.tokens + elapsed * self.refill_rate)\n            self.last_refill = now\n\n    def try_acquire(self, tokens: float = 1.0) -> bool:\n        if tokens <= 0:\n            raise ValueError(\"tokens must be positive\")\n       ",
+      "sha256": "a7260c2dcb547d8945cbb63e75b3f0421145497837a29a78a5cb2d32019f3f2f"
+    },
+    {
+      "tag": "fixed-token_bucket-r2-simultaneous-bonsai",
+      "name": "bonsai",
+      "kind": "fixed",
+      "task": "token_bucket",
+      "rep": 2,
+      "mode": "simultaneous",
+      "local_prompt_tokens": 512,
+      "prompt_tokens": 524,
+      "output_tokens": 256,
+      "finish_reason": "length",
+      "wall_seconds": 19.117383040953428,
+      "ttft_seconds": 2.782879541045986,
+      "benchy_metrics": {
+        "concurrency": 1,
+        "context_size": 0,
+        "prompt_size": 512,
+        "response_size": 256,
+        "is_context_prefill_phase": false,
+        "pp_throughput": {
+          "mean": 188.30060322382866,
+          "std": 0.0,
+          "values": [
+            188.30060322382866
+          ]
+        },
+        "pp_req_throughput": {
+          "mean": 188.30060322382866,
+          "std": 0.0,
+          "values": [
+            188.30060322382866
+          ]
+        },
+        "tg_throughput": {
+          "mean": 15.611635884930429,
+          "std": 0.0,
+          "values": [
+            15.611635884930429
+          ]
+        },
+        "tg_req_throughput": {
+          "mean": 15.611635884930429,
+          "std": 0.0,
+          "values": [
+            15.611635884930429
+          ]
+        },
+        "peak_throughput": {
+          "mean": 16.0,
+          "std": 0.0,
+          "values": [
+            16.0
+          ]
+        },
+        "peak_req_throughput": {
+          "mean": 16.0,
+          "std": 0.0,
+          "values": [
+            16.0
+          ]
+        },
+        "ttfr": {
+          "mean": 2782.784500042908,
+          "std": 0.0,
+          "values": [
+            2782.784500042908
+          ]
+        },
+        "est_ppt": {
+          "mean": 2782.784500042908,
+          "std": 0.0,
+          "values": [
+            2782.784500042908
+          ]
+        },
+        "e2e_ttft": {
+          "mean": 2782.879541045986,
+          "std": 0.0,
+          "values": [
+            2782.879541045986
+          ]
+        },
+        "throughput_over_time": null,
+        "requests_throughput_over_time": null
+      },
+      "usage": {
+        "completion_tokens": 256,
+        "prompt_tokens": 524,
+        "total_tokens": 780,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 524,
+        "prompt_ms": 2777.242,
+        "prompt_per_token_ms": 5.3000801526717565,
+        "prompt_per_second": 188.67639190247013,
+        "predicted_n": 256,
+        "predicted_ms": 16334.05,
+        "predicted_per_token_ms": 64.05509803921568,
+        "predicted_per_second": 15.611559900943123
+      },
+      "output": "import threading\nimport time\nfrom collections import OrderedDict\nfrom typing import Callable, TypeVar, Generic, Optional, Union\n\nT = TypeVar(\"T\")\n\n\nclass TokenBucket:\n    def __init__(self, capacity: int, refill_rate: float) -> None:\n        if not isinstance(capacity, int) or capacity <= 0:\n            raise ValueError(\"capacity must be a positive integer\")\n        if not isinstance(refill_rate, (int, float)) or refill_rate < 0:\n            raise ValueError(\"refill_rate must be a non-negative number\")\n        self._capacity = capacity\n        self._refill_rate = float(refill_rate)\n        self._tokens = float(capacity)\n        self._last_refill = time.monotonic()\n        self._lock = threading.Lock()\n\n    def _refill(self) -> None:\n        current_time = time.monotonic()\n        elapsed = current_time - self._last_refill\n        if elapsed > 0:\n            added = elapsed * self._refill_rate\n            self._tokens = min(self._capacity, self._tokens + added)\n            self._last_refill = current_time\n\n    def acquire",
+      "sha256": "ffdf04b27ad402d3e7da83b8a28148af94ca6f2cae41ee29855b87343c86dd16"
+    },
+    {
+      "tag": "fixed-token_bucket-r2-simultaneous-qwen",
+      "name": "qwen",
+      "kind": "fixed",
+      "task": "token_bucket",
+      "rep": 2,
+      "mode": "simultaneous",
+      "local_prompt_tokens": 512,
+      "prompt_tokens": 524,
+      "output_tokens": 256,
+      "finish_reason": "length",
+      "wall_seconds": 15.532394583919086,
+      "ttft_seconds": 6.115856833988801,
+      "benchy_metrics": {
+        "concurrency": 1,
+        "context_size": 0,
+        "prompt_size": 512,
+        "response_size": 256,
+        "is_context_prefill_phase": false,
+        "pp_throughput": {
+          "mean": 85.67891862475857,
+          "std": 0.0,
+          "values": [
+            85.67891862475857
+          ]
+        },
+        "pp_req_throughput": {
+          "mean": 85.67891862475857,
+          "std": 0.0,
+          "values": [
+            85.67891862475857
+          ]
+        },
+        "tg_throughput": {
+          "mean": 27.084968454790353,
+          "std": 0.0,
+          "values": [
+            27.084968454790353
+          ]
+        },
+        "tg_req_throughput": {
+          "mean": 27.084968454790353,
+          "std": 0.0,
+          "values": [
+            27.084968454790353
+          ]
+        },
+        "peak_throughput": {
+          "mean": 28.0,
+          "std": 0.0,
+          "values": [
+            28.0
+          ]
+        },
+        "peak_req_throughput": {
+          "mean": 28.0,
+          "std": 0.0,
+          "values": [
+            28.0
+          ]
+        },
+        "ttfr": {
+          "mean": 6115.856833988801,
+          "std": 0.0,
+          "values": [
+            6115.856833988801
+          ]
+        },
+        "est_ppt": {
+          "mean": 6115.856833988801,
+          "std": 0.0,
+          "values": [
+            6115.856833988801
+          ]
+        },
+        "e2e_ttft": {
+          "mean": 6115.856833988801,
+          "std": 0.0,
+          "values": [
+            6115.856833988801
+          ]
+        },
+        "throughput_over_time": null,
+        "requests_throughput_over_time": null
+      },
+      "usage": {
+        "prompt_tokens": 524,
+        "completion_tokens": 256,
+        "total_tokens": 780,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "timings": {
+        "prompt_n": 524,
+        "predicted_n": 256,
+        "prompt_ms": 6106.7,
+        "predicted_ms": 9414.8,
+        "prompt_per_second": 85.807,
+        "predicted_per_second": 27.191,
+        "cache_n": 0,
+        "draft_n": 157,
+        "draft_n_accepted": 127
+      },
+      "output": "import threading\nimport time\nimport functools\nfrom collections import OrderedDict\nfrom typing import Any, Callable, Optional, TypeVar, Generic, Dict, List, Tuple\n\nT = TypeVar('T')\n\nclass TokenBucket:\n    def __init__(self, capacity: float, refill_rate: float) -> None:\n        if capacity <= 0:\n            raise ValueError(\"capacity must be positive\")\n        if refill_rate <= 0:\n            raise ValueError(\"refill_rate must be positive\")\n        self.capacity = capacity\n        self.refill_rate = refill_rate\n        self.tokens = capacity\n        self.last_refill_time = time.monotonic()\n        self.lock = threading.Lock()\n\n    def _refill(self) -> None:\n        current_time = time.monotonic()\n        elapsed = current_time - self.last_refill_time\n        if elapsed > 0:\n            self.tokens = min(self.capacity, self.tokens + elapsed * self.refill_rate)\n            self.last_refill_time = current_time\n\n    def try_acquire(self, tokens: float = 1.0) -> bool:\n        if tokens <= 0:\n            raise ValueError(\"tokens must be positive\")\n       ",
+      "sha256": "9fc4b6e16f04d1df7b4741088ea2c30dd32b88cff51fbbb520b43ca1327dc1a9"
+    },
+    {
+      "tag": "fixed-token_bucket-r3-idle-peer-bonsai",
+      "name": "bonsai",
+      "kind": "fixed",
+      "task": "token_bucket",
+      "rep": 3,
+      "mode": "idle-peer",
+      "local_prompt_tokens": 512,
+      "prompt_tokens": 524,
+      "output_tokens": 256,
+      "finish_reason": "length",
+      "wall_seconds": 13.914676625048742,
+      "ttft_seconds": 2.443837709026411,
+      "benchy_metrics": {
+        "concurrency": 1,
+        "context_size": 0,
+        "prompt_size": 512,
+        "response_size": 256,
+        "is_context_prefill_phase": false,
+        "pp_throughput": {
+          "mean": 214.42417951214702,
+          "std": 0.0,
+          "values": [
+            214.42417951214702
+          ]
+        },
+        "pp_req_throughput": {
+          "mean": 214.42417951214702,
+          "std": 0.0,
+          "values": [
+            214.42417951214702
+          ]
+        },
+        "tg_throughput": {
+          "mean": 22.231267862560244,
+          "std": 0.0,
+          "values": [
+            22.231267862560244
+          ]
+        },
+        "tg_req_throughput": {
+          "mean": 22.231267862560244,
+          "std": 0.0,
+          "values": [
+            22.231267862560244
+          ]
+        },
+        "peak_throughput": {
+          "mean": 23.0,
+          "std": 0.0,
+          "values": [
+            23.0
+          ]
+        },
+        "peak_req_throughput": {
+          "mean": 23.0,
+          "std": 0.0,
+          "values": [
+            23.0
+          ]
+        },
+        "ttfr": {
+          "mean": 2443.754250067286,
+          "std": 0.0,
+          "values": [
+            2443.754250067286
+          ]
+        },
+        "est_ppt": {
+          "mean": 2443.754250067286,
+          "std": 0.0,
+          "values": [
+            2443.754250067286
+          ]
+        },
+        "e2e_ttft": {
+          "mean": 2443.837709026411,
+          "std": 0.0,
+          "values": [
+            2443.837709026411
+          ]
+        },
+        "throughput_over_time": null,
+        "requests_throughput_over_time": null
+      },
+      "usage": {
+        "completion_tokens": 256,
+        "prompt_tokens": 524,
+        "total_tokens": 780,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 524,
+        "prompt_ms": 2438.112,
+        "prompt_per_token_ms": 4.652885496183206,
+        "prompt_per_second": 214.9203974222677,
+        "predicted_n": 256,
+        "predicted_ms": 11470.97,
+        "predicted_per_token_ms": 44.98419607843137,
+        "predicted_per_second": 22.230029369791747
+      },
+      "output": "import threading\nimport time\nfrom collections import OrderedDict\nfrom typing import Callable, TypeVar, Generic, Optional, Union\n\nT = TypeVar(\"T\")\n\n\nclass TokenBucket:\n    def __init__(self, capacity: int, refill_rate: float) -> None:\n        if not isinstance(capacity, int) or capacity <= 0:\n            raise ValueError(\"capacity must be a positive integer\")\n        if not isinstance(refill_rate, (int, float)) or refill_rate < 0:\n            raise ValueError(\"refill_rate must be a non-negative number\")\n        self._capacity = capacity\n        self._refill_rate = float(refill_rate)\n        self._tokens = float(capacity)\n        self._last_refill = time.monotonic()\n        self._lock = threading.Lock()\n\n    def _refill(self) -> None:\n        current_time = time.monotonic()\n        elapsed = current_time - self._last_refill\n        if elapsed > 0:\n            added = elapsed * self._refill_rate\n            self._tokens = min(self._capacity, self._tokens + added)\n            self._last_refill = current_time\n\n    def try",
+      "sha256": "1e528b0ceea75d5a14c0b1406637e836326d22659974b940167035bdb1e2e112"
+    },
+    {
+      "tag": "fixed-token_bucket-r3-idle-peer-qwen",
+      "name": "qwen",
+      "kind": "fixed",
+      "task": "token_bucket",
+      "rep": 3,
+      "mode": "idle-peer",
+      "local_prompt_tokens": 512,
+      "prompt_tokens": 524,
+      "output_tokens": 256,
+      "finish_reason": "length",
+      "wall_seconds": 6.376444749999791,
+      "ttft_seconds": 1.4425697079859674,
+      "benchy_metrics": {
+        "concurrency": 1,
+        "context_size": 0,
+        "prompt_size": 512,
+        "response_size": 256,
+        "is_context_prefill_phase": false,
+        "pp_throughput": {
+          "mean": 363.24067883802894,
+          "std": 0.0,
+          "values": [
+            363.24067883802894
+          ]
+        },
+        "pp_req_throughput": {
+          "mean": 363.24067883802894,
+          "std": 0.0,
+          "values": [
+            363.24067883802894
+          ]
+        },
+        "tg_throughput": {
+          "mean": 51.68877795249535,
+          "std": 0.0,
+          "values": [
+            51.68877795249535
+          ]
+        },
+        "tg_req_throughput": {
+          "mean": 51.68877795249535,
+          "std": 0.0,
+          "values": [
+            51.68877795249535
+          ]
+        },
+        "peak_throughput": {
+          "mean": 52.0,
+          "std": 0.0,
+          "values": [
+            52.0
+          ]
+        },
+        "peak_req_throughput": {
+          "mean": 52.0,
+          "std": 0.0,
+          "values": [
+            52.0
+          ]
+        },
+        "ttfr": {
+          "mean": 1442.5697079859674,
+          "std": 0.0,
+          "values": [
+            1442.5697079859674
+          ]
+        },
+        "est_ppt": {
+          "mean": 1442.5697079859674,
+          "std": 0.0,
+          "values": [
+            1442.5697079859674
+          ]
+        },
+        "e2e_ttft": {
+          "mean": 1442.5697079859674,
+          "std": 0.0,
+          "values": [
+            1442.5697079859674
+          ]
+        },
+        "throughput_over_time": null,
+        "requests_throughput_over_time": null
+      },
+      "usage": {
+        "prompt_tokens": 524,
+        "completion_tokens": 256,
+        "total_tokens": 780,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "timings": {
+        "prompt_n": 524,
+        "predicted_n": 256,
+        "prompt_ms": 1433.0,
+        "predicted_ms": 4933.8,
+        "prompt_per_second": 365.666,
+        "predicted_per_second": 51.887,
+        "cache_n": 0,
+        "draft_n": 158,
+        "draft_n_accepted": 124
+      },
+      "output": "import threading\nimport time\nimport functools\nfrom collections import OrderedDict\nfrom typing import Any, Callable, Optional, TypeVar, Generic, Iterator\n\nT = TypeVar('T')\n\nclass TokenBucket:\n    def __init__(self, capacity: float, refill_rate: float) -> None:\n        if capacity <= 0:\n            raise ValueError(\"capacity must be positive\")\n        if refill_rate <= 0:\n            raise ValueError(\"refill_rate must be positive\")\n        self.capacity = capacity\n        self.refill_rate = refill_rate\n        self.tokens = capacity\n        self.last_refill = time.monotonic()\n        self.lock = threading.Lock()\n\n    def _refill(self) -> None:\n        now = time.monotonic()\n        elapsed = now - self.last_refill\n        if elapsed > 0:\n            self.tokens = min(self.capacity, self.tokens + elapsed * self.refill_rate)\n            self.last_refill = now\n\n    def try_acquire(self, tokens: float = 1.0) -> bool:\n        if tokens <= 0:\n            raise ValueError(\"tokens must be positive\")\n        with self.lock:\n            self._refill",
+      "sha256": "18146696ab0a6431d038f2aee3d98b3676cfdb404501bb8d53ef7962343a4bba"
+    },
+    {
+      "tag": "fixed-token_bucket-r3-simultaneous-bonsai",
+      "name": "bonsai",
+      "kind": "fixed",
+      "task": "token_bucket",
+      "rep": 3,
+      "mode": "simultaneous",
+      "local_prompt_tokens": 512,
+      "prompt_tokens": 524,
+      "output_tokens": 256,
+      "finish_reason": "length",
+      "wall_seconds": 18.394057249999605,
+      "ttft_seconds": 3.11159566603601,
+      "benchy_metrics": {
+        "concurrency": 1,
+        "context_size": 0,
+        "prompt_size": 512,
+        "response_size": 256,
+        "is_context_prefill_phase": false,
+        "pp_throughput": {
+          "mean": 168.40620798583458,
+          "std": 0.0,
+          "values": [
+            168.40620798583458
+          ]
+        },
+        "pp_req_throughput": {
+          "mean": 168.40620798583458,
+          "std": 0.0,
+          "values": [
+            168.40620798583458
+          ]
+        },
+        "tg_throughput": {
+          "mean": 16.68651093626444,
+          "std": 0.0,
+          "values": [
+            16.68651093626444
+          ]
+        },
+        "tg_req_throughput": {
+          "mean": 16.68651093626444,
+          "std": 0.0,
+          "values": [
+            16.68651093626444
+          ]
+        },
+        "peak_throughput": {
+          "mean": 17.0,
+          "std": 0.0,
+          "values": [
+            17.0
+          ]
+        },
+        "peak_req_throughput": {
+          "mean": 17.0,
+          "std": 0.0,
+          "values": [
+            17.0
+          ]
+        },
+        "ttfr": {
+          "mean": 3111.524250009097,
+          "std": 0.0,
+          "values": [
+            3111.524250009097
+          ]
+        },
+        "est_ppt": {
+          "mean": 3111.524250009097,
+          "std": 0.0,
+          "values": [
+            3111.524250009097
+          ]
+        },
+        "e2e_ttft": {
+          "mean": 3111.59566603601,
+          "std": 0.0,
+          "values": [
+            3111.59566603601
+          ]
+        },
+        "throughput_over_time": null,
+        "requests_throughput_over_time": null
+      },
+      "usage": {
+        "completion_tokens": 256,
+        "prompt_tokens": 524,
+        "total_tokens": 780,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 524,
+        "prompt_ms": 3106.673,
+        "prompt_per_token_ms": 5.928765267175572,
+        "prompt_per_second": 168.66918404350892,
+        "predicted_n": 256,
+        "predicted_ms": 15281.382,
+        "predicted_per_token_ms": 59.92698823529412,
+        "predicted_per_second": 16.686972421735152
+      },
+      "output": "import threading\nimport time\nfrom collections import OrderedDict\nfrom typing import Callable, TypeVar, Generic, Optional, Union\n\nT = TypeVar(\"T\")\n\n\nclass TokenBucket:\n    def __init__(self, capacity: int, refill_rate: float) -> None:\n        if capacity <= 0:\n            raise ValueError(\"capacity must be positive\")\n        if refill_rate < 0:\n            raise ValueError(\"refill_rate must be non-negative\")\n        self._capacity = capacity\n        self._refill_rate = refill_rate\n        self._tokens = float(capacity)\n        self._last_refill = time.monotonic()\n        self._lock = threading.Lock()\n\n    def _refill(self) -> None:\n        current_time = time.monotonic()\n        elapsed = current_time - self._last_refill\n        if elapsed > 0:\n            added = elapsed * self._refill_rate\n            self._tokens = min(self._capacity, self._tokens + added)\n            self._last_refill = current_time\n\n    def acquire_nonblocking(self) -> bool:\n        with self._lock:\n            self._refill()\n            if self._tokens",
+      "sha256": "cebb17698b3306414aa7e10d6222fb9dc3563af78c0f27dedb707d2a844f7a38"
+    },
+    {
+      "tag": "fixed-token_bucket-r3-simultaneous-qwen",
+      "name": "qwen",
+      "kind": "fixed",
+      "task": "token_bucket",
+      "rep": 3,
+      "mode": "simultaneous",
+      "local_prompt_tokens": 512,
+      "prompt_tokens": 524,
+      "output_tokens": 256,
+      "finish_reason": "length",
+      "wall_seconds": 15.241433666087687,
+      "ttft_seconds": 5.193711083033122,
+      "benchy_metrics": {
+        "concurrency": 1,
+        "context_size": 0,
+        "prompt_size": 512,
+        "response_size": 256,
+        "is_context_prefill_phase": false,
+        "pp_throughput": {
+          "mean": 100.89124936344832,
+          "std": 0.0,
+          "values": [
+            100.89124936344832
+          ]
+        },
+        "pp_req_throughput": {
+          "mean": 100.89124936344832,
+          "std": 0.0,
+          "values": [
+            100.89124936344832
+          ]
+        },
+        "tg_throughput": {
+          "mean": 25.381857605447625,
+          "std": 0.0,
+          "values": [
+            25.381857605447625
+          ]
+        },
+        "tg_req_throughput": {
+          "mean": 25.381857605447625,
+          "std": 0.0,
+          "values": [
+            25.381857605447625
+          ]
+        },
+        "peak_throughput": {
+          "mean": 26.0,
+          "std": 0.0,
+          "values": [
+            26.0
+          ]
+        },
+        "peak_req_throughput": {
+          "mean": 26.0,
+          "std": 0.0,
+          "values": [
+            26.0
+          ]
+        },
+        "ttfr": {
+          "mean": 5193.711083033122,
+          "std": 0.0,
+          "values": [
+            5193.711083033122
+          ]
+        },
+        "est_ppt": {
+          "mean": 5193.711083033122,
+          "std": 0.0,
+          "values": [
+            5193.711083033122
+          ]
+        },
+        "e2e_ttft": {
+          "mean": 5193.711083033122,
+          "std": 0.0,
+          "values": [
+            5193.711083033122
+          ]
+        },
+        "throughput_over_time": null,
+        "requests_throughput_over_time": null
+      },
+      "usage": {
+        "prompt_tokens": 524,
+        "completion_tokens": 256,
+        "total_tokens": 780,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "timings": {
+        "prompt_n": 524,
+        "predicted_n": 256,
+        "prompt_ms": 5185.0,
+        "predicted_ms": 10046.1,
+        "prompt_per_second": 101.061,
+        "predicted_per_second": 25.483,
+        "cache_n": 0,
+        "draft_n": 155,
+        "draft_n_accepted": 127
+      },
+      "output": "import threading\nimport time\nimport functools\nfrom collections import OrderedDict\nfrom typing import Any, Callable, Optional, TypeVar, Generic, Dict, List\n\nT = TypeVar('T')\n\nclass TokenBucket:\n    def __init__(self, capacity: float, refill_rate: float) -> None:\n        if capacity <= 0:\n            raise ValueError(\"capacity must be positive\")\n        if refill_rate <= 0:\n            raise ValueError(\"refill_rate must be positive\")\n        self.capacity = capacity\n        self.refill_rate = refill_rate\n        self.tokens = capacity\n        self.last_refill = time.monotonic()\n        self.lock = threading.Lock()\n\n    def _refill(self) -> None:\n        now = time.monotonic()\n        elapsed = now - self.last_refill\n        if elapsed > 0:\n            self.tokens = min(self.capacity, self.tokens + elapsed * self.refill_rate)\n            self.last_refill = now\n\n    def try_acquire(self, tokens: float = 1.0) -> bool:\n        if tokens <= 0:\n            raise ValueError(\"tokens must be positive\")\n        with self.lock:\n            self._",
+      "sha256": "6dea8d80962d16b65b57c842448ed47961c23dbf7cf1751e3274257ef4f28082"
+    },
+    {
+      "tag": "quality-balanced-r1-idle-peer-bonsai",
+      "name": "bonsai",
+      "kind": "quality",
+      "task": "balanced",
+      "rep": 1,
+      "mode": "idle-peer",
+      "local_prompt_tokens": 75,
+      "prompt_tokens": 87,
+      "output_tokens": 92,
+      "finish_reason": "stop",
+      "wall_seconds": 4.58558425004594,
+      "ttft_seconds": 0.556965000112541,
+      "benchy_metrics": {
+        "concurrency": 1,
+        "context_size": 0,
+        "prompt_size": 75,
+        "response_size": 1200,
+        "is_context_prefill_phase": false,
+        "pp_throughput": {
+          "mean": 156.2226441849115,
+          "std": 0.0,
+          "values": [
+            156.2226441849115
+          ]
+        },
+        "pp_req_throughput": {
+          "mean": 156.2226441849115,
+          "std": 0.0,
+          "values": [
+            156.2226441849115
+          ]
+        },
+        "tg_throughput": {
+          "mean": 22.851000709143904,
+          "std": 0.0,
+          "values": [
+            22.851000709143904
+          ]
+        },
+        "tg_req_throughput": {
+          "mean": 22.851000709143904,
+          "std": 0.0,
+          "values": [
+            22.851000709143904
+          ]
+        },
+        "peak_throughput": {
+          "mean": 23.0,
+          "std": 0.0,
+          "values": [
+            23.0
+          ]
+        },
+        "peak_req_throughput": {
+          "mean": 23.0,
+          "std": 0.0,
+          "values": [
+            23.0
+          ]
+        },
+        "ttfr": {
+          "mean": 556.897500064224,
+          "std": 0.0,
+          "values": [
+            556.897500064224
+          ]
+        },
+        "est_ppt": {
+          "mean": 556.897500064224,
+          "std": 0.0,
+          "values": [
+            556.897500064224
+          ]
+        },
+        "e2e_ttft": {
+          "mean": 556.965000112541,
+          "std": 0.0,
+          "values": [
+            556.965000112541
+          ]
+        },
+        "throughput_over_time": null,
+        "requests_throughput_over_time": null
+      },
+      "usage": {
+        "completion_tokens": 92,
+        "prompt_tokens": 87,
+        "total_tokens": 179,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 87,
+        "prompt_ms": 551.754,
+        "prompt_per_token_ms": 6.3420000000000005,
+        "prompt_per_second": 157.67896562598548,
+        "predicted_n": 92,
+        "predicted_ms": 4026.706,
+        "predicted_per_token_ms": 44.24951648351649,
+        "predicted_per_second": 22.599116995380342
+      },
+      "output": "```python\ndef is_balanced(s):\n    stack = []\n    matching = {')': '(', ']': '[', '}': '{'}\n    for char in s:\n        if char in '([{':\n            stack.append(char)\n        elif char in ')]}':\n            if not stack or stack[-1] != matching[char]:\n                return False\n            stack.pop()\n    return not stack\n```",
+      "sha256": "209f74c2ec0aa1e9d1fc99e0a24145e4554eded6d1b7acdafa211818876ca9e6"
+    },
+    {
+      "tag": "quality-balanced-r1-idle-peer-qwen",
+      "name": "qwen",
+      "kind": "quality",
+      "task": "balanced",
+      "rep": 1,
+      "mode": "idle-peer",
+      "local_prompt_tokens": 72,
+      "prompt_tokens": 84,
+      "output_tokens": 94,
+      "finish_reason": "stop",
+      "wall_seconds": 3.0979257909348235,
+      "ttft_seconds": 1.0189422499388456,
+      "benchy_metrics": {
+        "concurrency": 1,
+        "context_size": 0,
+        "prompt_size": 72,
+        "response_size": 1200,
+        "is_context_prefill_phase": false,
+        "pp_throughput": {
+          "mean": 82.43843064220908,
+          "std": 0.0,
+          "values": [
+            82.43843064220908
+          ]
+        },
+        "pp_req_throughput": {
+          "mean": 82.43843064220908,
+          "std": 0.0,
+          "values": [
+            82.43843064220908
+          ]
+        },
+        "tg_throughput": {
+          "mean": 44.75702978607063,
+          "std": 0.0,
+          "values": [
+            44.75702978607063
+          ]
+        },
+        "tg_req_throughput": {
+          "mean": 44.75702978607063,
+          "std": 0.0,
+          "values": [
+            44.75702978607063
+          ]
+        },
+        "peak_throughput": {
+          "mean": 45.0,
+          "std": 0.0,
+          "values": [
+            45.0
+          ]
+        },
+        "peak_req_throughput": {
+          "mean": 45.0,
+          "std": 0.0,
+          "values": [
+            45.0
+          ]
+        },
+        "ttfr": {
+          "mean": 1018.9422499388456,
+          "std": 0.0,
+          "values": [
+            1018.9422499388456
+          ]
+        },
+        "est_ppt": {
+          "mean": 1018.9422499388456,
+          "std": 0.0,
+          "values": [
+            1018.9422499388456
+          ]
+        },
+        "e2e_ttft": {
+          "mean": 1018.9422499388456,
+          "std": 0.0,
+          "values": [
+            1018.9422499388456
+          ]
+        },
+        "throughput_over_time": null,
+        "requests_throughput_over_time": null
+      },
+      "usage": {
+        "prompt_tokens": 84,
+        "completion_tokens": 94,
+        "total_tokens": 178,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "timings": {
+        "prompt_n": 84,
+        "predicted_n": 94,
+        "prompt_ms": 1011.3,
+        "predicted_ms": 2077.4,
+        "prompt_per_second": 83.061,
+        "predicted_per_second": 45.249,
+        "cache_n": 0,
+        "draft_n": 55,
+        "draft_n_accepted": 42
+      },
+      "output": "```python\ndef is_balanced(s):\n    stack = []\n    mapping = {')': '(', ']': '[', '}': '{'}\n    for char in s:\n        if char in mapping.values():\n            stack.append(char)\n        elif char in mapping:\n            if not stack or stack[-1] != mapping[char]:\n                return False\n            stack.pop()\n    return len(stack) == 0\n```",
+      "sha256": "2a9581f0ee3ef7d9add815be22d39ba4f7f8206f8e1c1e4c1f7d91ac1b39225d"
+    },
+    {
+      "tag": "quality-balanced-r1-simultaneous-bonsai",
+      "name": "bonsai",
+      "kind": "quality",
+      "task": "balanced",
+      "rep": 1,
+      "mode": "simultaneous",
+      "local_prompt_tokens": 70,
+      "prompt_tokens": 82,
+      "output_tokens": 92,
+      "finish_reason": "stop",
+      "wall_seconds": 6.561896916944534,
+      "ttft_seconds": 1.0580001670168713,
+      "benchy_metrics": {
+        "concurrency": 1,
+        "context_size": 0,
+        "prompt_size": 70,
+        "response_size": 1200,
+        "is_context_prefill_phase": false,
+        "pp_throughput": {
+          "mean": 77.51068139930861,
+          "std": 0.0,
+          "values": [
+            77.51068139930861
+          ]
+        },
+        "pp_req_throughput": {
+          "mean": 77.51068139930861,
+          "std": 0.0,
+          "values": [
+            77.51068139930861
+          ]
+        },
+        "tg_throughput": {
+          "mean": 16.67404719855407,
+          "std": 0.0,
+          "values": [
+            16.67404719855407
+          ]
+        },
+        "tg_req_throughput": {
+          "mean": 16.67404719855407,
+          "std": 0.0,
+          "values": [
+            16.67404719855407
+          ]
+        },
+        "peak_throughput": {
+          "mean": 17.0,
+          "std": 0.0,
+          "values": [
+            17.0
+          ]
+        },
+        "peak_req_throughput": {
+          "mean": 17.0,
+          "std": 0.0,
+          "values": [
+            17.0
+          ]
+        },
+        "ttfr": {
+          "mean": 1057.9187090042979,
+          "std": 0.0,
+          "values": [
+            1057.9187090042979
+          ]
+        },
+        "est_ppt": {
+          "mean": 1057.9187090042979,
+          "std": 0.0,
+          "values": [
+            1057.9187090042979
+          ]
+        },
+        "e2e_ttft": {
+          "mean": 1058.0001670168713,
+          "std": 0.0,
+          "values": [
+            1058.0001670168713
+          ]
+        },
+        "throughput_over_time": null,
+        "requests_throughput_over_time": null
+      },
+      "usage": {
+        "completion_tokens": 92,
+        "prompt_tokens": 82,
+        "total_tokens": 174,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 82,
+        "prompt_ms": 1051.909,
+        "prompt_per_token_ms": 12.828158536585367,
+        "prompt_per_second": 77.95351118775483,
+        "predicted_n": 92,
+        "predicted_ms": 5502.002,
+        "predicted_per_token_ms": 60.461560439560444,
+        "predicted_per_second": 16.53943419140887
+      },
+      "output": "```python\ndef is_balanced(s):\n    stack = []\n    matching = {')': '(', ']': '[', '}': '{'}\n    for char in s:\n        if char in '([{':\n            stack.append(char)\n        elif char in ')]}':\n            if not stack or stack[-1] != matching[char]:\n                return False\n            stack.pop()\n    return not stack\n```",
+      "sha256": "209f74c2ec0aa1e9d1fc99e0a24145e4554eded6d1b7acdafa211818876ca9e6"
+    },
+    {
+      "tag": "quality-balanced-r1-simultaneous-qwen",
+      "name": "qwen",
+      "kind": "quality",
+      "task": "balanced",
+      "rep": 1,
+      "mode": "simultaneous",
+      "local_prompt_tokens": 70,
+      "prompt_tokens": 82,
+      "output_tokens": 94,
+      "finish_reason": "stop",
+      "wall_seconds": 5.398687041946687,
+      "ttft_seconds": 1.6390628749504685,
+      "benchy_metrics": {
+        "concurrency": 1,
+        "context_size": 0,
+        "prompt_size": 70,
+        "response_size": 1200,
+        "is_context_prefill_phase": false,
+        "pp_throughput": {
+          "mean": 50.02858722090084,
+          "std": 0.0,
+          "values": [
+            50.02858722090084
+          ]
+        },
+        "pp_req_throughput": {
+          "mean": 50.02858722090084,
+          "std": 0.0,
+          "values": [
+            50.02858722090084
+          ]
+        },
+        "tg_throughput": {
+          "mean": 24.740261063689594,
+          "std": 0.0,
+          "values": [
+            24.740261063689594
+          ]
+        },
+        "tg_req_throughput": {
+          "mean": 24.740261063689594,
+          "std": 0.0,
+          "values": [
+            24.740261063689594
+          ]
+        },
+        "peak_throughput": {
+          "mean": 25.0,
+          "std": 0.0,
+          "values": [
+            25.0
+          ]
+        },
+        "peak_req_throughput": {
+          "mean": 25.0,
+          "std": 0.0,
+          "values": [
+            25.0
+          ]
+        },
+        "ttfr": {
+          "mean": 1639.0628749504685,
+          "std": 0.0,
+          "values": [
+            1639.0628749504685
+          ]
+        },
+        "est_ppt": {
+          "mean": 1639.0628749504685,
+          "std": 0.0,
+          "values": [
+            1639.0628749504685
+          ]
+        },
+        "e2e_ttft": {
+          "mean": 1639.0628749504685,
+          "std": 0.0,
+          "values": [
+            1639.0628749504685
+          ]
+        },
+        "throughput_over_time": null,
+        "requests_throughput_over_time": null
+      },
+      "usage": {
+        "prompt_tokens": 82,
+        "completion_tokens": 94,
+        "total_tokens": 176,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "timings": {
+        "prompt_n": 82,
+        "predicted_n": 94,
+        "prompt_ms": 1630.2,
+        "predicted_ms": 3758.9,
+        "prompt_per_second": 50.301,
+        "predicted_per_second": 25.007,
+        "cache_n": 0,
+        "draft_n": 53,
+        "draft_n_accepted": 42
+      },
+      "output": "```python\ndef is_balanced(s):\n    stack = []\n    mapping = {')': '(', ']': '[', '}': '{'}\n    for char in s:\n        if char in mapping.values():\n            stack.append(char)\n        elif char in mapping:\n            if not stack or stack[-1] != mapping[char]:\n                return False\n            stack.pop()\n    return len(stack) == 0\n```",
+      "sha256": "2a9581f0ee3ef7d9add815be22d39ba4f7f8206f8e1c1e4c1f7d91ac1b39225d"
+    },
+    {
+      "tag": "quality-lru-r1-idle-peer-bonsai",
+      "name": "bonsai",
+      "kind": "quality",
+      "task": "lru",
+      "rep": 1,
+      "mode": "idle-peer",
+      "local_prompt_tokens": 89,
+      "prompt_tokens": 101,
+      "output_tokens": 169,
+      "finish_reason": "stop",
+      "wall_seconds": 8.136431875056587,
+      "ttft_seconds": 0.6096470420015976,
+      "benchy_metrics": {
+        "concurrency": 1,
+        "context_size": 0,
+        "prompt_size": 89,
+        "response_size": 1200,
+        "is_context_prefill_phase": false,
+        "pp_throughput": {
+          "mean": 165.68883595843667,
+          "std": 0.0,
+          "values": [
+            165.68883595843667
+          ]
+        },
+        "pp_req_throughput": {
+          "mean": 165.68883595843667,
+          "std": 0.0,
+          "values": [
+            165.68883595843667
+          ]
+        },
+        "tg_throughput": {
+          "mean": 22.45639899739228,
+          "std": 0.0,
+          "values": [
+            22.45639899739228
+          ]
+        },
+        "tg_req_throughput": {
+          "mean": 22.45639899739228,
+          "std": 0.0,
+          "values": [
+            22.45639899739228
+          ]
+        },
+        "peak_throughput": {
+          "mean": 23.0,
+          "std": 0.0,
+          "values": [
+            23.0
+          ]
+        },
+        "peak_req_throughput": {
+          "mean": 23.0,
+          "std": 0.0,
+          "values": [
+            23.0
+          ]
+        },
+        "ttfr": {
+          "mean": 609.5763749908656,
+          "std": 0.0,
+          "values": [
+            609.5763749908656
+          ]
+        },
+        "est_ppt": {
+          "mean": 609.5763749908656,
+          "std": 0.0,
+          "values": [
+            609.5763749908656
+          ]
+        },
+        "e2e_ttft": {
+          "mean": 609.6470420015976,
+          "std": 0.0,
+          "values": [
+            609.6470420015976
+          ]
+        },
+        "throughput_over_time": null,
+        "requests_throughput_over_time": null
+      },
+      "usage": {
+        "completion_tokens": 169,
+        "prompt_tokens": 101,
+        "total_tokens": 270,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 101,
+        "prompt_ms": 602.955,
+        "prompt_per_token_ms": 5.969851485148515,
+        "prompt_per_second": 167.50835468650232,
+        "predicted_n": 169,
+        "predicted_ms": 7526.883,
+        "predicted_per_token_ms": 44.802875,
+        "predicted_per_second": 22.31999620560065
+      },
+      "output": "```python\nclass LRU:\n    def __init__(self, capacity: int):\n        self.capacity = capacity\n        self.cache = {}\n        self.order = []\n\n    def get(self, k: int) -> int:\n        if k not in self.cache:\n            return -1\n        self.order.remove(k)\n        self.order.append(k)\n        return self.cache[k]\n\n    def put(self, k: int, v: int) -> None:\n        if k in self.cache:\n            self.order.remove(k)\n        else:\n            if len(self.cache) >= self.capacity:\n                oldest = self.order.pop(0)\n                del self.cache[oldest]\n        self.cache[k] = v\n        self.order.append(k)\n```",
+      "sha256": "a4ef71754c635470431aa4b7f5842327d162cfe939cb8e7556eb192ba978c04f"
+    },
+    {
+      "tag": "quality-lru-r1-idle-peer-qwen",
+      "name": "qwen",
+      "kind": "quality",
+      "task": "lru",
+      "rep": 1,
+      "mode": "idle-peer",
+      "local_prompt_tokens": 93,
+      "prompt_tokens": 105,
+      "output_tokens": 218,
+      "finish_reason": "stop",
+      "wall_seconds": 5.602414416964166,
+      "ttft_seconds": 1.1125410419190302,
+      "benchy_metrics": {
+        "concurrency": 1,
+        "context_size": 0,
+        "prompt_size": 93,
+        "response_size": 1200,
+        "is_context_prefill_phase": false,
+        "pp_throughput": {
+          "mean": 94.37854069534795,
+          "std": 0.0,
+          "values": [
+            94.37854069534795
+          ]
+        },
+        "pp_req_throughput": {
+          "mean": 94.37854069534795,
+          "std": 0.0,
+          "values": [
+            94.37854069534795
+          ]
+        },
+        "tg_throughput": {
+          "mean": 48.78200886908336,
+          "std": 0.0,
+          "values": [
+            48.78200886908336
+          ]
+        },
+        "tg_req_throughput": {
+          "mean": 48.78200886908336,
+          "std": 0.0,
+          "values": [
+            48.78200886908336
+          ]
+        },
+        "peak_throughput": {
+          "mean": 49.0,
+          "std": 0.0,
+          "values": [
+            49.0
+          ]
+        },
+        "peak_req_throughput": {
+          "mean": 49.0,
+          "std": 0.0,
+          "values": [
+            49.0
+          ]
+        },
+        "ttfr": {
+          "mean": 1112.5410419190302,
+          "std": 0.0,
+          "values": [
+            1112.5410419190302
+          ]
+        },
+        "est_ppt": {
+          "mean": 1112.5410419190302,
+          "std": 0.0,
+          "values": [
+            1112.5410419190302
+          ]
+        },
+        "e2e_ttft": {
+          "mean": 1112.5410419190302,
+          "std": 0.0,
+          "values": [
+            1112.5410419190302
+          ]
+        },
+        "throughput_over_time": null,
+        "requests_throughput_over_time": null
+      },
+      "usage": {
+        "prompt_tokens": 105,
+        "completion_tokens": 218,
+        "total_tokens": 323,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "timings": {
+        "prompt_n": 105,
+        "predicted_n": 218,
+        "prompt_ms": 1103.8,
+        "predicted_ms": 4488.6,
+        "prompt_per_second": 95.126,
+        "predicted_per_second": 48.567,
+        "cache_n": 0,
+        "draft_n": 129,
+        "draft_n_accepted": 109
+      },
+      "output": "```python\nclass LRU:\n    def __init__(self, capacity: int):\n        self.capacity = capacity\n        self.cache = {}\n        self.order = []  # list to track usage order, most recent at end\n\n    def get(self, k):\n        if k in self.cache:\n            # Move to end (most recently used)\n            self.order.remove(k)\n            self.order.append(k)\n            return self.cache[k]\n        return -1\n\n    def put(self, k, v):\n        if k in self.cache:\n            # Update value and move to end\n            self.cache[k] = v\n            self.order.remove(k)\n            self.order.append(k)\n        else:\n            if len(self.cache) >= self.capacity:\n                # Evict least recently used (first in order)\n                lru_key = self.order.pop(0)\n                del self.cache[lru_key]\n            self.cache[k] = v\n            self.order.append(k)\n```",
+      "sha256": "c55954659253e0f697b48a5e445a7c835013eae4510b94c54f2c678aa2366ddb"
+    },
+    {
+      "tag": "quality-lru-r1-simultaneous-bonsai",
+      "name": "bonsai",
+      "kind": "quality",
+      "task": "lru",
+      "rep": 1,
+      "mode": "simultaneous",
+      "local_prompt_tokens": 90,
+      "prompt_tokens": 102,
+      "output_tokens": 169,
+      "finish_reason": "stop",
+      "wall_seconds": 10.868501832941547,
+      "ttft_seconds": 1.299238667008467,
+      "benchy_metrics": {
+        "concurrency": 1,
+        "context_size": 0,
+        "prompt_size": 90,
+        "response_size": 1200,
+        "is_context_prefill_phase": false,
+        "pp_throughput": {
+          "mean": 78.51250866546476,
+          "std": 0.0,
+          "values": [
+            78.51250866546476
+          ]
+        },
+        "pp_req_throughput": {
+          "mean": 78.51250866546476,
+          "std": 0.0,
+          "values": [
+            78.51250866546476
+          ]
+        },
+        "tg_throughput": {
+          "mean": 17.64177432274312,
+          "std": 0.0,
+          "values": [
+            17.64177432274312
+          ]
+        },
+        "tg_req_throughput": {
+          "mean": 17.64177432274312,
+          "std": 0.0,
+          "values": [
+            17.64177432274312
+          ]
+        },
+        "peak_throughput": {
+          "mean": 18.0,
+          "std": 0.0,
+          "values": [
+            18.0
+          ]
+        },
+        "peak_req_throughput": {
+          "mean": 18.0,
+          "std": 0.0,
+          "values": [
+            18.0
+          ]
+        },
+        "ttfr": {
+          "mean": 1299.1560419322923,
+          "std": 0.0,
+          "values": [
+            1299.1560419322923
+          ]
+        },
+        "est_ppt": {
+          "mean": 1299.1560419322923,
+          "std": 0.0,
+          "values": [
+            1299.1560419322923
+          ]
+        },
+        "e2e_ttft": {
+          "mean": 1299.238667008467,
+          "std": 0.0,
+          "values": [
+            1299.238667008467
+          ]
+        },
+        "throughput_over_time": null,
+        "requests_throughput_over_time": null
+      },
+      "usage": {
+        "completion_tokens": 169,
+        "prompt_tokens": 102,
+        "total_tokens": 271,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 102,
+        "prompt_ms": 1294.324,
+        "prompt_per_token_ms": 12.689450980392158,
+        "prompt_per_second": 78.80561590451849,
+        "predicted_n": 169,
+        "predicted_ms": 9569.276,
+        "predicted_per_token_ms": 56.95997619047619,
+        "predicted_per_second": 17.55618711384226
+      },
+      "output": "```python\nclass LRU:\n    def __init__(self, capacity: int):\n        self.capacity = capacity\n        self.cache = {}\n        self.order = []\n\n    def get(self, k: int) -> int:\n        if k not in self.cache:\n            return -1\n        self.order.remove(k)\n        self.order.append(k)\n        return self.cache[k]\n\n    def put(self, k: int, v: int) -> None:\n        if k in self.cache:\n            self.order.remove(k)\n        else:\n            if len(self.cache) >= self.capacity:\n                oldest = self.order.pop(0)\n                del self.cache[oldest]\n        self.cache[k] = v\n        self.order.append(k)\n```",
+      "sha256": "a4ef71754c635470431aa4b7f5842327d162cfe939cb8e7556eb192ba978c04f"
+    },
+    {
+      "tag": "quality-lru-r1-simultaneous-qwen",
+      "name": "qwen",
+      "kind": "quality",
+      "task": "lru",
+      "rep": 1,
+      "mode": "simultaneous",
+      "local_prompt_tokens": 90,
+      "prompt_tokens": 102,
+      "output_tokens": 150,
+      "finish_reason": "stop",
+      "wall_seconds": 7.499699665931985,
+      "ttft_seconds": 1.8218091250164434,
+      "benchy_metrics": {
+        "concurrency": 1,
+        "context_size": 0,
+        "prompt_size": 90,
+        "response_size": 1200,
+        "is_context_prefill_phase": false,
+        "pp_throughput": {
+          "mean": 55.98830228665111,
+          "std": 0.0,
+          "values": [
+            55.98830228665111
+          ]
+        },
+        "pp_req_throughput": {
+          "mean": 55.98830228665111,
+          "std": 0.0,
+          "values": [
+            55.98830228665111
+          ]
+        },
+        "tg_throughput": {
+          "mean": 26.596496940009477,
+          "std": 0.0,
+          "values": [
+            26.596496940009477
+          ]
+        },
+        "tg_req_throughput": {
+          "mean": 26.596496940009477,
+          "std": 0.0,
+          "values": [
+            26.596496940009477
+          ]
+        },
+        "peak_throughput": {
+          "mean": 27.0,
+          "std": 0.0,
+          "values": [
+            27.0
+          ]
+        },
+        "peak_req_throughput": {
+          "mean": 27.0,
+          "std": 0.0,
+          "values": [
+            27.0
+          ]
+        },
+        "ttfr": {
+          "mean": 1821.8091250164434,
+          "std": 0.0,
+          "values": [
+            1821.8091250164434
+          ]
+        },
+        "est_ppt": {
+          "mean": 1821.8091250164434,
+          "std": 0.0,
+          "values": [
+            1821.8091250164434
+          ]
+        },
+        "e2e_ttft": {
+          "mean": 1821.8091250164434,
+          "std": 0.0,
+          "values": [
+            1821.8091250164434
+          ]
+        },
+        "throughput_over_time": null,
+        "requests_throughput_over_time": null
+      },
+      "usage": {
+        "prompt_tokens": 102,
+        "completion_tokens": 150,
+        "total_tokens": 252,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "timings": {
+        "prompt_n": 102,
+        "predicted_n": 150,
+        "prompt_ms": 1813.1,
+        "predicted_ms": 5677.0,
+        "prompt_per_second": 56.257,
+        "predicted_per_second": 26.422,
+        "cache_n": 0,
+        "draft_n": 84,
+        "draft_n_accepted": 76
+      },
+      "output": "```python\nclass LRU:\n    def __init__(self, capacity):\n        self.capacity = capacity\n        self.cache = {}\n        self.order = []\n\n    def get(self, k):\n        if k in self.cache:\n            self.order.remove(k)\n            self.order.append(k)\n            return self.cache[k]\n        return -1\n\n    def put(self, k, v):\n        if k in self.cache:\n            self.order.remove(k)\n        elif len(self.cache) >= self.capacity:\n            oldest = self.order.pop(0)\n            del self.cache[oldest]\n        self.cache[k] = v\n        self.order.append(k)\n```",
+      "sha256": "e61a47e469dec9aab8404e05a46cb7966770818669805eabeb58e86a0767d5d8"
+    },
+    {
+      "tag": "quality-topo-r1-idle-peer-bonsai",
+      "name": "bonsai",
+      "kind": "quality",
+      "task": "topo",
+      "rep": 1,
+      "mode": "idle-peer",
+      "local_prompt_tokens": 90,
+      "prompt_tokens": 102,
+      "output_tokens": 158,
+      "finish_reason": "stop",
+      "wall_seconds": 7.612137082964182,
+      "ttft_seconds": 0.6166381250368431,
+      "benchy_metrics": {
+        "concurrency": 1,
+        "context_size": 0,
+        "prompt_size": 90,
+        "response_size": 1200,
+        "is_context_prefill_phase": false,
+        "pp_throughput": {
+          "mean": 165.44065116093233,
+          "std": 0.0,
+          "values": [
+            165.44065116093233
+          ]
+        },
+        "pp_req_throughput": {
+          "mean": 165.44065116093233,
+          "std": 0.0,
+          "values": [
+            165.44065116093233
+          ]
+        },
+        "tg_throughput": {
+          "mean": 22.591628930959164,
+          "std": 0.0,
+          "values": [
+            22.591628930959164
+          ]
+        },
+        "tg_req_throughput": {
+          "mean": 22.591628930959164,
+          "std": 0.0,
+          "values": [
+            22.591628930959164
+          ]
+        },
+        "peak_throughput": {
+          "mean": 23.0,
+          "std": 0.0,
+          "values": [
+            23.0
+          ]
+        },
+        "peak_req_throughput": {
+          "mean": 23.0,
+          "std": 0.0,
+          "values": [
+            23.0
+          ]
+        },
+        "ttfr": {
+          "mean": 616.5352909592912,
+          "std": 0.0,
+          "values": [
+            616.5352909592912
+          ]
+        },
+        "est_ppt": {
+          "mean": 616.5352909592912,
+          "std": 0.0,
+          "values": [
+            616.5352909592912
+          ]
+        },
+        "e2e_ttft": {
+          "mean": 616.6381250368431,
+          "std": 0.0,
+          "values": [
+            616.6381250368431
+          ]
+        },
+        "throughput_over_time": null,
+        "requests_throughput_over_time": null
+      },
+      "usage": {
+        "completion_tokens": 158,
+        "prompt_tokens": 102,
+        "total_tokens": 260,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 102,
+        "prompt_ms": 609.068,
+        "prompt_per_token_ms": 5.971254901960784,
+        "prompt_per_second": 167.46898540064493,
+        "predicted_n": 158,
+        "predicted_ms": 6996.713,
+        "predicted_per_token_ms": 44.56505095541401,
+        "predicted_per_second": 22.439108192661326
+      },
+      "output": "```python\ndef topo(n, edges):\n    adj = [[] for _ in range(n)]\n    indeg = [0] * n\n    for u, v in edges:\n        adj[u].append(v)\n        indeg[v] += 1\n    \n    from collections import deque\n    q = deque(i for i in range(n) if indeg[i] == 0)\n    order = []\n    \n    while q:\n        u = q.popleft()\n        order.append(u)\n        for v in adj[u]:\n            indeg[v] -= 1\n            if indeg[v] == 0:\n                q.append(v)\n    \n    return order if len(order) == n else []\n```",
+      "sha256": "ca9f8e758fd7e50ef2369c51432a3c88983ff89be338940732cbea425fef6285"
+    },
+    {
+      "tag": "quality-topo-r1-idle-peer-qwen",
+      "name": "qwen",
+      "kind": "quality",
+      "task": "topo",
+      "rep": 1,
+      "mode": "idle-peer",
+      "local_prompt_tokens": 95,
+      "prompt_tokens": 107,
+      "output_tokens": 216,
+      "finish_reason": "stop",
+      "wall_seconds": 5.63858608296141,
+      "ttft_seconds": 1.115411042002961,
+      "benchy_metrics": {
+        "concurrency": 1,
+        "context_size": 0,
+        "prompt_size": 95,
+        "response_size": 1200,
+        "is_context_prefill_phase": false,
+        "pp_throughput": {
+          "mean": 95.92876165889341,
+          "std": 0.0,
+          "values": [
+            95.92876165889341
+          ]
+        },
+        "pp_req_throughput": {
+          "mean": 95.92876165889341,
+          "std": 0.0,
+          "values": [
+            95.92876165889341
+          ]
+        },
+        "tg_throughput": {
+          "mean": 47.5392719300409,
+          "std": 0.0,
+          "values": [
+            47.5392719300409
+          ]
+        },
+        "tg_req_throughput": {
+          "mean": 47.5392719300409,
+          "std": 0.0,
+          "values": [
+            47.5392719300409
+          ]
+        },
+        "peak_throughput": {
+          "mean": 48.0,
+          "std": 0.0,
+          "values": [
+            48.0
+          ]
+        },
+        "peak_req_throughput": {
+          "mean": 48.0,
+          "std": 0.0,
+          "values": [
+            48.0
+          ]
+        },
+        "ttfr": {
+          "mean": 1115.411042002961,
+          "std": 0.0,
+          "values": [
+            1115.411042002961
+          ]
+        },
+        "est_ppt": {
+          "mean": 1115.411042002961,
+          "std": 0.0,
+          "values": [
+            1115.411042002961
+          ]
+        },
+        "e2e_ttft": {
+          "mean": 1115.411042002961,
+          "std": 0.0,
+          "values": [
+            1115.411042002961
+          ]
+        },
+        "throughput_over_time": null,
+        "requests_throughput_over_time": null
+      },
+      "usage": {
+        "prompt_tokens": 107,
+        "completion_tokens": 216,
+        "total_tokens": 323,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "timings": {
+        "prompt_n": 107,
+        "predicted_n": 216,
+        "prompt_ms": 1104.9,
+        "predicted_ms": 4522.8,
+        "prompt_per_second": 96.841,
+        "predicted_per_second": 47.758,
+        "cache_n": 0,
+        "draft_n": 118,
+        "draft_n_accepted": 103
+      },
+      "output": "```python\ndef topo(n, edges):\n    from collections import defaultdict, deque\n    \n    # Build adjacency list and in-degree count\n    adj = defaultdict(list)\n    in_degree = [0] * n\n    \n    for u, v in edges:\n        adj[u].append(v)\n        in_degree[v] += 1\n    \n    # Initialize queue with nodes having in-degree 0\n    queue = deque()\n    for i in range(n):\n        if in_degree[i] == 0:\n            queue.append(i)\n    \n    result = []\n    while queue:\n        node = queue.popleft()\n        result.append(node)\n        for neighbor in adj[node]:\n            in_degree[neighbor] -= 1\n            if in_degree[neighbor] == 0:\n                queue.append(neighbor)\n    \n    # If result contains all nodes, it's a valid topological order\n    if len(result) == n:\n        return result\n    else:\n        return []\n```",
+      "sha256": "1197906454bb55841e835710a0c687052f180c716f395e108f4165d8092e8547"
+    },
+    {
+      "tag": "quality-topo-r1-simultaneous-bonsai",
+      "name": "bonsai",
+      "kind": "quality",
+      "task": "topo",
+      "rep": 1,
+      "mode": "simultaneous",
+      "local_prompt_tokens": 93,
+      "prompt_tokens": 105,
+      "output_tokens": 156,
+      "finish_reason": "stop",
+      "wall_seconds": 11.377545125083998,
+      "ttft_seconds": 1.2958847091067582,
+      "benchy_metrics": {
+        "concurrency": 1,
+        "context_size": 0,
+        "prompt_size": 93,
+        "response_size": 1200,
+        "is_context_prefill_phase": false,
+        "pp_throughput": {
+          "mean": 81.03124473341188,
+          "std": 0.0,
+          "values": [
+            81.03124473341188
+          ]
+        },
+        "pp_req_throughput": {
+          "mean": 81.03124473341188,
+          "std": 0.0,
+          "values": [
+            81.03124473341188
+          ]
+        },
+        "tg_throughput": {
+          "mean": 15.444262750759801,
+          "std": 0.0,
+          "values": [
+            15.444262750759801
+          ]
+        },
+        "tg_req_throughput": {
+          "mean": 15.444262750759801,
+          "std": 0.0,
+          "values": [
+            15.444262750759801
+          ]
+        },
+        "peak_throughput": {
+          "mean": 16.0,
+          "std": 0.0,
+          "values": [
+            16.0
+          ]
+        },
+        "peak_req_throughput": {
+          "mean": 16.0,
+          "std": 0.0,
+          "values": [
+            16.0
+          ]
+        },
+        "ttfr": {
+          "mean": 1295.7964590750635,
+          "std": 0.0,
+          "values": [
+            1295.7964590750635
+          ]
+        },
+        "est_ppt": {
+          "mean": 1295.7964590750635,
+          "std": 0.0,
+          "values": [
+            1295.7964590750635
+          ]
+        },
+        "e2e_ttft": {
+          "mean": 1295.8847091067582,
+          "std": 0.0,
+          "values": [
+            1295.8847091067582
+          ]
+        },
+        "throughput_over_time": null,
+        "requests_throughput_over_time": null
+      },
+      "usage": {
+        "completion_tokens": 156,
+        "prompt_tokens": 105,
+        "total_tokens": 261,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 105,
+        "prompt_ms": 1292.314,
+        "prompt_per_token_ms": 12.307752380952381,
+        "prompt_per_second": 81.2496034245547,
+        "predicted_n": 156,
+        "predicted_ms": 10080.585,
+        "predicted_per_token_ms": 65.03603225806451,
+        "predicted_per_second": 15.376091764515653
+      },
+      "output": "```python\ndef topo(n, edges):\n    adj = [[] for _ in range(n)]\n    indeg = [0] * n\n    for u, v in edges:\n        adj[u].append(v)\n        indeg[v] += 1\n\n    from collections import deque\n    q = deque(i for i in range(n) if indeg[i] == 0)\n    order = []\n\n    while q:\n        u = q.popleft()\n        order.append(u)\n        for v in adj[u]:\n            indeg[v] -= 1\n            if indeg[v] == 0:\n                q.append(v)\n\n    return order if len(order) == n else []\n```",
+      "sha256": "61e91dc3fde53f3c6814f6304258818b0bfcf1d94f671a626b0e7f5aafb7535a"
+    },
+    {
+      "tag": "quality-topo-r1-simultaneous-qwen",
+      "name": "qwen",
+      "kind": "quality",
+      "task": "topo",
+      "rep": 1,
+      "mode": "simultaneous",
+      "local_prompt_tokens": 93,
+      "prompt_tokens": 105,
+      "output_tokens": 219,
+      "finish_reason": "stop",
+      "wall_seconds": 10.62939458398614,
+      "ttft_seconds": 1.8727838749764487,
+      "benchy_metrics": {
+        "concurrency": 1,
+        "context_size": 0,
+        "prompt_size": 93,
+        "response_size": 1200,
+        "is_context_prefill_phase": false,
+        "pp_throughput": {
+          "mean": 56.066266590062575,
+          "std": 0.0,
+          "values": [
+            56.066266590062575
+          ]
+        },
+        "pp_req_throughput": {
+          "mean": 56.066266590062575,
+          "std": 0.0,
+          "values": [
+            56.066266590062575
+          ]
+        },
+        "tg_throughput": {
+          "mean": 24.899148926963115,
+          "std": 0.0,
+          "values": [
+            24.899148926963115
+          ]
+        },
+        "tg_req_throughput": {
+          "mean": 24.899148926963115,
+          "std": 0.0,
+          "values": [
+            24.899148926963115
+          ]
+        },
+        "peak_throughput": {
+          "mean": 25.0,
+          "std": 0.0,
+          "values": [
+            25.0
+          ]
+        },
+        "peak_req_throughput": {
+          "mean": 25.0,
+          "std": 0.0,
+          "values": [
+            25.0
+          ]
+        },
+        "ttfr": {
+          "mean": 1872.7838749764487,
+          "std": 0.0,
+          "values": [
+            1872.7838749764487
+          ]
+        },
+        "est_ppt": {
+          "mean": 1872.7838749764487,
+          "std": 0.0,
+          "values": [
+            1872.7838749764487
+          ]
+        },
+        "e2e_ttft": {
+          "mean": 1872.7838749764487,
+          "std": 0.0,
+          "values": [
+            1872.7838749764487
+          ]
+        },
+        "throughput_over_time": null,
+        "requests_throughput_over_time": null
+      },
+      "usage": {
+        "prompt_tokens": 105,
+        "completion_tokens": 219,
+        "total_tokens": 324,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "timings": {
+        "prompt_n": 105,
+        "predicted_n": 219,
+        "prompt_ms": 1864.0,
+        "predicted_ms": 8754.1,
+        "prompt_per_second": 56.33,
+        "predicted_per_second": 25.017,
+        "cache_n": 0,
+        "draft_n": 123,
+        "draft_n_accepted": 101
+      },
+      "output": "```python\ndef topo(n, edges):\n    from collections import defaultdict, deque\n    \n    # Build adjacency list and in-degree count\n    adj = defaultdict(list)\n    in_degree = [0] * n\n    \n    for u, v in edges:\n        adj[u].append(v)\n        in_degree[v] += 1\n    \n    # Initialize queue with nodes having in-degree 0\n    queue = deque()\n    for i in range(n):\n        if in_degree[i] == 0:\n            queue.append(i)\n    \n    result = []\n    while queue:\n        node = queue.popleft()\n        result.append(node)\n        for neighbor in adj[node]:\n            in_degree[neighbor] -= 1\n            if in_degree[neighbor] == 0:\n                queue.append(neighbor)\n    \n    # If all nodes are included, return the order; otherwise, there's a cycle\n    if len(result) == n:\n        return result\n    else:\n        return []\n```",
+      "sha256": "bdf60e905d2a99ea3fe3a8a85b4d3f5d594a85cbba86681186526157135e8a4f"
+    }
+  ]
+}

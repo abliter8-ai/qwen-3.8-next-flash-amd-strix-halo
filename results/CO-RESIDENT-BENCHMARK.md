@@ -1,5 +1,7 @@
 # Prose throughput: Qwen + Bonsai, idle peer versus simultaneous work
 
+**Coding follow-up:** [matched code/prose rates, verified MTP draft acceptance and 12 executable program checks](CO-RESIDENT-CODING.md).
+
 Measured **19 September 2026**, using **llama-benchy 0.4.0** on the
 [co-resident recipe](../recipe/co-resident/README.md). These are **prose throughput
 tests using random excerpts from the default Sherlock Holmes corpus**. They do

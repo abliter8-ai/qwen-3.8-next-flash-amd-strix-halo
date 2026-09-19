@@ -34,6 +34,17 @@ results, not coding or reasoning benchmarks.
 - [Full benchmark, latency tables, overlap and findings](results/CO-RESIDENT-BENCHMARK.md)
 - [All 48 trial rows](results/co-resident-benchy-2026-09-19.csv) · [metadata and stock reports](results/co-resident-benchy-2026-09-19.json)
 
+### Coding follow-up — MTP enabled
+
+A matched 512-input / 256-output code-generation test reached **51.0 tok/s for
+Qwen with Bonsai idle and 26.6 tok/s with both active**, about **18% and 28% above
+prose**. Bonsai remained near **22.2 / 16.0 tok/s**. All **12 complete programs**
+across bracket parsing, LRU caches and topological sorting passed their checks.
+
+[Code/prose comparison, draft acceptance and executable results](results/CO-RESIDENT-CODING.md).
+The fixed-size samples measure code-generation prefixes; complete programs are
+checked separately. MTP was already enabled in the prose run.
+
 ## August EngramHalo study
 
 The original single-model recipe and results follow. They use a different engine
